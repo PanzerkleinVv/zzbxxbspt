@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdin.dzzwsyb.zzbxxbspt.web.dao.LogMapper">
+  <resultMap id="BaseResultMap" type="com.gdin.dzzwsyb.zzbxxbspt.web.model.Log">
+    <id column="LOG_ID" jdbcType="VARCHAR" property="logId" />
+    <result column="LOG_TYPE" jdbcType="INTEGER" property="logType" />
+    <result column="LOG_USER" jdbcType="VARCHAR" property="logUser" />
+    <result column="LOG_DESC" jdbcType="VARCHAR" property="logDesc" />
+    <result column="LOG_TIME" jdbcType="TIMESTAMP" property="logTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    LOG_ID, LOG_TYPE, LOG_USER, LOG_DESC, LOG_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.LogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from log
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.LogExample">
+    delete from log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Log">
+    insert into log (LOG_ID, LOG_TYPE, LOG_USER, 
+      LOG_DESC, LOG_TIME)
+    values (#{logId,jdbcType=VARCHAR}, #{logType,jdbcType=INTEGER}, #{logUser,jdbcType=VARCHAR}, 
+      #{logDesc,jdbcType=VARCHAR}, #{logTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Log">
+    insert into log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        LOG_ID,
+      </if>
+      <if test="logType != null">
+        LOG_TYPE,
+      </if>
+      <if test="logUser != null">
+        LOG_USER,
+      </if>
+      <if test="logDesc != null">
+        LOG_DESC,
+      </if>
+      <if test="logTime != null">
+        LOG_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="logUser != null">
+        #{logUser,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null">
+        #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logTime != null">
+        #{logTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.LogExample" resultType="java.lang.Long">
+    select count(*) from log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update log
+    <set>
+      <if test="record.logId != null">
+        LOG_ID = #{record.logId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logType != null">
+        LOG_TYPE = #{record.logType,jdbcType=INTEGER},
+      </if>
+      <if test="record.logUser != null">
+        LOG_USER = #{record.logUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logDesc != null">
+        LOG_DESC = #{record.logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logTime != null">
+        LOG_TIME = #{record.logTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update log
+    set LOG_ID = #{record.logId,jdbcType=VARCHAR},
+      LOG_TYPE = #{record.logType,jdbcType=INTEGER},
+      LOG_USER = #{record.logUser,jdbcType=VARCHAR},
+      LOG_DESC = #{record.logDesc,jdbcType=VARCHAR},
+      LOG_TIME = #{record.logTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Log">
+    update log
+    <set>
+      <if test="logType != null">
+        LOG_TYPE = #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="logUser != null">
+        LOG_USER = #{logUser,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null">
+        LOG_DESC = #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logTime != null">
+        LOG_TIME = #{logTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Log">
+    update log
+    set LOG_TYPE = #{logType,jdbcType=INTEGER},
+      LOG_USER = #{logUser,jdbcType=VARCHAR},
+      LOG_DESC = #{logDesc,jdbcType=VARCHAR},
+      LOG_TIME = #{logTime,jdbcType=TIMESTAMP}
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+</mapper>

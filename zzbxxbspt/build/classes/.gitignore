@@ -1,0 +1,11 @@
+/application.properties
+/applicationContext-shiro.xml
+/applicationContext.xml
+/com/
+/ehcache-shiro.xml
+/ehcache.xml
+/log4j.properties
+/messages.properties
+/mybatis-config.xml
+/org/
+/spring-mvc.xml

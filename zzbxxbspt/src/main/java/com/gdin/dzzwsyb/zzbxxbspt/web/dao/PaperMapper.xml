@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdin.dzzwsyb.zzbxxbspt.web.dao.PaperMapper">
+  <resultMap id="BaseResultMap" type="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
+    <id column="PAPER_ID" jdbcType="VARCHAR" property="paperId" />
+    <result column="EXAM_ID" jdbcType="VARCHAR" property="examId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="PAPER_SCORE" jdbcType="DECIMAL" property="paperScore" />
+    <result column="PAPER_BEGIN" jdbcType="TIMESTAMP" property="paperBegin" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PAPER_ID, EXAM_ID, USER_ID, PAPER_SCORE, PAPER_BEGIN
+  </sql>
+  <select id="selectByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from paper
+    where PAPER_ID = #{paperId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from paper
+    where PAPER_ID = #{paperId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample">
+    delete from paper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
+    insert into paper (PAPER_ID, EXAM_ID, USER_ID, 
+      PAPER_SCORE, PAPER_BEGIN)
+    values (#{paperId,jdbcType=VARCHAR}, #{examId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{paperScore,jdbcType=DECIMAL}, #{paperBegin,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
+    insert into paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
+        PAPER_ID,
+      </if>
+      <if test="examId != null">
+        EXAM_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="paperScore != null">
+        PAPER_SCORE,
+      </if>
+      <if test="paperBegin != null">
+        PAPER_BEGIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
+        #{paperId,jdbcType=VARCHAR},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperScore != null">
+        #{paperScore,jdbcType=DECIMAL},
+      </if>
+      <if test="paperBegin != null">
+        #{paperBegin,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample" resultType="java.lang.Long">
+    select count(*) from paper
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update paper
+    <set>
+      <if test="record.paperId != null">
+        PAPER_ID = #{record.paperId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examId != null">
+        EXAM_ID = #{record.examId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paperScore != null">
+        PAPER_SCORE = #{record.paperScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paperBegin != null">
+        PAPER_BEGIN = #{record.paperBegin,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update paper
+    set PAPER_ID = #{record.paperId,jdbcType=VARCHAR},
+      EXAM_ID = #{record.examId,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      PAPER_SCORE = #{record.paperScore,jdbcType=DECIMAL},
+      PAPER_BEGIN = #{record.paperBegin,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
+    update paper
+    <set>
+      <if test="examId != null">
+        EXAM_ID = #{examId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperScore != null">
+        PAPER_SCORE = #{paperScore,jdbcType=DECIMAL},
+      </if>
+      <if test="paperBegin != null">
+        PAPER_BEGIN = #{paperBegin,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PAPER_ID = #{paperId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
+    update paper
+    set EXAM_ID = #{examId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      PAPER_SCORE = #{paperScore,jdbcType=DECIMAL},
+      PAPER_BEGIN = #{paperBegin,jdbcType=TIMESTAMP}
+    where PAPER_ID = #{paperId,jdbcType=VARCHAR}
+  </update>
+</mapper>
