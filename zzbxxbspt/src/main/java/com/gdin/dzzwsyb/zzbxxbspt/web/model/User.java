@@ -79,4 +79,14 @@ public class User {
 	public void setMessage(Message message) {
 		this.message = message;
 	}
+
+	public boolean isEmpty() {
+		if (this.userName == null || "".equals(this.userName)) {
+			return true;
+		} else if (this.userPsw == null || "".equals(this.userPsw)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

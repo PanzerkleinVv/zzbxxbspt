@@ -1,5 +1,6 @@
 package com.gdin.dzzwsyb.zzbxxbspt.web.dao;
 
+import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Group;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.GroupExample;
@@ -28,4 +29,6 @@ public interface GroupMapper extends GenericDao<Group, String> {
 	int updateByPrimaryKeySelective(Group record);
 
 	int updateByPrimaryKey(Group record);
+
+	List<Group> selectByExampleAndPage(Page<Group> page, GroupExample example);
 }

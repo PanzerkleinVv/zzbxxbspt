@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.UserBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.UserListModel;
 import com.gdin.dzzwsyb.zzbxxbspt.web.security.PermissionSign;
 import com.gdin.dzzwsyb.zzbxxbspt.web.security.UsernameIdcardToken;
 
@@ -32,7 +34,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -182,13 +183,23 @@ public class UserController {
 			IOUtils.closeQuietly(inputStream);
 		}
 	}
-	
+
 	@RequestMapping(value = "/saveAll", method = RequestMethod.POST)
 	@RequiresPermissions(value = PermissionSign.ADMIN_STUDENT)
 	@ResponseBody
-	public Message saveAll(@RequestBody List<User> users, HttpSession session) {
+	public Message saveAll(UserListModel users, HttpSession session) {
 		User me = (User) session.getAttribute("userInfo");
-		return userBiz.saveAll(users, me);
+		List<User> users0 = new ArrayList<User>();
+		if (users != null) {
+			for (User user : users.getUsers()) {
+				if (user != null && !user.isEmpty()) {
+					users0.add(user);
+				}
+			}
+			return userBiz.saveAll(users0, me);
+		} else {
+			return new Message(false, "保存失败，请重新上传");
+		}
 	}
 
 }

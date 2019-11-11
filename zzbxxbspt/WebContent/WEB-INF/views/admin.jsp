@@ -201,7 +201,21 @@
 		});
 		
 		$("#uploadAllUser").click(function(target) {
-			$("form#inputForm").submit();
+			var flag = true;
+			$.each($(".inputFlag"), function (i, n) {
+				if (1 == $(n).val()) {
+					flag = false;
+					return;
+				}
+			});
+			if (flag) {
+				$("form#inputForm").submit();
+			} else {
+				layer.msg("存在错误项时无法保存，请修改错误项后重新导入或者删除错误项后再保存", {
+					time : 2000
+				});
+				return;
+			}
 		})
 
 		$(function() {
@@ -262,24 +276,26 @@
 								$("#inputResult .userHeader").nextAll().remove();
 								$.each(result.object,function(i, n) {
 									$("#inputResult").append('<div class="userRow" id="input' + i + '"><span class="userItem4"><button type="button" class="btn red" onclick="rowDelete(\'input' + i + '\')">删除</button></span><span class="userItem3">'
-										+ '<input type="hidden" name="userName" />'
+										+ '<input type="hidden" name="users[' + i + '].userName" class="inputUserName" />'
 										+ '</span><span class="userItem3">'
-										+ '<input type="hidden" name="userDesc" />'
+										+ '<input type="hidden" name="users[' + i + '].userDesc" class="inputUserDesc" />'
 										+ '</span><span class="userItem3">'
-										+ '<input type="hidden" name="userPsw" />'
-										+ '</span><span class="userItem4"><input type="hidden" class="inputFlag" value="0"/></span></div>');
-									$("#input" + i + " input[name='userName']").val(n.userName);
-									$("#input" + i + " input[name='userName']").parent().append($("#input" + i + " input[name='userName']").val());
-									$("#input" + i + " input[name='userDesc']").val(n.userDesc);
-									$("#input" + i + " input[name='userDesc']").parent().append($("#input" + i + " input[name='userDesc']").val());
-									$("#input" + i + " input[name='userPsw']").val(n.userPsw);
-									$("#input" + i + " input[name='userPsw']").parent().append($("#input" + i + " input[name='userPsw']").val());
+										+ '<input type="hidden" name="users[' + i + '].userPsw" class="inputUserPsw" />'
+										+ '</span><span class="userItem4"><input type="hidden" name="inputFlag" class="inputFlag" value="0"/></span></div>');
+									$("#input" + i + " input.inputUserName").val(n.userName);
+									$("#input" + i + " input.inputUserName").parent().append($("#input" + i + " input.inputUserName").val());
+									$("#input" + i + " input.inputUserDesc").val(n.userDesc);
+									$("#input" + i + " input.inputUserDesc").parent().append($("#input" + i + " input.inputUserDesc").val());
+									$("#input" + i + " input.inputUserPsw").val(n.userPsw);
+									$("#input" + i + " input.inputUserPsw").parent().append($("#input" + i + " input.inputUserPsw").val());
 									$("#input" + i + " input.inputFlag").val(n.message.flag ? 0 : 1);
 									if (n.message.flag) {
-										$("#input" + i + " input.inputFlag").parent().append("未上传");
+										$("#input" + i + " input.inputFlag").parent().append("可保存");
+										$("#input" + i + " input.inputFlag").parent().addClass("green");
 									} else {
 										$("#input" + i + " input.inputFlag").parent().append("错误项");
-										$("#input" + i + " input.inputFlag").parent().parent().attr("title", n.message.content)
+										$("#input" + i + " input.inputFlag").parent().parent().attr("title", n.message.content);
+										$("#input" + i + " input.inputFlag").parent().addClass("red");
 									}
 								});
 								$("form#inputForm.needs-validation").validate({
@@ -289,9 +305,14 @@
 											url : "rest/user/saveAll",
 											dataType : "json",
 											success : function(result) {
+												if (result.flag) {
+													search(1);
+												}
 												layer.msg(result.content, {
 													time : 2000
 												});
+												$("#inputResult .userHeader").nextAll().remove();
+												$("#uploadAllUser").hide();
 											},
 											error : function(){
 												layer.msg("保存出错", {

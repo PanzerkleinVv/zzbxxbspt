@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.util.ApplicationUtils;
 import com.gdin.dzzwsyb.zzbxxbspt.core.util.IdCardUtil;
+import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.UserBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Log;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.UserExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.ExcelService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.FileService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.LogService;
@@ -36,6 +38,9 @@ public class UserBizImpl implements UserBiz {
 
 	@Resource
 	private FileService fileService;
+
+	@Resource
+	private PaperBiz paperBiz;
 
 	@Override
 	public User logon(String userPsw) {
@@ -72,6 +77,7 @@ public class UserBizImpl implements UserBiz {
 
 	@Override
 	public Message delete(User user, User me) {
+		paperBiz.deleteByUserId(user.getUserId(), me);
 		userService.delete(user.getUserId());
 		logService.log(new Log(2, me.getUserId(), "删除学员：" + user.getUserName() + "（" + user.getUserId() + "）"));
 		return new Message(true, "删除成功");
@@ -131,6 +137,23 @@ public class UserBizImpl implements UserBiz {
 			logService.log(new Log(2, me.getUserId(), "新增学员：" + user.getUserName() + "（" + user.getUserId() + "）"));
 		}
 		return new Message(true, "保存成功" + users.size() + "位学员");
+	}
+	
+	@Override
+	public Message deleteByGroupId(String groupId, User me) {
+		if (groupId != null && !"".equals(groupId)) {
+			UserExample example = new UserExample();
+			example.createCriteria().andUserGroupEqualTo(groupId);
+			List<User> users = userService.selectByExample(example);
+			if (users != null) {
+				for (User user : users) {
+					delete(user, me);
+				}
+			}
+			return new Message(true, "删除" + users.size() + "位学员与考试记录");
+		} else {
+			return new Message(false, "无效课题组Id");
+		}
 	}
 
 }

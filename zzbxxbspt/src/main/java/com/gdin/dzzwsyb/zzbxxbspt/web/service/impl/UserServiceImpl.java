@@ -95,4 +95,9 @@ public class UserServiceImpl extends GenericServiceImpl<User, String> implements
 			return false;
 		}
 	}
+
+	@Override
+	public List<User> selectByExample(UserExample example) {
+		return userMapper.selectByExample(example);
+	}
 }

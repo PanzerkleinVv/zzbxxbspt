@@ -28,5 +28,7 @@ public interface UserBiz {
 	Message input(InputStream inputStream, String groupId) throws IOException;
 	
 	Message saveAll(List<User> users, User me);
+	
+	Message deleteByGroupId(String groupId, User me);
 
 }
