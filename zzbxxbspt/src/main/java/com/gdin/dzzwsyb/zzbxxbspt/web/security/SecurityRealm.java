@@ -40,7 +40,7 @@ public class SecurityRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		String username = String.valueOf(principals.getPrimaryPrincipal());
 		String userPsw = username.substring(username.indexOf("$$") + 2);
-		final User user = userService.logon(userPsw);
+		final User user = userService.authentication(new User(username.substring(0, username.indexOf("$$")), userPsw));
 		final List<Role> roleInfos = roleService.selectRolesByUserId(user.getUserId());
 		for (Role role : roleInfos) {
 			// 添加角色

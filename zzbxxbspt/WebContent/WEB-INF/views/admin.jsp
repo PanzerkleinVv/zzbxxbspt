@@ -216,7 +216,7 @@
 				});
 				return;
 			}
-		})
+		});
 
 		$(function() {
 			$("form#userForm.needs-validation").validate({

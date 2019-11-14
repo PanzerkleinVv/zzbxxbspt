@@ -116,8 +116,8 @@
 						<span class="arrow "> </span>
 					</a>
 						<ul class="sub-menu">
-							<li><a href="./rest/user/admin"> 课题管理 </a></li>
-							<li><a href="./rest/code/menu"> 日志管理 </a></li>
+							<li><a href="./rest/group/admin"> 课题管理 </a></li>
+							<li><a href="./rest/log/admin"> 日志管理 </a></li>
 						</ul></li>
 					</shiro:hasAnyRoles>
 

@@ -22,10 +22,11 @@ public interface UserService extends GenericService<User, String> {
 	User authentication(User user);
 
 	User logon(String userPsw);
-	
+
 	Page<User> search(User user, int pageNo);
-	
+
 	boolean userPswUsed(User user);
-	
+
 	List<User> selectByExample(UserExample example);
+
 }

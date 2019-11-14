@@ -256,7 +256,7 @@
 		where USER_NAME = #{record.userName,jdbcType=VARCHAR} and
 		USER_PSW =
 		#{record.userPsw,jdbcType=VARCHAR}
-		and USER_GROUP in (0, (select GROUP_ID from `group` where group_status = 1))
+		and (USER_GROUP in (select GROUP_ID from `group` where group_status = 1) or user_group = '0')
 	</select>
 	<select id="selectByExampleAndPage" resultMap="BaseResultMap"
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.UserExample">
@@ -278,6 +278,6 @@
 		<include refid="Base_Column_List" />
 		from user
 		where USER_PSW = #{userPsw, jdbcType=VARCHAR}
-		and USER_GROUP in (0, (select GROUP_ID from `group` where group_status = 1))
+		and (USER_GROUP in (select GROUP_ID from `group` where group_status = 1) or user_group = '0')
 	</select>
 </mapper>

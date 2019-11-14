@@ -200,6 +200,7 @@
 	width: 100%;
 	font-size: 20px;
 	margin-top: 10px;
+	table-layout: fixed;
 }
 
 .userRow {
@@ -220,6 +221,9 @@
 	display: table-cell;
 	width: 30%;
 	border-left: 2px solid #FFFFFF;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 }
 
 .userItem2 {
@@ -234,6 +238,9 @@
 	width: 26%;
 	border-left: 2px solid #FFFFFF;
 	font-size: 17px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 }
 
 .userItem4 {
@@ -244,6 +251,23 @@
 	font-size: 17px;
 }
 
+.userItem5 {
+	display: table-cell;
+	width: 60%;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
+.userItem6 {
+	display: table-cell;
+	width: 20%;
+	text-align: center;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+}
 
 .userHeader {
 	background-color: #1570a6 !important;

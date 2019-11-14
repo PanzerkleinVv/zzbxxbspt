@@ -1,5 +1,6 @@
 package com.gdin.dzzwsyb.zzbxxbspt.web.dao;
 
+import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample;
@@ -28,4 +29,7 @@ public interface QuestionMapper extends GenericDao<Question, String> {
 	int updateByPrimaryKeySelective(Question record);
 
 	int updateByPrimaryKey(Question record);
+	
+	List<Question> selectByExampleAndPage(Page<Question> page, QuestionExample example);
+	
 }

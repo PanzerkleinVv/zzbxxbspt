@@ -1,8 +1,11 @@
 package com.gdin.dzzwsyb.zzbxxbspt.web.dao;
 
+import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Log;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.LogExample;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.LogExtend;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +31,8 @@ public interface LogMapper extends GenericDao<Log, String> {
 	int updateByPrimaryKeySelective(Log record);
 
 	int updateByPrimaryKey(Log record);
+
+	List<LogExtend> selectByExampleAndPage(Page<LogExtend> page, LogExample example);
+	
+	LogExtend selectByIdExtend(String logId);
 }

@@ -72,7 +72,7 @@ public class UserController {
 			// 身份验证
 			subject.login(new UsernameIdcardToken(user.getUserName(), user.getUserPsw()));
 			// 验证成功在Session中保存用户信息
-			final User authUserInfo = userBiz.logon(user.getUserPsw());
+			final User authUserInfo = userBiz.logon(user);
 			request.getSession().setAttribute("userInfo", authUserInfo);
 		} catch (AuthenticationException e) {
 			// 身份验证失败

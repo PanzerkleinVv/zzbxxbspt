@@ -10,6 +10,8 @@ public interface LogService extends GenericService<Log, String> {
 
 	void log(Log log);
 
-	Page<LogExtend> search(LogQuery logQuery);
+	Page<LogExtend> search(LogQuery logQuery, int pageNo);
+
+	LogExtend selectByIdExtend(String logId);
 	
 }

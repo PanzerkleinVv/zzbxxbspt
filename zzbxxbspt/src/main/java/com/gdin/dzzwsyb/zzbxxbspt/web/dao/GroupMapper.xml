@@ -185,7 +185,7 @@
 			distinct
 		</if>
 		<include refid="Base_Column_List" />
-		from group
+		from `group`
 		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>

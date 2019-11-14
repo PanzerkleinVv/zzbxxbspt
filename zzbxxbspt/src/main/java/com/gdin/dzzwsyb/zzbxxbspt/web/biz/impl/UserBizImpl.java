@@ -15,6 +15,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.util.ApplicationUtils;
 import com.gdin.dzzwsyb.zzbxxbspt.core.util.IdCardUtil;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.UserBiz;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.Group;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Log;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
@@ -43,8 +44,8 @@ public class UserBizImpl implements UserBiz {
 	private PaperBiz paperBiz;
 
 	@Override
-	public User logon(String userPsw) {
-		final User authUserInfo = userService.logon(userPsw);
+	public User logon(User user) {
+		final User authUserInfo = userService.authentication(user);
 		logService.log(new Log(1, authUserInfo.getUserId(), "登录系统"));
 		return authUserInfo;
 	}
@@ -138,7 +139,7 @@ public class UserBizImpl implements UserBiz {
 		}
 		return new Message(true, "保存成功" + users.size() + "位学员");
 	}
-	
+
 	@Override
 	public Message deleteByGroupId(String groupId, User me) {
 		if (groupId != null && !"".equals(groupId)) {
@@ -154,6 +155,17 @@ public class UserBizImpl implements UserBiz {
 		} else {
 			return new Message(false, "无效课题组Id");
 		}
+	}
+
+	@Override
+	public void createGroupManager(Group group, User me) {
+		User user = new User("考试管理员", "1234567890");
+		user.setUserId(ApplicationUtils.randomUUID());
+		user.setUserDesc(group.getGroupName());
+		user.setUserRoleId(2);
+		user.setUserGroup(group.getGroupId());
+		userService.insert(user);
+		logService.log(new Log(2, me.getUserId(), "新增考试管理员：" + user.getUserName() + "（" + user.getUserId() + "）"));
 	}
 
 }
