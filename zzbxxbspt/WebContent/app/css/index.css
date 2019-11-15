@@ -269,6 +269,23 @@
 	font-size: 17px;
 }
 
+.userItem7 {
+	display: table-cell;
+	width: 80%;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
+.userItem8 {
+	display: table-cell;
+	width: 90%;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+}
+
 .userHeader {
 	background-color: #1570a6 !important;
 	font-family: 微软雅黑;

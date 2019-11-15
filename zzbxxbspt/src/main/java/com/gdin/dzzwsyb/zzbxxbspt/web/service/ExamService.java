@@ -11,5 +11,7 @@ public interface ExamService extends GenericService<Exam, String> {
 	int deleteByExample(ExamExample example);
 
 	List<Exam> selectByExample(ExamExample example);
+	
+	long countByExample(ExamExample example);
 
 }

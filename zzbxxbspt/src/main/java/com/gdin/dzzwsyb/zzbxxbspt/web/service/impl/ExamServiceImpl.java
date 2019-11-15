@@ -64,4 +64,9 @@ public class ExamServiceImpl extends GenericServiceImpl<Exam, String> implements
 		return examMapper.selectByExample(example);
 	}
 
+	@Override
+	public long countByExample(ExamExample example) {
+		return examMapper.countByExample(example);
+	}
+
 }

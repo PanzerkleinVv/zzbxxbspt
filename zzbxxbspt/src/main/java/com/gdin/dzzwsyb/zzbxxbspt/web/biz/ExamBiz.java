@@ -11,5 +11,7 @@ public interface ExamBiz {
 	List<Exam> selectByGroupId(String groupId);
 	
 	Message deleteByGroupId(String groupId, User me);
+	
+	Message examNotExist();
 
 }

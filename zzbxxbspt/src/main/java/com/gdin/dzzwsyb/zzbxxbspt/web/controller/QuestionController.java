@@ -94,7 +94,7 @@ public class QuestionController {
 	@RequestMapping(value = "/template", method = RequestMethod.GET)
 	@RequiresPermissions(value = PermissionSign.CREATE_QUESTION)
 	public ResponseEntity<byte[]> template() throws IOException {
-		final String filename = "问题批量导入模版.xls";
+		final String filename = "题目批量导入模版.xls";
 		HttpHeaders headers = new HttpHeaders();
 		File file = questionBiz.template(filename);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);

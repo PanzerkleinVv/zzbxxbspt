@@ -87,12 +87,17 @@ public class QuestionBizImpl implements QuestionBiz {
 			question.setQuestionId(questionId);
 			question.setGroupId(me.getUserGroup());
 			questionService.insert(question);
+			int i = 1;
 			for (Answer answer : question.getAnswers()) {
-				answer.setAnswerId(ApplicationUtils.randomUUID());
-				answer.setQuestionId(questionId);
-				answerService.insert(answer);
+				if (answer != null && answer.getAnswerContent() != null && !"".equals(answer.getAnswerContent())) {
+					answer.setAnswerId(ApplicationUtils.randomUUID());
+					answer.setQuestionId(questionId);
+					answer.setAnswerOrder(i);
+					i++;
+					answerService.insert(answer);
+				}
 			}
-			logService.log(new Log(2, me.getUserId(), "新增问题：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
+			logService.log(new Log(2, me.getUserId(), "新增题目：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
 			return new Message(true, "保存成功");
 		} else {
 			final String questionId = question.getQuestionId();
@@ -100,12 +105,17 @@ public class QuestionBizImpl implements QuestionBiz {
 			AnswerExample example = new AnswerExample();
 			example.createCriteria().andQuestionIdEqualTo(questionId);
 			answerService.deleteByExample(example);
+			int i = 1;
 			for (Answer answer : question.getAnswers()) {
-				answer.setAnswerId(ApplicationUtils.randomUUID());
-				answer.setQuestionId(questionId);
-				answerService.insert(answer);
+				if (answer != null && answer.getAnswerContent() != null && !"".equals(answer.getAnswerContent())) {
+					answer.setAnswerId(ApplicationUtils.randomUUID());
+					answer.setQuestionId(questionId);
+					answer.setAnswerOrder(i);
+					i++;
+					answerService.insert(answer);
+				}
 			}
-			logService.log(new Log(2, me.getUserId(), "修改问题：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
+			logService.log(new Log(2, me.getUserId(), "修改题目：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
 			return new Message(true, "保存成功");
 		}
 	}
@@ -116,6 +126,7 @@ public class QuestionBizImpl implements QuestionBiz {
 		final QuestionExtend questionExtend = new QuestionExtend(question0);
 		AnswerExample example = new AnswerExample();
 		example.createCriteria().andQuestionIdEqualTo(question.getQuestionId());
+		example.setOrderByClause("answer_order asc");
 		questionExtend.setAnswers(answerService.selectByExample(example));
 		return questionExtend;
 	}
@@ -127,7 +138,7 @@ public class QuestionBizImpl implements QuestionBiz {
 		AnswerExample example = new AnswerExample();
 		example.createCriteria().andQuestionIdEqualTo(questionId);
 		answerService.deleteByExample(example);
-		logService.log(new Log(2, me.getUserId(), "删除问题：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
+		logService.log(new Log(2, me.getUserId(), "删除题目：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
 		return new Message(true, "删除成功");
 	}
 
@@ -286,14 +297,19 @@ public class QuestionBizImpl implements QuestionBiz {
 			question.setQuestionId(questionId);
 			question.setGroupId(me.getUserGroup());
 			questionService.insert(question);
+			int i = 1;
 			for (Answer answer : question.getAnswers()) {
-				answer.setAnswerId(ApplicationUtils.randomUUID());
-				answer.setQuestionId(questionId);
-				answerService.insert(answer);
+				if (answer != null && answer.getAnswerContent() != null && !"".equals(answer.getAnswerContent())) {
+					answer.setAnswerId(ApplicationUtils.randomUUID());
+					answer.setQuestionId(questionId);
+					answer.setAnswerOrder(i);
+					i++;
+					answerService.insert(answer);
+				}
 			}
-			logService.log(new Log(2, me.getUserId(), "新增问题：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
+			logService.log(new Log(2, me.getUserId(), "新增题目：" + question.getQuestionContent() + "（" + question.getQuestionId() + "）"));
 		}
-		return new Message(true, "保存成功" + questions.size() + "个问题");
+		return new Message(true, "保存成功" + questions.size() + "个题目");
 	}
 
 }

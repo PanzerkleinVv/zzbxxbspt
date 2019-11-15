@@ -104,7 +104,7 @@
 					</a>
 						<ul class="sub-menu">
 							<li><a href="./rest/user/admin"> 学员管理 </a></li>
-							<li><a href="./rest/user/info"> 试题管理 </a></li>
+							<li><a href="./rest/question/admin"> 试题管理 </a></li>
 							<li><a href="./rest/role/list"> 试卷定制 </a></li>
 							<li><a href="./rest/code/menu"> 分数统计 </a></li>
 						</ul></li>
@@ -251,7 +251,7 @@
 	<script src="assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 	<script src="assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 
-	<script src="assets/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-validation/jquery.validate.min.js" type="text/javascript"></script>
 	<script src="assets/plugins/jquery-validation/localization/messages_zh.js" type="text/javascript"></script>
 	<script type="text/javascript" src="assets/plugins/select2/select2.min.js"></script>
 

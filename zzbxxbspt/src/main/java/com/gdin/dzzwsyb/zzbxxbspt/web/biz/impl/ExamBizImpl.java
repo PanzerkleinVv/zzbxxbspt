@@ -21,10 +21,10 @@ public class ExamBizImpl implements ExamBiz {
 
 	@Resource
 	private ExamService examService;
-	
+
 	@Resource
 	private PaperBiz paperBiz;
-	
+
 	@Resource
 	private LogService logService;
 
@@ -52,6 +52,18 @@ public class ExamBizImpl implements ExamBiz {
 			return new Message(true, "删除考试" + i + "场");
 		} else {
 			return new Message(false, "无效课题组Id");
+		}
+	}
+
+	@Override
+	public Message examNotExist() {
+		ExamExample example = new ExamExample();
+		example.createCriteria().andGroupUsed();
+		final boolean flag = examService.countByExample(example) == 0;
+		if (flag) {
+			return new Message(flag, "");
+		} else {
+			return new Message(flag, "请删除考试定制后再修改试题");
 		}
 	}
 
