@@ -44,7 +44,7 @@ public class QuestionController {
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	@RequiresPermissions(value = PermissionSign.CREATE_QUESTION)
 	public String admin() {
-		return "admin";
+		return "question";
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)

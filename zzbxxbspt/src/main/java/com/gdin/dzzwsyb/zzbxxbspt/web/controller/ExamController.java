@@ -18,7 +18,7 @@ public class ExamController {
 	@Resource
 	private ExamBiz examBiz;
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	@RequestMapping(value = "/examNotExist", method = RequestMethod.GET)
 	@RequiresPermissions(value = PermissionSign.CREATE_QUESTION)
 	@ResponseBody
 	public Message examNotExist() {

@@ -71,7 +71,6 @@
 						<span>
 							<input type="radio" id="answerTypeChoiceA" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" />
 							<input type="hidden" id="answerTypeA" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
-							是
 						</span>
 					</div>
 				</div>
@@ -91,7 +90,6 @@
 						<span>
 							<input type="radio" id="answerTypeChoiceB" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" />
 							<input type="hidden" id="answerTypeB" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
-							是
 						</span>
 					</div>
 				</div>
@@ -111,7 +109,6 @@
 						<span>
 							<input type="radio" id="answerTypeChoiceC" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
 							<input type="hidden" id="answerTypeC" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
-							是
 						</span>
 					</div>
 				</div>
@@ -131,7 +128,6 @@
 						<span>
 							<input type="radio" id="answerTypeChoiceD" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
 							<input type="hidden" id="answerTypeD" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
-							是
 						</span>
 					</div>
 				</div>
@@ -151,7 +147,6 @@
 						<span>
 							<input type="radio" id="answerTypeChoiceE" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
 							<input type="hidden" id="answerTypeE" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
-							是
 						</span>
 					</div>
 				</div>
@@ -171,7 +166,6 @@
 						<span>
 							<input type="radio" id="answerTypeChoiceF" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
 							<input type="hidden" id="answerTypeF" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
-							是
 						</span>
 					</div>
 				</div>
@@ -226,7 +220,7 @@
 	</div>
 
 	<script type="text/javascript">
-		var examNotExist = true;
+		var examNotExistFlag = true;
 		var examNotExistMessage = ""
 	
 		$('#searchBut').click(function() {
@@ -352,7 +346,7 @@
 			});
 		});
 		
-		$("#uploadAllQuestion").click(function(target) {
+		$("#saveQuestion").click(function(target) {
 			var flag = false;
 			var count = 0;
 			$.each($(".answerTypeChoice:checked'"), function (i, n) {
@@ -368,7 +362,7 @@
 				}
 			}
 			if (flag) {
-				if (examNotExist) {
+				if (examNotExistFlag) {
 					$.each($(".answerTypeChoice'"), function (i, n) {
 						$(n).attr("disabled", true);
 					});
@@ -496,7 +490,7 @@
 		function examNotExist() {
 			var url = 'rest/exam/examNotExist';
 			$.getJSON(url, function(data) {
-				examNotExist = data.flag;
+				examNotExistFlag = data.flag;
 				examNotExistMessage = data.content;
 			});
 		}
