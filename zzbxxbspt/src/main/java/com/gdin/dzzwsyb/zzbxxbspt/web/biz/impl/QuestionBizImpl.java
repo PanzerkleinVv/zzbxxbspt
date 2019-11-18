@@ -151,12 +151,13 @@ public class QuestionBizImpl implements QuestionBiz {
 	public Message input(InputStream inputStream, String groupId) throws IOException {
 		String[][] data = excelService.getData(inputStream);
 		List<QuestionExtend> questions = new ArrayList<QuestionExtend>();
-		for (String[] row : data) {
+		for (int i = 0; i < data.length; i++) {
+			String[] row = data[i];
 			QuestionExtend question = new QuestionExtend();
 			String answerFlag = "";
 			question.setAnswers(new ArrayList<Answer>());
 			if (row[0] == null) {
-				continue;
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型不能为空");
 			} else {
 				switch (row[0]) {
 				case "判断题":
@@ -169,45 +170,45 @@ public class QuestionBizImpl implements QuestionBiz {
 					question.setQuestionType(2);
 					break;
 				default:
-					continue;
+					return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型只能为“判断题”、“单选题”、“多选题”");
 				}
 			}
 			if (row[1] == null) {
-				continue;
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "题目内容不能为空");
 			} else {
 				question.setQuestionContent(row[1]);
 			}
 			if (row[2] == null) {
-				continue;
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "正确答案选项不能为空");
 			} else {
 				switch (question.getQuestionType()) {
 				case 0:
 					if (row[2].length() == 1) {
-						answerFlag = row[2];
+						answerFlag = row[2].toUpperCase();
 					} else {
-						continue;
+						return new Message(false, "Excel解析出错：第" + (i + 1) + "判断题只能有一个正确答案");
 					}
 					break;
 				case 1:
 					if (row[2].length() == 1) {
-						answerFlag = row[2];
+						answerFlag = row[2].toUpperCase();
 					} else {
-						continue;
+						return new Message(false, "Excel解析出错：第" + (i + 1) + "单选题只能有一个正确答案");
 					}
 					break;
 				case 2:
 					if (row[2].length() > 1) {
-						answerFlag = row[2];
+						answerFlag = row[2].toUpperCase();
 					} else {
-						continue;
+						return new Message(false, "Excel解析出错：第" + (i + 1) + "多选题至少有两个正确答案");
 					}
 					break;
 				default:
-					continue;
+					return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型不能为空*");
 				}
 			}
 			if (row[3] == null) {
-				continue;
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "选项A不能为空");
 			} else {
 				final Answer answer = new Answer();
 				answer.setAnswerContent(row[3]);
@@ -216,12 +217,12 @@ public class QuestionBizImpl implements QuestionBiz {
 					answer.setAnswerType(0);
 				} else {
 					answer.setAnswerType(1);
-					answerFlag.replace("A", "");
+					answerFlag = answerFlag.replace("A", "");
 				}
 				question.getAnswers().add(answer);
 			}
 			if (row[4] == null) {
-				continue;
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "选项B不能为空");
 			} else {
 				final Answer answer = new Answer();
 				answer.setAnswerContent(row[4]);
@@ -230,11 +231,11 @@ public class QuestionBizImpl implements QuestionBiz {
 					answer.setAnswerType(0);
 				} else {
 					answer.setAnswerType(1);
-					answerFlag.replace("B", "");
+					answerFlag = answerFlag.replace("B", "");
 				}
 				question.getAnswers().add(answer);
 			}
-			if (5 < row.length && row[5] == null) {
+			if (5 < row.length && row[5] != null) {
 				final Answer answer = new Answer();
 				answer.setAnswerContent(row[5]);
 				answer.setAnswerOrder(3);
@@ -242,11 +243,11 @@ public class QuestionBizImpl implements QuestionBiz {
 					answer.setAnswerType(0);
 				} else {
 					answer.setAnswerType(1);
-					answerFlag.replace("C", "");
+					answerFlag = answerFlag.replace("C", "");
 				}
 				question.getAnswers().add(answer);
 			}
-			if (6 < row.length && row[6] == null) {
+			if (6 < row.length && row[6] != null) {
 				final Answer answer = new Answer();
 				answer.setAnswerContent(row[6]);
 				answer.setAnswerOrder(4);
@@ -254,11 +255,11 @@ public class QuestionBizImpl implements QuestionBiz {
 					answer.setAnswerType(0);
 				} else {
 					answer.setAnswerType(1);
-					answerFlag.replace("D", "");
+					answerFlag = answerFlag.replace("D", "");
 				}
 				question.getAnswers().add(answer);
 			}
-			if (7 < row.length && row[7] == null) {
+			if (7 < row.length && row[7] != null) {
 				final Answer answer = new Answer();
 				answer.setAnswerContent(row[7]);
 				answer.setAnswerOrder(5);
@@ -266,11 +267,11 @@ public class QuestionBizImpl implements QuestionBiz {
 					answer.setAnswerType(0);
 				} else {
 					answer.setAnswerType(1);
-					answerFlag.replace("E", "");
+					answerFlag = answerFlag.replace("E", "");
 				}
 				question.getAnswers().add(answer);
 			}
-			if (8 < row.length && row[8] == null) {
+			if (8 < row.length && row[8] != null) {
 				final Answer answer = new Answer();
 				answer.setAnswerContent(row[8]);
 				answer.setAnswerOrder(6);
@@ -278,12 +279,12 @@ public class QuestionBizImpl implements QuestionBiz {
 					answer.setAnswerType(0);
 				} else {
 					answer.setAnswerType(1);
-					answerFlag.replace("F", "");
+					answerFlag = answerFlag.replace("F", "");
 				}
 				question.getAnswers().add(answer);
 			}
 			if (answerFlag.length() != 0) {
-				continue;
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "正确答案序号与答案不匹配");
 			}
 			questions.add(question);
 		}

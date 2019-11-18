@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
+import com.gdin.dzzwsyb.zzbxxbspt.core.util.ApplicationUtils;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.ExamBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
@@ -65,6 +67,39 @@ public class ExamBizImpl implements ExamBiz {
 		} else {
 			return new Message(flag, "请删除考试定制后再修改试题");
 		}
+	}
+
+	@Override
+	public Page<Exam> search(Exam exam, int pageNo) {
+		return examService.search(exam, pageNo);
+	}
+
+	@Override
+	public Message edit(Exam exam, User me) {
+		if (exam.getExamId() == null || "".equals(exam.getExamId())) {
+			exam.setExamId(ApplicationUtils.randomUUID());
+			exam.setGroupId(me.getUserGroup());
+			examService.insert(exam);
+			logService.log(new Log(2, me.getUserId(), "新增考试" + exam.getExamTitle() + "（" + exam.getExamId() + "）"));
+			return new Message(true, "保存成功");
+		} else {
+			examService.update(exam);
+			logService.log(new Log(2, me.getUserId(), "修改考试" + exam.getExamTitle() + "（" + exam.getExamId() + "）"));
+			return new Message(true, "保存成功");
+		}
+	}
+
+	@Override
+	public Exam info(String examId) {
+		return examService.selectById(examId);
+	}
+
+	@Override
+	public Message delete(Exam exam, User me) {
+		paperBiz.deleteByExamId(exam.getExamId(), me);
+		examService.delete(exam.getExamId());
+		logService.log(new Log(2, me.getUserId(), "删除考试" + exam.getExamTitle() + "（" + exam.getExamId() + "）"));
+		return new Message(true, "删除成功");
 	}
 
 }

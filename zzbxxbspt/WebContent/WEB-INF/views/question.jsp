@@ -61,7 +61,7 @@
 							选项A：<i>*</i>
 						</span>
 						<span>
-							<input type="text" id="answerContentA" name="answerContent" placeholder="选项A" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="text" id="answerContentA" name="answers[0].answerContent" placeholder="选项A" class="form-control placeholder-no-fix answerContent" required autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -69,8 +69,8 @@
 							正确答案：
 						</span>
 						<span>
-							<input type="radio" id="answerTypeChoiceA" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" />
-							<input type="hidden" id="answerTypeA" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="radio" id="answerTypeChoiceA" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled" />
+							<input type="hidden" id="answerTypeA" name="answers[0].answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" disabled="disabled" />
 						</span>
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 							选项B：<i>*</i>
 						</span>
 						<span>
-							<input type="text" id="answerContentB" name="answerContent" placeholder="选项B" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="text" id="answerContentB" name="answers[1].answerContent" placeholder="选项B" class="form-control placeholder-no-fix answerContent" required autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -88,8 +88,8 @@
 							正确答案：
 						</span>
 						<span>
-							<input type="radio" id="answerTypeChoiceB" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" />
-							<input type="hidden" id="answerTypeB" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="radio" id="answerTypeChoiceB" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled" />
+							<input type="hidden" id="answerTypeB" name="answers[1].answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" disabled="disabled" />
 						</span>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 							选项C：
 						</span>
 						<span>
-							<input type="text" id="answerContentC" name="answerContent" placeholder="选项C" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="text" id="answerContentC" name="answers[2].answerContent" placeholder="选项C" class="form-control placeholder-no-fix answerContent" autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -108,7 +108,7 @@
 						</span>
 						<span>
 							<input type="radio" id="answerTypeChoiceC" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
-							<input type="hidden" id="answerTypeC" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="hidden" id="answerTypeC" name="answers[2].answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" disabled="disabled" />
 						</span>
 					</div>
 				</div>
@@ -118,7 +118,7 @@
 							选项D：
 						</span>
 						<span>
-							<input type="text" id="answerContentD" name="answerContent" placeholder="选项D" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="text" id="answerContentD" name="answers[3].answerContent" placeholder="选项D" class="form-control placeholder-no-fix answerContent" autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -127,7 +127,7 @@
 						</span>
 						<span>
 							<input type="radio" id="answerTypeChoiceD" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
-							<input type="hidden" id="answerTypeD" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="hidden" id="answerTypeD" name="answers[3].answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" disabled="disabled" />
 						</span>
 					</div>
 				</div>
@@ -137,7 +137,7 @@
 							选项E：
 						</span>
 						<span>
-							<input type="text" id="answerContentE" name="answerContent" placeholder="选项E" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="text" id="answerContentE" name="answers[4].answerContent" placeholder="选项E" class="form-control placeholder-no-fix answerContent" autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -145,8 +145,8 @@
 							正确答案：
 						</span>
 						<span>
-							<input type="radio" id="answerTypeChoiceE" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
-							<input type="hidden" id="answerTypeE" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="radio" id="answerTypeChoiceE" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled" />
+							<input type="hidden" id="answerTypeE" name="answers[4].answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" disabled="disabled" />
 						</span>
 					</div>
 				</div>
@@ -156,7 +156,7 @@
 							选项F：
 						</span>
 						<span>
-							<input type="text" id="answerContentF" name="answerContent" placeholder="选项F" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="text" id="answerContentF" name="answers[5].answerContent" placeholder="选项F" class="form-control placeholder-no-fix answerContent" autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -164,8 +164,8 @@
 							正确答案：
 						</span>
 						<span>
-							<input type="radio" id="answerTypeChoiceF" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled"/>
-							<input type="hidden" id="answerTypeF" name="answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="radio" id="answerTypeChoiceF" name="answerTypeChoice" class="form-control placeholder-no-fix answerTypeChoice" autocomplete="off" disabled="disabled" />
+							<input type="hidden" id="answerTypeF" name="answers[5].answerType" placeholder="正确答案" class="form-control placeholder-no-fix" autocomplete="off" disabled="disabled" />
 						</span>
 					</div>
 				</div>
@@ -206,7 +206,7 @@
 			<form id="inputForm" class="needs-validation">
 				<div class="userTable" id="inputResult">
 					<div class="userRow userHeader">
-						<span class="userItem2">题目类型</span>
+						<span class="userItem2">类型</span>
 						<span class="userItem8">题目与答案</span>
 					</div>
 				</div>
@@ -232,7 +232,7 @@
 		});
 
 		$('#inputBut').click(function() {
-			dialogueOpen("userInput");
+			dialogueOpen("questionInput");
 			$("#inputResult .userHeader").nextAll().remove();
 			$("#uploadAllQuestion").hide();
 		});
@@ -261,26 +261,14 @@
 			if (questionId == 0) {
 				$("#deleteQuestion").hide();
 				$("#questionId").val("");
-				$("#questionType").val("");
+				$("#questionType").val("").trigger('change');
 				$("#questionContent").val("");
-				$("#answerContentA").val("");
-				$("#answerTypeA").val("");
-				$("#answerTypeChoiceA").val("");
-				$("#answerContentB").val("");
-				$("#answerTypeB").val("");
-				$("#answerTypeChoiceB").val("");
-				$("#answerContentC").val("");
-				$("#answerTypeC").val("");
-				$("#answerTypeChoiceC").val("");
-				$("#answerContentD").val("");
-				$("#answerTypeD").val("");
-				$("#answerTypeChoiceD").val("");
-				$("#answerContentE").val("");
-				$("#answerTypeE").val("");
-				$("#answerTypeChoiceE").val("");
-				$("#answerContentF").val("");
-				$("#answerTypeF").val("");
-				$("#answerTypeChoiceF").val("");
+				$("#answerContentA").val("").trigger('change');
+				$("#answerContentB").val("").trigger('change');
+				$("#answerContentC").val("").trigger('change');
+				$("#answerContentD").val("").trigger('change');
+				$("#answerContentE").val("").trigger('change');
+				$("#answerContentF").val("").trigger('change');
 			} else {
 				var url = 'rest/question/info';
 				$("#deleteQuestion").show();
@@ -288,25 +276,31 @@
 					'questionId' : questionId
 				}, function(data) {
 					$("#questionId").val(data.questionId);
-					$("#questionType").val(data.questionType);
+					$("#questionType").val(data.questionType).trigger('change');
 					$("#questionContent").val(data.questionContent);
 					$.each(data.answers, function(i, n) {
 						var idFlag;
 						switch(n.answerOrder) {
 						case 1:
 							idFlag = "A";
+							break;
 						case 2:
 							idFlag = "B";
+							break;
 						case 3:
 							idFlag = "C";
+							break;
 						case 4:
 							idFlag = "D";
+							break;
 						case 5:
 							idFlag = "E";
+							break;
 						case 6:
 							idFlag = "F";
+							break;
 						}
-						$("#answerContent" + idFlag).val(n.answerContent);
+						$("#answerContent" + idFlag).val(n.answerContent).trigger('change');
 						if (n.answerType == 1) {
 							$("#answerTypeChoice" + idFlag).attr('checked', true);
 						} else {
@@ -328,10 +322,6 @@
 			dialogueClose("questionInfo");
 		});
 
-		$("#saveQuestion").click(function(target) {
-			$("form#questionForm").submit();
-		});
-
 		$("#deleteQuestion").click(function(target) {
 			var url = "rest/question/delete";
 			$.getJSON(url, {
@@ -346,10 +336,85 @@
 			});
 		});
 		
+		$("#questionType").change(function() {
+			var value = $("#questionType").val();
+			switch (value) {
+			case '0':
+				$("#answerContentA").val("正确").trigger('change');
+				$("#answerContentB").val("错误").trigger('change');
+				$("#answerContentA").attr("readonly", true);
+				$("#answerContentB").attr("readonly", true);
+				$("#answerContentC").attr("disabled", true);
+				$("#answerContentC").val("").trigger('change');
+				$("#answerContentD").attr("disabled", true);
+				$("#answerContentD").val("").trigger('change');
+				$("#answerContentE").attr("disabled", true);
+				$("#answerContentE").val("").trigger('change');
+				$("#answerContentF").attr("disabled", true);
+				$("#answerContentF").val("").trigger('change');
+				$.each($(".answerTypeChoice"), function(i, n) {
+					$(n).attr("type", "radio");
+					$(n).attr("checked", false);
+				});
+				break;
+			case '1':
+				$("#answerContentA").val("").trigger('change');
+				$("#answerContentB").val("").trigger('change');
+				$("#answerContentA").attr("readonly", false);
+				$("#answerContentB").attr("readonly", false);
+				$("#answerContentC").attr("disabled", false);
+				$("#answerContentC").attr("disabled", false);
+				$("#answerContentC").val("").trigger('change');
+				$("#answerContentD").attr("disabled", false);
+				$("#answerContentD").val("").trigger('change');
+				$("#answerContentE").attr("disabled", false);
+				$("#answerContentE").val("").trigger('change');
+				$("#answerContentF").attr("disabled", false);
+				$("#answerContentF").val("").trigger('change');
+				$.each($(".answerTypeChoice"), function(i, n) {
+					$(n).attr("type", "radio");
+					$(n).attr("checked", false);
+				});
+				break;
+			case '2':
+				$("#answerContentA").val("").trigger('change');
+				$("#answerContentB").val("").trigger('change');
+				$("#answerContentA").attr("readonly", false);
+				$("#answerContentB").attr("readonly", false);
+				$("#answerContentC").attr("disabled", false);
+				$("#answerContentC").attr("disabled", false);
+				$("#answerContentC").val("").trigger('change');
+				$("#answerContentD").attr("disabled", false);
+				$("#answerContentD").val("").trigger('change');
+				$("#answerContentE").attr("disabled", false);
+				$("#answerContentE").val("").trigger('change');
+				$("#answerContentF").attr("disabled", false);
+				$("#answerContentF").val("").trigger('change');
+				$.each($(".answerTypeChoice"), function(i, n) {
+					$(n).attr("type", "checkbox");
+					$(n).attr("checked", false);
+				});
+				break;
+			}
+		});
+		
+		$(".answerContent").change(function() {
+			var idFlag = $(this).attr("id").substr(13, 14);
+			$("#answerTypeChoice" + idFlag).attr("checked", false);
+			if ($(this).val() == "") {
+				$("#answerTypeChoice" + idFlag).attr("disabled", true);
+				$("#answerType" + idFlag).attr("disabled", true);
+				$("#answerType" + idFlag).val("0");
+			} else {
+				$("#answerTypeChoice" + idFlag).attr("disabled", false);
+				$("#answerType" + idFlag).attr("disabled", false);
+			}
+		});
+		
 		$("#saveQuestion").click(function(target) {
 			var flag = false;
 			var count = 0;
-			$.each($(".answerTypeChoice:checked'"), function (i, n) {
+			$.each($(".answerTypeChoice:checked"), function (i, n) {
 				count++;
 			});
 			if ($("#questionType").val() == "0" || $("#questionType").val() == "1") {
@@ -363,10 +428,15 @@
 			}
 			if (flag) {
 				if (examNotExistFlag) {
-					$.each($(".answerTypeChoice'"), function (i, n) {
+					$.each($(".answerTypeChoice"), function (i, n) {
 						$(n).attr("disabled", true);
+						if ($(n).prop('checked')) {
+							$(n).next().val(1);
+						} else {
+							$(n).next().val(0);
+						}
 					});
-					$("form#inputForm").submit();
+					$("form#questionForm").submit();
 				} else {
 					layer.msg(examNotExistMessage, {
 						time : 2000
@@ -399,47 +469,77 @@
 				}
 			});
 		});
+		
+		$("#uploadAllQuestion").click(function() {
+			$('form#inputForm').submit();
+		});
 
 		$(function() {
 			$("form#uploadForm.needs-validation").validate({
 				submitHandler : function(form) {
 					$(form).ajaxSubmit({
 						type : 'post',
-						url : "rest/user/input",
+						url : "rest/question/input",
 						dataType : "json",
 						success : function(result) {
 							if (result.flag) {
 								$("#inputResult").show();
 								$("#inputResult .userHeader").nextAll().remove();
 								$.each(result.object,function(i, n) {
-									$("#inputResult").append('<div class="userRow" id="input' + i + '"><span class="userItem4"><button type="button" class="btn red" onclick="rowDelete(\'input' + i + '\')">删除</button></span><span class="userItem3">'
-										+ '<input type="hidden" name="users[' + i + '].userName" class="inputUserName" />'
-										+ '</span><span class="userItem3">'
-										+ '<input type="hidden" name="users[' + i + '].userDesc" class="inputUserDesc" />'
-										+ '</span><span class="userItem3">'
-										+ '<input type="hidden" name="users[' + i + '].userPsw" class="inputUserPsw" />'
-										+ '</span><span class="userItem4"><input type="hidden" name="inputFlag" class="inputFlag" value="0"/></span></div>');
-									$("#input" + i + " input.inputUserName").val(n.userName);
-									$("#input" + i + " input.inputUserName").parent().append($("#input" + i + " input.inputUserName").val());
-									$("#input" + i + " input.inputUserDesc").val(n.userDesc);
-									$("#input" + i + " input.inputUserDesc").parent().append($("#input" + i + " input.inputUserDesc").val());
-									$("#input" + i + " input.inputUserPsw").val(n.userPsw);
-									$("#input" + i + " input.inputUserPsw").parent().append($("#input" + i + " input.inputUserPsw").val());
-									$("#input" + i + " input.inputFlag").val(n.message.flag ? 0 : 1);
-									if (n.message.flag) {
-										$("#input" + i + " input.inputFlag").parent().append("可保存");
-										$("#input" + i + " input.inputFlag").parent().addClass("green");
-									} else {
-										$("#input" + i + " input.inputFlag").parent().append("错误项");
-										$("#input" + i + " input.inputFlag").parent().parent().attr("title", n.message.content);
-										$("#input" + i + " input.inputFlag").parent().addClass("red");
-									}
+									$("#inputResult").append('<div class="userRow" id="input' + i + '"><span class="userItem2"><input type="hidden" name="questions[' + i + '].questionType" /></span>'
+										+ '<span class="userItem8">'
+										+ '<input type="hidden" name="questions[' + i + '].questionContent" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[0].answerContent" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[0].answerType" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[1].answerContent" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[1].answerType" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[2].answerContent" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[2].answerType" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[3].answerContent" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[3].answerType" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[4].answerContent" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[4].answerType" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[5].answerContent" disabled="true" />'
+										+ '<input type="hidden" name="questions[' + i + '].answers[5].answerType" disabled="true" />'
+										+ '</span></div>');
+									$("input[name='questions[" + i + "].questionType']").val(n.questionType);
+									$("input[name='questions[" + i + "].questionType']").parent().append((n.questionType == 0 ? "判断题" : (n.questionType == 1 ? "单选题" : "多选题")));
+									$("input[name='questions[" + i + "].questionContent']").val(n.questionContent);
+									$("input[name='questions[" + i + "].questionContent']").parent().append(n.questionContent);
+									$.each($(n.answers), function(j, m) {
+										var orderFlag = "";
+										switch(m.answerOrder) {
+										case 1:
+											orderFlag = "A";
+											break;
+										case 2:
+											orderFlag = "B";
+											break;
+										case 3:
+											orderFlag = "C";
+											break;
+										case 4:
+											orderFlag = "D";
+											break;
+										case 5:
+											orderFlag = "E";
+											break;
+										case 6:
+											orderFlag = "F";
+											break;
+										}
+										$("input[name='questions[" + i + "].answers[" + j + "].answerType']").val(m.answerType);
+										$("input[name='questions[" + i + "].answers[" + j + "].answerType']").attr("disabled", false);
+										$("input[name='questions[" + i + "].answers[" + j + "].answerContent']").val(m.answerContent);
+										$("input[name='questions[" + i + "].answers[" + j + "].answerContent']").attr("disabled", false);
+										$("input[name='questions[" + i + "].answers[" + j + "].answerContent']").parent().append("<br/>" + orderFlag + "：" + m.answerContent + (m.answerType == 1 ? '&emsp;（正确答案）' : ''));
+									});
 								});
 								$("form#inputForm.needs-validation").validate({
 									submitHandler : function(form) {
 										$(form).ajaxSubmit({
 											type : 'post',
-											url : "rest/user/saveAll",
+											url : "rest/question/saveAll",
 											dataType : "json",
 											success : function(result) {
 												if (result.flag) {
@@ -449,7 +549,7 @@
 													time : 2000
 												});
 												$("#inputResult .userHeader").nextAll().remove();
-												$("#uploadAllUser").hide();
+												$("#uploadAllQuestion").hide();
 											},
 											error : function(){
 												layer.msg("保存出错", {
@@ -459,13 +559,13 @@
 										});
 									}
 								});
-								$("#uploadAllUser").show();
+								$("#uploadAllQuestion").show();
 								layer.msg(result.content, {
 									time : 2000
 								});
 							} else {
 								$("#inputResult .userHeader").nextAll().remove();
-								$("#uploadAllUser").hide();
+								$("#uploadAllQuestion").hide();
 								layer.msg(result.content, {
 									time : 2000
 								});
@@ -473,7 +573,7 @@
 						},
 						error : function(){
 							$("#inputResult .userHeader").nextAll().remove();
-							$("#uploadAllUser").hide();
+							$("#uploadAllQuestion").hide();
 							layer.msg("Excle解析出错", {
 								time : 2000
 							});
@@ -482,10 +582,6 @@
 				}
 			});
 		});
-		
-		function rowDelete(id) {
-			$("#" + id).remove();
-		}
 		
 		function examNotExist() {
 			var url = 'rest/exam/examNotExist';
@@ -499,8 +595,8 @@
 			examNotExist();
 			search(1);
 			$("#inputResult").hide();
-			$("#index-page-title").html("学员管理");
-			$("#current-page-title").html("学员管理");
+			$("#index-page-title").html("试题管理");
+			$("#current-page-title").html("试题管理");
 		});
 	</script>
 </div>

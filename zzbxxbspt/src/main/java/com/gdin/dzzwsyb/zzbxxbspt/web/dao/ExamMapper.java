@@ -1,5 +1,6 @@
 package com.gdin.dzzwsyb.zzbxxbspt.web.dao;
 
+import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample;
@@ -28,4 +29,7 @@ public interface ExamMapper extends GenericDao<Exam, String> {
 	int updateByPrimaryKeySelective(Exam record);
 
 	int updateByPrimaryKey(Exam record);
+	
+	List<Exam> selectByExampleAndPage(Page<Exam> page, ExamExample example);
+	
 }

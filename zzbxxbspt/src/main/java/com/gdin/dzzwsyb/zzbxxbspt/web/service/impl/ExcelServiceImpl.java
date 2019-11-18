@@ -6,6 +6,7 @@ import java.io.InputStream;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,11 @@ public class ExcelServiceImpl implements ExcelService {
 			for (int j = 0; j < colNum; j++) {
 				// 获取每个单元格的值
 				if (row.getCell(j) != null) {
-					content[i - 1][j] = row.getCell(j).getStringCellValue();
+					if (row.getCell(j).getCellType() == CellType.STRING) {
+						content[i - 1][j] = row.getCell(j).getStringCellValue();
+					} else {
+						content[i - 1][j] = "" + new Double(row.getCell(j).getNumericCellValue()).intValue() ;
+					}
 				}
 			}
 		}

@@ -6,11 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericServiceImpl;
 import com.gdin.dzzwsyb.zzbxxbspt.web.dao.ExamMapper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample.Criteria;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.ExamService;
 
 @Service
@@ -67,6 +69,20 @@ public class ExamServiceImpl extends GenericServiceImpl<Exam, String> implements
 	@Override
 	public long countByExample(ExamExample example) {
 		return examMapper.countByExample(example);
+	}
+
+	@Override
+	public Page<Exam> search(Exam exam, int pageNo) {
+		ExamExample example = new ExamExample();
+		Criteria criteria = example.createCriteria();
+		if (exam != null && exam.getExamTitle() != null) {
+			criteria.andExamTitleLike("%" + exam.getExamTitle() + "%");
+		}
+		criteria.andGroupIdEqualTo(exam.getGroupId());
+		example.setOrderByClause("exam_begin desc");
+		Page<Exam> page = new Page<Exam>(pageNo);
+		examMapper.selectByExampleAndPage(page, example);
+		return page;
 	}
 
 }
