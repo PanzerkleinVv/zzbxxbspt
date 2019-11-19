@@ -60,7 +60,7 @@
 				<div class="formLine">
 					<div class="formDiv">
 						<span>
-							限制时长（分钟）：
+							限制时长：
 						</span>
 						<span>
 							<input type="number" id="examTime" name="examTime" placeholder="个人答题时长限制（分钟）" min='0' class="form-control placeholder-no-fix" autocomplete="off" />
@@ -149,7 +149,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$(".form_date").datepicker({
+		$(".form_date").datetimepicker({
 			format : 'yyyy-mm-dd hh:ii:ss',
 			language : 'zh-CN'
 		});
@@ -205,8 +205,8 @@
 				}, function(data) {
 					$("#examId").val(data.examId);
 					$("#examTitle").val(data.examTitle);
-					$("#examBegin").datepicker("update", new Date(data.examBegin));
-					$("#examEnd").datepicker("update", new Date(data.examEnd));
+					$("#examBegin").datetimepicker("update", new Date(data.examBegin));
+					$("#examEnd").datetimepicker("update", new Date(data.examEnd));
 					$("#examTime").val(data.examTime);
 					$("#examScore").val(data.examScore);
 					$("#examTf").val(data.examTf);

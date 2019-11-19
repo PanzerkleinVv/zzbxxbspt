@@ -191,7 +191,7 @@
 					<div class="formDiv">
 						<span>模版下载：</span>
 						<span>
-							<a href="rest/user/template" target="_blank">题目批量导入模版.xls</a>
+							<a href="rest/question/template" target="_blank">题目批量导入模版.xls</a>
 						</span>
 					</div>
 					<div class="formDiv">

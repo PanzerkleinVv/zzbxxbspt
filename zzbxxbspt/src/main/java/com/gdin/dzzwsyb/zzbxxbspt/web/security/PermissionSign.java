@@ -28,6 +28,6 @@ public class PermissionSign {
 
 	public static final String EXAM = "exam";
 
-	public static final String ADMIN_EXAM = "admin_eaxm";
+	public static final String ADMIN_EXAM = "admin_exam";
 
 }

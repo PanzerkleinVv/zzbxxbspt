@@ -42,8 +42,8 @@
 
 <link rel="shortcut icon" href="app/img/favicon.ico" />
 <link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css" />
 <link href="app/css/index.css" rel="stylesheet" type="text/css" />
-<link href="assets/plugins/summernote/summernote.css" rel="stylesheet" />
 </head>
 <!-- END HEAD -->
 
@@ -260,8 +260,8 @@
 	<script type="text/javascript" src="app/js/app2.js"></script>
 	<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script type="text/javascript" src="assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="assets/plugins/summernote/summernote.min.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="assets/plugins/summernote/lang/summernote-zh-CN.js" charset="UTF-8"></script>
+	<script src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	<script type="text/javascript" src="assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="assets/scripts/jquery.form.js"></script>
 	<script type="text/javascript" src="assets/plugins/layer-v3.1.1/layer/layer.js"></script>
 	<!-- <script data-main="app/js/main" src="app/lib/requirejs/require.js"></script> -->
