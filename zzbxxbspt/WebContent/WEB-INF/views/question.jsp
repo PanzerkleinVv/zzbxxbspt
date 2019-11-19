@@ -9,6 +9,7 @@
 			<button id="inputBut" type="button" class="btn green">批量导入</button>
 		</form>
 	</div>
+	<div id="countQuestion"></div>
 	<div class="userTable" id="searchResult">
 		<div class="userRow userHeader">
 			<span class="userItem2">题目类型</span>
@@ -243,6 +244,7 @@
 					'pageNo' : pageNo,
 					'questionContent' : $("#questionContentSearch").val()
 				}, function(data) {
+					countQuestion();
 					setPage(data, $(".pageBox"), $("#pageNo"));
 					$("#searchResult .userHeader").nextAll().remove();
 					$.each(data.result,function(i, n) {
@@ -588,6 +590,13 @@
 			$.getJSON(url, function(data) {
 				examNotExistFlag = data.flag;
 				examNotExistMessage = data.content;
+			});
+		}
+		
+		function countQuestion() {
+			var url = 'rest/question/getCount';
+			$.getJSON(url, function(data) {
+				$("#countQuestion").html("判断题" + data[0] + "道、单选题" + data[1] + "道、多选题" + data[2] + "道");
 			});
 		}
 

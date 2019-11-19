@@ -14,5 +14,7 @@ public interface QuestionService extends GenericService<Question, String> {
 	List<Question> selectByExample(QuestionExample example);
 	
 	Page<Question> search(Question question, int pageNo);
+	
+	Long countByExample(QuestionExample example);
 
 }

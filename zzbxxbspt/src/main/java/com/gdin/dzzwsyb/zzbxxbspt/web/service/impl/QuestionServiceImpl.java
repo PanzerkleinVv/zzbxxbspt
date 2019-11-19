@@ -80,4 +80,9 @@ public class QuestionServiceImpl extends GenericServiceImpl<Question, String> im
 		return page;
 	}
 
+	@Override
+	public Long countByExample(QuestionExample example) {
+		return questionMapper.countByExample(example);
+	}
+
 }

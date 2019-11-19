@@ -63,7 +63,7 @@
 							限制时长（分钟）：
 						</span>
 						<span>
-							<input type="number" id="examTime" name="examTime" placeholder="个人答题时长限制（分钟）" class="form-control placeholder-no-fix" autocomplete="off" />
+							<input type="number" id="examTime" name="examTime" placeholder="个人答题时长限制（分钟）" min='0' class="form-control placeholder-no-fix" autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -71,7 +71,17 @@
 							考试总分：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examScore" name="examScore" placeholder="考试总分" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examScore" name="examScore" placeholder="考试总分" min='0' class="form-control placeholder-no-fix" required autocomplete="off" />
+						</span>
+					</div>
+				</div>
+				<div class="formLine">
+					<div class="formDiv">
+						<span>
+							出题规则：
+						</span>
+						<span>
+							（设置每份试卷格式试题的数量，没有请填0。注意数量不要超过题库总数，且题目总分应与试卷总分一致。）
 						</span>
 					</div>
 				</div>
@@ -81,7 +91,7 @@
 							判断题数：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examTf" name="examTf" placeholder="试卷随机生成判断题数" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examTf" name="examTf" min='0' placeholder="试卷随机生成判断题数" class="form-control placeholder-no-fix" required autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -89,7 +99,7 @@
 							每题分数：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examTfScore" name="examTfScore" placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examTfScore" name="examTfScore" min='0' placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
 						</span>
 					</div>
 				</div>
@@ -99,7 +109,7 @@
 							单选题数：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examSc" name="examSc" placeholder="试卷随机生成单选题数" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examSc" name="examSc" min='0' placeholder="试卷随机生成单选题数" class="form-control placeholder-no-fix" required autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -107,7 +117,7 @@
 							每题分数：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examScScore" name="examScScore" placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examScScore" name="examScScore" min='0' placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
 						</span>
 					</div>
 				</div>
@@ -117,7 +127,7 @@
 							多选题数：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examMc" name="examMc" placeholder="试卷随机生成多选题数" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examMc" name="examMc" min='0' placeholder="试卷随机生成多选题数" class="form-control placeholder-no-fix" required autocomplete="off" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -125,7 +135,7 @@
 							每题分数：<i>*</i>
 						</span>
 						<span>
-							<input type="number" id="examMcScore" name="examMcScore" placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="number" id="examMcScore" name="examMcScore" min='0' placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
 						</span>
 					</div>
 				</div>
@@ -214,21 +224,31 @@
 			dialogueClose($(this).parent().parent().attr("id"));
 		});
 
-		$("#closeGroup").click(function(target) {
-			dialogueClose("gruopInfo");
+		$("#closeExam").click(function(target) {
+			dialogueClose("examInfo");
 		});
 
-		$("#saveGroup").click(function(target) {
-			$("form#groupForm").submit();
+		$("#saveExam").click(function(target) {
+			var sorce = $("#examSorce").val();
+			var sorce0 = $("#examTf").val() * $("#examTfSorce").val();
+			var sorce1 = $("#examSc").val() * $("#examScSorce").val();
+			var sorce2 = $("#examMc").val() * $("#examMcSorce").val();
+			if (sorce = (sorce0 + sorce1 + sorce2)) {
+				$("form#examForm").submit();
+			} else {
+				layer.msg("题目总分应与试卷总分一致", {
+					time : 2000
+				});
+			}
 		});
 
-		$("#deleteGroup").click(function(target) {
-			var url = "rest/group/delete";
+		$("#deleteExam").click(function(target) {
+			var url = "rest/exam/delete";
 			$.getJSON(url, {
-				'groupId' : $("#groupId").val(),
-				'groupName' : $("#groupName").val()
+				'examId' : $("#examId").val(),
+				'examTitle' : $("#examTitle").val()
 			}, function(data) {
-				dialogueClose("groupInfo");
+				dialogueClose("examInfo");
 				search(1);
 				layer.msg(data.content, {
 					time : 2000
@@ -237,14 +257,14 @@
 		});
 
 		$(function() {
-			$("form#groupForm.needs-validation").validate({
+			$("form#examForm.needs-validation").validate({
 				submitHandler : function(form) {
 					$(form).ajaxSubmit({
 						type : 'post',
-						url : "rest/group/edit",
+						url : "rest/exam/edit",
 						dataType : "json",
 						success : function(result) { //表单提交后更新页面显示的数据
-							dialogueClose("groupInfo");
+							dialogueClose("examInfo");
 							search(1);
 							layer.msg(result.content, {
 								time : 2000
@@ -254,49 +274,15 @@
 				}
 			});
 		});
-		
-		function startGroup(groupId) {
-			var url = 'rest/group/edit';
-			$.ajax({
-				'url' : url, 
-				'data' : {
-					'groupId' : groupId,
-					'groupStatus' : 1
-				},
-				'type' : 'POST',
-				'cache' : false,
-				'dataType' : 'json',
-				'success' : function(result) {
-					search(1);
-					layer.msg(result.content, {
-						time : 2000
-					});
-				}
-			});
-		}
-		
-		function stopGroup(groupId) {
-			var url = 'rest/group/edit';
-			$.ajax({
-				'url' : url, 
-				'data' : {
-					'groupId' : groupId,
-					'groupStatus' : 0
-				},
-				'type' : 'POST',
-				'cache' : false,
-				'dataType' : 'json',
-				'success' : function(result) {
-					search(1);
-					layer.msg(result.content, {
-						time : 2000
-					});
-				}
-			});
-		}
 
 		$(function() {
 			search(1);
+			var url = 'rest/question/getCount';
+			$.getJSON(url, function(data) {
+				$("#examTf").attr("max", data[0]);
+				$("#examSC").attr("max", data[1]);
+				$("#examMc").attr("max", data[2]);
+			});
 			$("#inputResult").hide();
 			$("#index-page-title").html("试卷定制");
 			$("#current-page-title").html("试卷定制");

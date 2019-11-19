@@ -30,5 +30,7 @@ public interface QuestionBiz {
 	Message input(InputStream inputStream, String groupId) throws IOException;
 	
 	Message saveAll(List<QuestionExtend> questions, User me);
+	
+	Long[] getCount(String groupId);
 
 }

@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -135,6 +136,14 @@ public class QuestionController {
 		} else {
 			return new Message(false, "保存失败，请重新上传");
 		}
+	}
+
+	@RequestMapping(value = "/getCount", method = RequestMethod.GET)
+	@RequiresPermissions(value = { PermissionSign.CREATE_QUESTION, PermissionSign.ADMIN_EXAM }, logical = Logical.OR)
+	@ResponseBody
+	public Long[] getCount(HttpSession session) {
+		User me = (User) session.getAttribute("userInfo");
+		return questionBiz.getCount(me.getUserGroup());
 	}
 
 }

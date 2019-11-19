@@ -313,4 +313,15 @@ public class QuestionBizImpl implements QuestionBiz {
 		return new Message(true, "保存成功" + questions.size() + "个题目");
 	}
 
+	@Override
+	public Long[] getCount(String groupId) {
+		Long[] counts = new Long[3];
+		for (int i = 0; i < 3; i++) {
+			QuestionExample example = new QuestionExample();
+			example.createCriteria().andGroupIdEqualTo(groupId).andQuestionTypeEqualTo(i);
+			counts[i] = questionService.countByExample(example);
+		}
+		return counts;
+	}
+
 }
