@@ -43,13 +43,13 @@
 				<div class="formDiv">
 					<span>开始时间：</span>
 					<span>
-						<input type="text" name="logBegin" readonly class="form_date form-control placeholder-no-fix">
+						<input type="date" name="logBegin" class="form-control placeholder-no-fix">
 					</span>
 				</div>
 				<div class="formDiv">
 					<span>结束时间：</span>
 					<span>
-						<input type="text" name="logEnd" readonly class="form_date form-control placeholder-no-fix">
+						<input type="date" name="logEnd" class="form-control placeholder-no-fix">
 					</span>
 				</div>
 			</div>
@@ -113,10 +113,6 @@
 	</div>
 
 	<script type="text/javascript">
-		$(".form_date").datepicker({
-			format : 'yyyy-mm-dd',
-			language : 'zh-CN'
-		});
 		
 		$('#searchBut').click(function() {
 			search(1);

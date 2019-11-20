@@ -45,7 +45,8 @@
 							开始时间：<i>*</i>
 						</span>
 						<span>
-							<input type="text" id="examBegin" name="examBegin" placeholder="开始答题的时间" readonly class="form_date form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="datetime-local" id="examBegin" placeholder="开始答题的时间" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="hidden" name="examBegin" />
 						</span>
 					</div>
 					<div class="formDiv">
@@ -53,7 +54,8 @@
 							截止时间：<i>*</i>
 						</span>
 						<span>
-							<input type="text" id="examEnd" name="examEnd" placeholder="停止答题的时间" readonly class="form_date form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="datetime-local" id="examEnd" placeholder="停止答题的时间" class="form-control placeholder-no-fix" required autocomplete="off" />
+							<input type="hidden" name="examEnd" />
 						</span>
 					</div>
 				</div>
@@ -149,10 +151,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$(".form_date").datetimepicker({
-			format : 'yyyy-mm-dd hh:ii:ss',
-			language : 'zh-CN'
-		});
+		
 		
 		$('#searchBut').click(function() {
 			search(1);
@@ -205,8 +204,8 @@
 				}, function(data) {
 					$("#examId").val(data.examId);
 					$("#examTitle").val(data.examTitle);
-					$("#examBegin").datetimepicker("update", new Date(data.examBegin));
-					$("#examEnd").datetimepicker("update", new Date(data.examEnd));
+					$("#examBegin").val(new Date(data.examBegin).format("yyyy-MM-dd") + "T" + new Date(data.examBegin).format("hh:mm"));
+					$("#examEnd").val(new Date(data.examEnd).format("yyyy-MM-dd") + "T" + new Date(data.examEnd).format("hh:mm"));
 					$("#examTime").val(data.examTime);
 					$("#examScore").val(data.examScore);
 					$("#examTf").val(data.examTf);
@@ -229,12 +228,20 @@
 		});
 
 		$("#saveExam").click(function(target) {
-			var sorce = $("#examSorce").val();
-			var sorce0 = $("#examTf").val() * $("#examTfSorce").val();
-			var sorce1 = $("#examSc").val() * $("#examScSorce").val();
-			var sorce2 = $("#examMc").val() * $("#examMcSorce").val();
-			if (sorce = (sorce0 + sorce1 + sorce2)) {
-				$("form#examForm").submit();
+			var score = $("#examScore").val();
+			var score0 = $("#examTf").val() * $("#examTfScore").val();
+			var score1 = $("#examSc").val() * $("#examScScore").val();
+			var score2 = $("#examMc").val() * $("#examMcScore").val();
+			if (score == (score0 + score1 + score2)) {
+				if (new Date($("#examBegin").val()) >= new Date($("#examEnd").val())) {
+					layer.msg("结束时间应晚于开始时间", {
+						time : 2000
+					});
+				} else {
+					$("#examBegin").next().val(new Date($("#examBegin").val()).format("yyyy-MM-dd hh:mm:ss"));
+					$("#examEnd").next().val(new Date($("#examEnd").val()).format("yyyy-MM-dd hh:mm:ss"));
+					$("form#examForm").submit();
+				}
 			} else {
 				layer.msg("题目总分应与试卷总分一致", {
 					time : 2000
@@ -280,7 +287,7 @@
 			var url = 'rest/question/getCount';
 			$.getJSON(url, function(data) {
 				$("#examTf").attr("max", data[0]);
-				$("#examSC").attr("max", data[1]);
+				$("#examSc").attr("max", data[1]);
 				$("#examMc").attr("max", data[2]);
 			});
 			$("#inputResult").hide();
