@@ -32,7 +32,7 @@ public class PaperController {
 	@RequiresPermissions(value = PermissionSign.EXAM)
 	@ResponseBody
 	public List<ExamExtend> list(HttpSession session) {
-		User me = (User)session.getAttribute("")
+		User me = (User)session.getAttribute("");
 		return null;
 	}
 	
