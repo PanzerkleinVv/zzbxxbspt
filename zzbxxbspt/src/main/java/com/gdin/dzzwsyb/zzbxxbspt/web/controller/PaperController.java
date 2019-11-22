@@ -2,6 +2,7 @@ package com.gdin.dzzwsyb.zzbxxbspt.web.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper;
+import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestionExtend;
@@ -21,6 +23,9 @@ import com.gdin.dzzwsyb.zzbxxbspt.web.security.PermissionSign;
 @RequestMapping(value = "/paper")
 @Controller
 public class PaperController {
+	
+	@Resource
+	private PaperBiz paperBiz;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	@RequiresPermissions(value = PermissionSign.EXAM)
@@ -32,8 +37,8 @@ public class PaperController {
 	@RequiresPermissions(value = PermissionSign.EXAM)
 	@ResponseBody
 	public List<ExamExtend> list(HttpSession session) {
-		User me = (User)session.getAttribute("");
-		return null;
+		User me = (User) session.getAttribute("userInfo");
+		return paperBiz.getMyExamList(me);
 	}
 	
 	@RequestMapping(value = "/paper", method = RequestMethod.GET)

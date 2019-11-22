@@ -7,12 +7,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Log;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
+import com.gdin.dzzwsyb.zzbxxbspt.web.service.ExamService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.LogService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.PaperQuestionService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.PaperService;
@@ -22,6 +24,9 @@ public class PaperBizImpl implements PaperBiz {
 
 	@Resource
 	private PaperService paperService;
+	
+	@Resource
+	private ExamService examService;
 
 	@Resource
 	private PaperQuestionService paperQuestionService;
@@ -80,6 +85,11 @@ public class PaperBizImpl implements PaperBiz {
 		} else {
 			return new Message(false, "无效考试Id");
 		}
+	}
+
+	@Override
+	public List<ExamExtend> getMyExamList(User me) {
+		return examService.getMyExamList(me);
 	}
 
 }

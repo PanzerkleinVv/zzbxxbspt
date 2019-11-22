@@ -89,7 +89,7 @@
 					</li>
 
 					<shiro:hasAnyRoles name="student">
-					<li class="start active"><a href="rest/page/dashboard" id="btn-dashboard"> <i class="fa fa-pencil-square-o"></i>
+					<li class="start active"><a href="rest/paper/index" id="btn-dashboard"> <i class="fa fa-pencil-square-o"></i>
 						<span class="title"> 答题 </span>
 							<span class="selected"> </span>
 					</a></li>

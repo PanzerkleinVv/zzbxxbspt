@@ -13,6 +13,8 @@ import com.gdin.dzzwsyb.zzbxxbspt.web.dao.ExamMapper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample.Criteria;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.ExamService;
 
 @Service
@@ -83,6 +85,11 @@ public class ExamServiceImpl extends GenericServiceImpl<Exam, String> implements
 		Page<Exam> page = new Page<Exam>(pageNo);
 		examMapper.selectByExampleAndPage(page, example);
 		return page;
+	}
+
+	@Override
+	public List<ExamExtend> getMyExamList(User me) {
+		return examMapper.getMyExamList(me);
 	}
 
 }

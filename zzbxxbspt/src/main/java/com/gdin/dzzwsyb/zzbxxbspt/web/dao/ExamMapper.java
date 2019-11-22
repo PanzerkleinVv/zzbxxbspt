@@ -4,6 +4,9 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,7 +32,9 @@ public interface ExamMapper extends GenericDao<Exam, String> {
 	int updateByPrimaryKeySelective(Exam record);
 
 	int updateByPrimaryKey(Exam record);
-	
+
 	List<Exam> selectByExampleAndPage(Page<Exam> page, ExamExample example);
-	
+
+	List<ExamExtend> getMyExamList(User me);
+
 }

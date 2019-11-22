@@ -6,6 +6,8 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
 
 public interface ExamService extends GenericService<Exam, String> {
 
@@ -16,5 +18,7 @@ public interface ExamService extends GenericService<Exam, String> {
 	long countByExample(ExamExample example);
 	
 	Page<Exam> search(Exam exam, int pageNo);
+	
+	List<ExamExtend> getMyExamList(User me);
 
 }
