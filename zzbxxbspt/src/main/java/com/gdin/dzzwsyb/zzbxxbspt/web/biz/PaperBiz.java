@@ -5,6 +5,7 @@ import java.util.List;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
 
 public interface PaperBiz {
@@ -16,5 +17,9 @@ public interface PaperBiz {
 	Message deleteByExamId(String examId, User me);
 	
 	List<ExamExtend> getMyExamList(User me);
+	
+	void newPaper(Paper paper);
+	
+	PaperExtend getPaper(String paperId);
 
 }

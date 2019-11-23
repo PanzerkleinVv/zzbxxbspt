@@ -140,7 +140,7 @@
 						+ '</span><span class="userItem1">'
 						+ n.logDesc
 						+ '</span><span class="userItem1">'
-						+ new Date(n.logTime).toLocaleString()
+						+ new Date(n.logTime).format("yyyy-MM-dd") + ' ' + new Date(n.logTime).format("hh:mm:ss")
 						+ '</span></div>');
 					});
 			});
@@ -153,7 +153,7 @@
 			}, function(data) {
 				$("#logType").html(data.logType == 1 ? "登录日志" : "操作日志");
 				$("#userName").html(data.userName);
-				$("#logTime").html(new Date(data.logTime).toLocaleString());
+				$("#logTime").html(new Date(data.logTime).format("yyyy-MM-dd") + ' ' + new Date(data.logTime).format("hh:mm:ss"));
 				$("#logDesc").html(data.logDesc);
 			});
 			dialogueOpen("logInfo");

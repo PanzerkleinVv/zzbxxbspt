@@ -396,11 +396,10 @@
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.User">
 		select
 		<include refid="Extend_Column_List" />
-		from exam left outer join paper on exam.exam_id = paper.paper_id
+		from exam left outer join paper on exam.exam_id = paper.exam_id and user_id = #{userId,jdbcType=VARCHAR}
 		where 
-		group_id = #{userGroup,jdbcType=VARCHAR},
-		user_id = #{userId,jdbcType=VARCHAR}
+		group_id = #{userGroup,jdbcType=VARCHAR} 
 		order by
-		exam_begin desc
+		exam_begin, exam_end desc
 	</select>
 </mapper>

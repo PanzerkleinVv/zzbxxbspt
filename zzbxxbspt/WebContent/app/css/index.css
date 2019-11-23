@@ -50,7 +50,7 @@
 	line-height: 34px;
 }
 
-.userTable .userRow:NTH-CHILD(odd) {
+.userTable .userRow:NTH-CHILD(even) {
 	background-color: #FFFFFF;
 }
 
@@ -232,4 +232,85 @@
 
 .formDiv span a {
 	line-height: 34px;
+}
+
+#examList {
+	margin: 5px;
+	background-color: #1570a6;
+	border-bottom: 2px solid #1570a6;
+}
+
+.examRow:NTH-CHILD(even) {
+	background-color: #FFFFFF;
+}
+
+.examRow:NTH-CHILD(odd) {
+	background-color: #EEEEEE;
+}
+
+.examRow {
+	line-height: 34px;
+	display: flex;
+	flex-direction: row;
+	flex-flow: row wrap;
+	align-content: flex-start;
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-top: 2px;
+}
+
+.examHeader {
+	background-color: #1570a6 !important;
+	font-family: 微软雅黑;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.examRow span {
+	display: block;
+	padding-left: 10px;
+	padding-right: 10px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
+.examRow span:first-of-type {
+	flex: 0 0 30%;
+	cursor: pointer;
+}
+
+.examRow span:nth-of-type(2) {
+	border-left: 2px solid #FFFFFF;
+	flex: 0 0 40%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.examRow span:nth-of-type(3) {
+	border-left: 2px solid #FFFFFF;
+	flex: 0 0 15%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.examRow span:nth-of-type(4) {
+	border-left: 2px solid #FFFFFF;
+	flex: 0 0 15%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.examRow span:nth-of-type(5) {
+	flex: 0 0 100%;
+	display: none;
+	background-color: #EEEEEE;
+}
+
+.examRow:NTH-CHILD(even) span:nth-of-type(5) {
+	background-color: #EEEEEE;
+}
+
+.examRow:NTH-CHILD(odd) span:nth-of-type(5) {
+	background-color: #FFFFFF;
 }
