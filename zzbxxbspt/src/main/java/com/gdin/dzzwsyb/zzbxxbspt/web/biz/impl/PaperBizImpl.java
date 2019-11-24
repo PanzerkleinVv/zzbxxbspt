@@ -101,6 +101,12 @@ public class PaperBizImpl implements PaperBiz {
 
 	@Override
 	public List<ExamExtend> getMyExamList(User me) {
+		final List<ExamExtend> exams = examService.getMyExamList(me);
+		for (ExamExtend exam : exams) {
+			if ((exam.getExamTime() != null && exam.getPaperId() != null && exam.getPaperBegin().getTime() + exam.getExamTime() * 60000 < System.currentTimeMillis()) || exam.getPaperId() != null && exam.getExamEnd().getTime() < System.currentTimeMillis()) {
+				//算分
+			}
+		}
 		return examService.getMyExamList(me);
 	}
 

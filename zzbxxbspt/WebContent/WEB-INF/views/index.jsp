@@ -42,7 +42,7 @@
 
 <link rel="shortcut icon" href="app/img/favicon.ico" />
 <link href="app/css/index.css" rel="stylesheet" type="text/css" />
-<link href="assets/plugins/jcountdown/jquery.jqcountdown.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/jcountdown/jcountdown.css" rel="stylesheet" type="text/css" />
 </head>
 <!-- END HEAD -->
 
@@ -259,7 +259,7 @@
 	<script type="text/javascript" src="app/js/app2.js"></script>
 	<script type="text/javascript" src="assets/scripts/jquery.form.js"></script>
 	<script type="text/javascript" src="assets/plugins/layer-v3.1.1/layer/layer.js"></script>
-	<script type="text/javascript" src="assets/plugins/jcountdown/jquery.jqcountdown.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/jcountdown/jquery.jcountdown.min.js"></script>
 	<!-- <script data-main="app/js/main" src="app/lib/requirejs/require.js"></script> -->
 </body>
 </html>
