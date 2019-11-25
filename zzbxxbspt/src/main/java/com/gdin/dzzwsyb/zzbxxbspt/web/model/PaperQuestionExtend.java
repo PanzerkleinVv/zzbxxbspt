@@ -6,6 +6,8 @@ public class PaperQuestionExtend extends PaperQuestion {
 
 	private String questionContent;
 
+	private Integer questionType;
+
 	private List<Answer> answers;
 
 	public String getQuestionContent() {
@@ -14,6 +16,14 @@ public class PaperQuestionExtend extends PaperQuestion {
 
 	public void setQuestionContent(String questionContent) {
 		this.questionContent = questionContent;
+	}
+
+	public Integer getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(Integer questionType) {
+		this.questionType = questionType;
 	}
 
 	public List<Answer> getAnswers() {

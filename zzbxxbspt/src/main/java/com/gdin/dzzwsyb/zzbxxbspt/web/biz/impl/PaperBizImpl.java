@@ -1,5 +1,6 @@
 package com.gdin.dzzwsyb.zzbxxbspt.web.biz.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.gdin.dzzwsyb.zzbxxbspt.core.util.ApplicationUtils;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.Answer;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.AnswerExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Log;
@@ -22,6 +25,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
+import com.gdin.dzzwsyb.zzbxxbspt.web.service.AnswerService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.ExamService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.LogService;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.PaperQuestionService;
@@ -45,6 +49,9 @@ public class PaperBizImpl implements PaperBiz {
 
 	@Resource
 	private QuestionService questionService;
+	
+	@Resource
+	private AnswerService answerService;
 
 	@Override
 	public List<Paper> selectByUserId(String userId) {
@@ -104,7 +111,7 @@ public class PaperBizImpl implements PaperBiz {
 		final List<ExamExtend> exams = examService.getMyExamList(me);
 		for (ExamExtend exam : exams) {
 			if ((exam.getExamTime() != null && exam.getPaperId() != null && exam.getPaperBegin().getTime() + exam.getExamTime() * 60000 < System.currentTimeMillis()) || exam.getPaperId() != null && exam.getExamEnd().getTime() < System.currentTimeMillis()) {
-				//算分
+				scoring(exam.getPaperId());
 			}
 		}
 		return examService.getMyExamList(me);
@@ -175,6 +182,53 @@ public class PaperBizImpl implements PaperBiz {
 		paper.setExam(examService.selectById(paper.getExamId()));
 		paper.setPaperQuestion(paperQuestionService.getPaperQestion(paperId));
 		return paper;
+	}
+	
+	private void scoring(String paperId) {
+		final PaperExtend paper = new PaperExtend(paperService.selectById(paperId));
+		paper.setExam(examService.selectById(paper.getExamId()));
+		paper.setPaperQuestion(paperQuestionService.getPaperQestion(paperId));
+		BigDecimal score = new BigDecimal(0);
+		if (paper.getExam().getExamTf() != 0) {
+			for (int i = 0; i < paper.getExam().getExamTf(); i++) {
+				final String answerId = paper.getPaperQuestion().get(i).getAnswer();
+				final Answer answer = answerService.selectById(answerId);
+				if (answer != null && answer.getAnswerType() == 1) {
+					score = score.add(paper.getExam().getExamTfScore());
+				}
+			}
+		}
+		if (paper.getExam().getExamSc() != 0) {
+			for (int i = paper.getExam().getExamTf(); i < paper.getExam().getExamSc(); i++) {
+				final String answerId = paper.getPaperQuestion().get(i).getAnswer();
+				final Answer answer = answerService.selectById(answerId);
+				if (answer != null && answer.getAnswerType() == 1) {
+					score = score.add(paper.getExam().getExamScScore());
+				}
+			}
+		}
+		if (paper.getExam().getExamMc() != 0) {
+			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc(); i < paper.getExam().getExamMc(); i++) {
+				final String questionId = paper.getPaperQuestion().get(i).getQuestionId();
+				final String answerIds = paper.getPaperQuestion().get(i).getAnswer();
+				AnswerExample example = new AnswerExample();
+				example.createCriteria().andQuestionIdEqualTo(questionId).andAnswerTypeEqualTo(1);
+				example.setOrderByClause("answer_order asc");
+				final List<Answer> answers = answerService.selectByExample(example);
+				String correctAnswer = "";
+				for (Answer answer : answers) {
+					correctAnswer += (answer.getAnswerId() + ", ");
+				}
+				correctAnswer = correctAnswer.substring(0, correctAnswer.length() - 2);
+				if (correctAnswer.equals(answerIds)) {
+					score = score.add(paper.getExam().getExamMcScore());
+				}
+			}
+		}
+		final Paper paper0 = new Paper();
+		paper0.setPaperId(paperId);
+		paper0.setPaperScore(score);
+		paperService.update(paper0);
 	}
 
 }

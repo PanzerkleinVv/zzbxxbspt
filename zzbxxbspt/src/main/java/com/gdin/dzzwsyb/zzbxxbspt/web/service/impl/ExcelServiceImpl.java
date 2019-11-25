@@ -32,7 +32,7 @@ public class ExcelServiceImpl implements ExcelService {
 					if (row.getCell(j).getCellType() == CellType.STRING) {
 						content[i - 1][j] = row.getCell(j).getStringCellValue();
 					} else {
-						content[i - 1][j] = "" + new Double(row.getCell(j).getNumericCellValue()).intValue() ;
+						content[i - 1][j] = "" + Double.valueOf(row.getCell(j).getNumericCellValue()).intValue() ;
 					}
 				}
 			}

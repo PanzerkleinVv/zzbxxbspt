@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExtend;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestionListModel;
 import com.gdin.dzzwsyb.zzbxxbspt.core.util.ApplicationUtils;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.PaperBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend;
@@ -60,7 +61,7 @@ public class PaperController {
 	@RequestMapping(value = "/submit", method = RequestMethod.POST)
 	@RequiresPermissions(value = PermissionSign.EXAM)
 	@ResponseBody
-	public Message submit(@Valid List<PaperExtend> paper, HttpSession session) {
+	public Message submit(PaperQuestionListModel paper, HttpSession session) {
 		return null;
 	}
 

@@ -20,7 +20,7 @@ public class DialectFactory {
         }
         Dialect dialect = null;
         try {
-            dialect = (Dialect) Class.forName(dialectClass).newInstance();
+            dialect = (Dialect) Class.forName(dialectClass).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("请检查 mybatis-config.xml 中  dialectClass 是否配置正确?");

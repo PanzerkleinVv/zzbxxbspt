@@ -30,7 +30,14 @@ public class ExamServiceImpl extends GenericServiceImpl<Exam, String> implements
 
 	@Override
 	public int update(Exam model) {
-		return examMapper.updateByPrimaryKeySelective(model);
+		if (model.getExamTime() != null) {
+			return examMapper.updateByPrimaryKeySelective(model);
+		} else {
+			examMapper.updateByPrimaryKeySelective(model);
+			model = examMapper.selectByPrimaryKey(model.getExamId());
+			model.setExamTime(null);
+			return examMapper.updateByPrimaryKey(model);
+		}
 	}
 
 	@Override

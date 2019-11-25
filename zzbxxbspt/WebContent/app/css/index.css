@@ -314,3 +314,59 @@
 .examRow:NTH-CHILD(odd) span:nth-of-type(5) {
 	background-color: #FFFFFF;
 }
+
+#paperHeader {
+	background-color: #1570a6 !important;
+	color: #FFFFFF;
+	display: flex;
+	padding: 3px;
+}
+
+#paperHeader span {
+	display: inline-block;
+	margin: 2px 2px 0 2px;
+	font-size: 26px;
+	line-height: 26px;
+	margin: 2px 2px 0 2px;
+}
+
+#paperHeader span:first-of-type {
+	flex: 1;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
+#paperHeader span:nth-of-type(2) {
+	width: 104px;
+}
+
+#paperHeader span:last-of-type {
+	width: 200px;
+}
+
+#paperBody {
+	display: block;
+	list-style-type: cjk-ideographic;
+	font-size: 24px;
+}
+
+.paperQuestionOl {
+	display: block;
+	font-size: 22px;
+	font-family: '宋体';
+}
+
+.answerOl {
+	font-size: 16px;
+	list-style-type: none;
+	padding-left: 0;
+}
+
+.answerOl label {
+	display: block;
+}
+
+#paperFooter {
+	text-align: center;
+}

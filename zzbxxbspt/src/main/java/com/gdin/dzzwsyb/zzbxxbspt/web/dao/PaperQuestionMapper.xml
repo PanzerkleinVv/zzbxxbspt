@@ -16,6 +16,8 @@
 		type="com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestionExtend">
 		<result column="QUESTION_CONTENT" jdbcType="VARCHAR"
 			property="questionContent" />
+		<result column="QUESTION_TYPE" jdbcType="INTEGER"
+			property="questionType" />
 		<collection property="answers"
 			ofType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Answer"
 			javaType="java.util.List" resultMap="AnswerResultMap">
@@ -262,7 +264,7 @@
 	</update>
 	<select id="getPaperQestion" parameterType="java.lang.String" resultMap="ExtendResultMap">
 		select
-			paper_question.id, paper_question.paper_id, paper_question.question_id, paper_question.answer, paper_question.question_order, question.question_content, answer.answer_id, answer.answer_content, answer.answer_order
+			paper_question.id, paper_question.paper_id, paper_question.question_id, paper_question.answer, paper_question.question_order, question.question_content, question.question_type, answer.answer_id, answer.answer_content, answer.answer_order
 		from 
 			paper_question
 		left outer join
