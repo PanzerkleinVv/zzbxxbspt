@@ -105,7 +105,7 @@
 							<li><a href="./rest/user/admin"> 学员管理 </a></li>
 							<li><a href="./rest/question/admin"> 试题管理 </a></li>
 							<li><a href="./rest/exam/admin"> 试卷定制 </a></li>
-							<li><a href="./rest/code/menu"> 分数统计 </a></li>
+							<li><a href="./rest/analysis/admin"> 分数统计 </a></li>
 						</ul></li>
 					</shiro:hasAnyRoles>
 

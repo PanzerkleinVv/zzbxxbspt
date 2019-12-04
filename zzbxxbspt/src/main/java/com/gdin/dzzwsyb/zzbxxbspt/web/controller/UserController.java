@@ -34,11 +34,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 用户控制器
@@ -200,6 +202,49 @@ public class UserController {
 		} else {
 			return new Message(false, "保存失败，请重新上传");
 		}
+	}
+
+	@RequestMapping(value = "/bind", method = RequestMethod.GET)
+	@ResponseBody
+	public User bind() {
+		return userBiz.bind();
+	}
+
+	@RequestMapping(value = "/quickLogin", method = RequestMethod.GET)
+	public String quickLogin(@Valid String userId, RedirectAttributes reditectModel) {
+		final User user = userBiz.quickLogin(userId);
+		if (user != null) {
+			reditectModel.addFlashAttribute("user", user);
+			return "redirect:/rest/user/quickLogin0";
+		} else {
+			return "login";
+		}
+	}
+
+	@RequestMapping(value = "/quickLogin0")
+	public String quickLogin0(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,
+			HttpServletRequest request) {
+		try {
+			Subject subject = SecurityUtils.getSubject();
+			// 已登陆则 跳到首页
+			if (subject.isAuthenticated()) {
+				return "redirect:/";
+			}
+			if (result.hasErrors()) {
+				model.addAttribute("error", "参数错误！");
+				return "login";
+			}
+			// 身份验证
+			subject.login(new UsernameIdcardToken(user.getUserName(), user.getUserPsw()));
+			// 验证成功在Session中保存用户信息
+			final User authUserInfo = userBiz.logon(user);
+			request.getSession().setAttribute("userInfo", authUserInfo);
+		} catch (AuthenticationException e) {
+			// 身份验证失败
+			model.addAttribute("error", "个人信息错误 ！请联系考试管理员");
+			return "login";
+		}
+		return "redirect:/";
 	}
 
 }

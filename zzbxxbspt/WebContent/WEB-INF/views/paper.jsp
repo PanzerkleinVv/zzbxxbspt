@@ -17,7 +17,7 @@
 		$.getJSON(url, function(data) {
 			$("#examList").show();
 			$("#paper").hide();
-			$(".examHearder").nextAll().remove();
+			$(".examHeader").nextAll().remove();
 			$.each(data, function(i, n) {
 				$("#examList").append('<div class="examRow">'
 						+ '<span>' + n.examTitle + '</span>'
@@ -66,7 +66,6 @@
 	function showPaper(data) {
 		$("#examList").hide();
 		$("#paper").show();
-		console.log(data);
 		$("#paper").html('<div id="paperHeader"><span>' + data.exam.examTitle + '</span><span>剩余时间</span><span id="countdown"></span></div>');
 		$(function() {
 		    config = {
@@ -126,7 +125,7 @@
 	}
 	
 	function submitPaper() {
-		$(form).ajaxSubmit({
+		$('form#paperForm').ajaxSubmit({
 			type : 'post',
 			url : "rest/paper/submit",
 			dataType : "json",
@@ -138,6 +137,7 @@
 			}
 		});
 	}
+	
 	$(function() {
 		getMyExamList();
 		$("#index-page-title").html("答题");

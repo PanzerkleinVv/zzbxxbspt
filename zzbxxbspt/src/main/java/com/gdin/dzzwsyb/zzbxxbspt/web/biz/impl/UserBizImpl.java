@@ -168,4 +168,18 @@ public class UserBizImpl implements UserBiz {
 		logService.log(new Log(2, me.getUserId(), "新增考试管理员：" + user.getUserName() + "（" + user.getUserId() + "）"));
 	}
 
+	@Override
+	public User bind() {
+		UserExample example = new UserExample();
+		example.createCriteria().andUserRoleIdEqualTo(2).andUserGroupUsed();
+		return userService.selectByExample(example).get(0);
+	}
+
+	@Override
+	public User quickLogin(String userId) {
+		UserExample example = new UserExample();
+		example.createCriteria().andUserIdEqualTo(userId).andUserGroupUsed();
+		return userService.selectByExample(example).get(0);
+	}
+
 }

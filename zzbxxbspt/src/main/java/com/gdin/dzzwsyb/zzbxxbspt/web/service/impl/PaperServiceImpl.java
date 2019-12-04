@@ -11,6 +11,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericServiceImpl;
 import com.gdin.dzzwsyb.zzbxxbspt.web.dao.PaperMapper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperUser;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.PaperService;
 
 @Service
@@ -62,6 +63,11 @@ public class PaperServiceImpl extends GenericServiceImpl<Paper, String> implemen
 	@Override
 	public GenericDao<Paper, String> getDao() {
 		return paperMapper;
+	}
+
+	@Override
+	public List<PaperUser> rank(String examId) {
+		return paperMapper.rank(examId);
 	}
 
 }

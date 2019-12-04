@@ -3,6 +3,8 @@ package com.gdin.dzzwsyb.zzbxxbspt.web.dao;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperUser;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +30,6 @@ public interface PaperMapper extends GenericDao<Paper, String> {
 	int updateByPrimaryKeySelective(Paper record);
 
 	int updateByPrimaryKey(Paper record);
+
+	List<PaperUser> rank(String examId);
 }

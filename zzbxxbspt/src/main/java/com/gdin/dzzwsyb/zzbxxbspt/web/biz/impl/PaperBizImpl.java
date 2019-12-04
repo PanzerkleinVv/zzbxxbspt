@@ -49,7 +49,7 @@ public class PaperBizImpl implements PaperBiz {
 
 	@Resource
 	private QuestionService questionService;
-	
+
 	@Resource
 	private AnswerService answerService;
 
@@ -110,7 +110,9 @@ public class PaperBizImpl implements PaperBiz {
 	public List<ExamExtend> getMyExamList(User me) {
 		final List<ExamExtend> exams = examService.getMyExamList(me);
 		for (ExamExtend exam : exams) {
-			if ((exam.getExamTime() != null && exam.getPaperId() != null && exam.getPaperBegin().getTime() + exam.getExamTime() * 60000 < System.currentTimeMillis()) || exam.getPaperId() != null && exam.getExamEnd().getTime() < System.currentTimeMillis()) {
+			if ((exam.getExamTime() != null && exam.getPaperId() != null
+					&& exam.getPaperBegin().getTime() + exam.getExamTime() * 60000 < System.currentTimeMillis())
+					|| exam.getPaperId() != null && exam.getExamEnd().getTime() < System.currentTimeMillis()) {
 				scoring(exam.getPaperId());
 			}
 		}
@@ -118,7 +120,7 @@ public class PaperBizImpl implements PaperBiz {
 	}
 
 	@Override
-	public void newPaper(Paper paper) {
+	public void newPaper(Paper paper, User me) {
 		final Exam exam = examService.selectById(paper.getExamId());
 		Random random = new Random();
 		// 生成判断题
@@ -173,6 +175,7 @@ public class PaperBizImpl implements PaperBiz {
 			}
 		}
 		paper.setPaperBegin(new Date());
+		logService.log(new Log(2, me.getUserId(), "生成试卷：" + paper.getPaperId() + "，开始答题"));
 		paperService.insert(paper);
 	}
 
@@ -183,8 +186,9 @@ public class PaperBizImpl implements PaperBiz {
 		paper.setPaperQuestion(paperQuestionService.getPaperQestion(paperId));
 		return paper;
 	}
-	
-	private void scoring(String paperId) {
+
+	@Override
+	public BigDecimal scoring(String paperId) {
 		final PaperExtend paper = new PaperExtend(paperService.selectById(paperId));
 		paper.setExam(examService.selectById(paper.getExamId()));
 		paper.setPaperQuestion(paperQuestionService.getPaperQestion(paperId));
@@ -199,7 +203,8 @@ public class PaperBizImpl implements PaperBiz {
 			}
 		}
 		if (paper.getExam().getExamSc() != 0) {
-			for (int i = paper.getExam().getExamTf(); i < paper.getExam().getExamSc(); i++) {
+			for (int i = paper.getExam().getExamTf(); i < paper.getExam().getExamTf()
+					+ paper.getExam().getExamSc(); i++) {
 				final String answerId = paper.getPaperQuestion().get(i).getAnswer();
 				final Answer answer = answerService.selectById(answerId);
 				if (answer != null && answer.getAnswerType() == 1) {
@@ -208,7 +213,8 @@ public class PaperBizImpl implements PaperBiz {
 			}
 		}
 		if (paper.getExam().getExamMc() != 0) {
-			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc(); i < paper.getExam().getExamMc(); i++) {
+			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc(); i < paper.getExam().getExamTf()
+					+ paper.getExam().getExamSc() + paper.getExam().getExamMc(); i++) {
 				final String questionId = paper.getPaperQuestion().get(i).getQuestionId();
 				final String answerIds = paper.getPaperQuestion().get(i).getAnswer();
 				AnswerExample example = new AnswerExample();
@@ -217,9 +223,9 @@ public class PaperBizImpl implements PaperBiz {
 				final List<Answer> answers = answerService.selectByExample(example);
 				String correctAnswer = "";
 				for (Answer answer : answers) {
-					correctAnswer += (answer.getAnswerId() + ", ");
+					correctAnswer += (answer.getAnswerId() + ",");
 				}
-				correctAnswer = correctAnswer.substring(0, correctAnswer.length() - 2);
+				correctAnswer = correctAnswer.substring(0, correctAnswer.length() - 1);
 				if (correctAnswer.equals(answerIds)) {
 					score = score.add(paper.getExam().getExamMcScore());
 				}
@@ -229,6 +235,19 @@ public class PaperBizImpl implements PaperBiz {
 		paper0.setPaperId(paperId);
 		paper0.setPaperScore(score);
 		paperService.update(paper0);
+		return score;
+	}
+
+	@Override
+	public Message submit(List<PaperQuestion> paperQuestions) {
+		for (PaperQuestion paperQuestion : paperQuestions) {
+			if (paperQuestion.getAnswer() != null) {
+				paperQuestionService.update(paperQuestion);
+			}
+		}
+		final PaperQuestion paperQuestion = paperQuestionService.selectById(paperQuestions.get(0).getId());
+		BigDecimal score = scoring(paperQuestion.getPaperId());
+		return new Message(true, "得分：" + score.toPlainString());
 	}
 
 }

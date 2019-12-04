@@ -33,5 +33,9 @@ public interface UserBiz {
 	Message deleteByGroupId(String groupId, User me);
 	
 	void createGroupManager(Group group, User me);
+	
+	User bind();
+	
+	User quickLogin(String userId);
 
 }

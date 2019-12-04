@@ -51,7 +51,7 @@ public class PaperController {
 		if (paper == null || paper.getPaperId() == null) {
 			paper.setUserId(me.getUserId());
 			paper.setPaperId(ApplicationUtils.randomUUID());
-			paperBiz.newPaper(paper);
+			paperBiz.newPaper(paper, me);
 			return paperBiz.getPaper(paper.getPaperId());
 		} else {
 			return paperBiz.getPaper(paper.getPaperId());
@@ -62,7 +62,7 @@ public class PaperController {
 	@RequiresPermissions(value = PermissionSign.EXAM)
 	@ResponseBody
 	public Message submit(PaperQuestionListModel paper, HttpSession session) {
-		return null;
+		return paperBiz.submit(paper.getPaperQuestions());
 	}
 
 }
