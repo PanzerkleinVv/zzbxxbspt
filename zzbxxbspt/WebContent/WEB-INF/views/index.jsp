@@ -96,7 +96,7 @@
 					</a></li>
 					</shiro:hasAnyRoles>
 
-					<shiro:hasAnyRoles name="admin,teacher">
+					<shiro:hasAnyRoles name="teacher">
 					<li class=""><a href="javascript:;"> <i class="fa fa-mortar-board"></i>
 						<span class="title"> 考试管理 </span>
 						<span class="arrow "> </span>

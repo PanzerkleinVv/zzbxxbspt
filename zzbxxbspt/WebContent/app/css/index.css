@@ -110,6 +110,17 @@
 	font-size: 17px;
 }
 
+.userItem6-1 {
+	display: table-cell;
+	width: 20%;
+	text-align: center;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
 .userItem7 {
 	display: table-cell;
 	width: 80%;

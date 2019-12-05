@@ -12,7 +12,8 @@
 	<div class="userTable" id="searchResult">
 		<div class="userRow userHeader">
 			<span class="userItem2">题目类型</span>
-			<span class="userItem7">题目</span>
+			<span class="userItem6-1">分类</span>
+			<span class="userItem5">题目</span>
 			<span class="userItem2">操作</span>
 		</div>
 	</div>
@@ -40,7 +41,18 @@
 								<option value="0">判断题</option>
 								<option value="1">单选题</option>
 								<option value="2">多选题</option>
+								<option value="3">不定项选择题</option>
 							</select>
+						</span>
+					</div>
+				</div>
+				<div class="formLine">
+					<div class="formDiv">
+						<span>
+							题目分类：<i>*</i>
+						</span>
+						<span>
+							<input type="text" id="questionSubject" name="questionSubject" placeholder="题目分类" class="form-control placeholder-no-fix" required autocomplete="on" />
 						</span>
 					</div>
 				</div>
@@ -248,8 +260,10 @@
 					$("#searchResult .userHeader").nextAll().remove();
 					$.each(data.result,function(i, n) {
 						$("#searchResult").append('<div class="userRow"><span class="userItem2">'
-							+ (n.questionType == 0 ? '判断题' : (n.questionType == 1 ? '单选题' : '多选题'))
-							+ '</span><span class="userItem7">'
+							+ (n.questionType == 0 ? '判断题' : (n.questionType == 1 ? '单选题' : (n.questionType == 2 ? '多选题' : '不定项')))
+							+ '</span><span class="userItem6-1">'
+							+ n.questionSubject
+							+ '</span><span class="userItem5">'
 							+ n.questionContent
 							+ '</span><span class="userItem2"><button type="button" class="btn blue" onclick="edit(\''
 							+ n.questionId
@@ -263,6 +277,7 @@
 				$("#deleteQuestion").hide();
 				$("#questionId").val("");
 				$("#questionType").val("").trigger('change');
+				$("#questionSubject").val("");
 				$("#questionContent").val("");
 				$("#answerContentA").val("").trigger('change');
 				$("#answerContentB").val("").trigger('change');
@@ -278,6 +293,7 @@
 				}, function(data) {
 					$("#questionId").val(data.questionId);
 					$("#questionType").val(data.questionType).trigger('change');
+					$("#questionSubject").val(data.questionSubject);
 					$("#questionContent").val(data.questionContent);
 					$.each(data.answers, function(i, n) {
 						var idFlag;
@@ -426,6 +442,10 @@
 				if (count > 1) {
 					flag = true;
 				}
+			} else if ($("#questionType").val() > "3") {
+				if (count > 0) {
+					flag = true;
+				}
 			}
 			if (flag) {
 				if (examNotExistFlag) {
@@ -445,7 +465,7 @@
 					return;
 				}
 			} else {
-				layer.msg("单选题和判断题只能有一个正确答案，多选题至少有两个正确答案", {
+				layer.msg("单选题和判断题只能有一个正确答案，多选题至少有两个正确答案，不定项选择题至少有一个正确答案", {
 					time : 2000
 				});
 				return;
