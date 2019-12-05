@@ -169,49 +169,64 @@ public class QuestionBizImpl implements QuestionBiz {
 				case "多选题":
 					question.setQuestionType(2);
 					break;
+				case "不定项选择题":
+					question.setQuestionType(3);
+					break;
 				default:
 					return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型只能为“判断题”、“单选题”、“多选题”");
 				}
 			}
 			if (row[1] == null) {
-				return new Message(false, "Excel解析出错：第" + (i + 1) + "题目内容不能为空");
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "题目分类不能为空");
 			} else {
-				question.setQuestionContent(row[1]);
+				question.setQuestionSubject(row[1]);
 			}
 			if (row[2] == null) {
+				return new Message(false, "Excel解析出错：第" + (i + 1) + "题目内容不能为空");
+			} else {
+				question.setQuestionContent(row[2]);
+			}
+			if (row[3] == null) {
 				return new Message(false, "Excel解析出错：第" + (i + 1) + "正确答案选项不能为空");
 			} else {
 				switch (question.getQuestionType()) {
 				case 0:
-					if (row[2].length() == 1) {
-						answerFlag = row[2].toUpperCase();
+					if (row[3].length() == 1) {
+						answerFlag = row[3].toUpperCase();
 					} else {
 						return new Message(false, "Excel解析出错：第" + (i + 1) + "判断题只能有一个正确答案");
 					}
 					break;
 				case 1:
-					if (row[2].length() == 1) {
-						answerFlag = row[2].toUpperCase();
+					if (row[3].length() == 1) {
+						answerFlag = row[3].toUpperCase();
 					} else {
 						return new Message(false, "Excel解析出错：第" + (i + 1) + "单选题只能有一个正确答案");
 					}
 					break;
 				case 2:
-					if (row[2].length() > 1) {
-						answerFlag = row[2].toUpperCase();
+					if (row[3].length() > 1) {
+						answerFlag = row[3].toUpperCase();
 					} else {
 						return new Message(false, "Excel解析出错：第" + (i + 1) + "多选题至少有两个正确答案");
+					}
+					break;
+				case 3:
+					if (row[3].length() > 0) {
+						answerFlag = row[3].toUpperCase();
+					} else {
+						return new Message(false, "Excel解析出错：第" + (i + 1) + "不定项选择题至少有一个正确答案");
 					}
 					break;
 				default:
 					return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型不能为空*");
 				}
 			}
-			if (row[3] == null) {
+			if (row[4] == null) {
 				return new Message(false, "Excel解析出错：第" + (i + 1) + "选项A不能为空");
 			} else {
 				final Answer answer = new Answer();
-				answer.setAnswerContent(row[3]);
+				answer.setAnswerContent(row[4]);
 				answer.setAnswerOrder(1);
 				if (answerFlag.indexOf("A") == -1) {
 					answer.setAnswerType(0);
@@ -221,11 +236,11 @@ public class QuestionBizImpl implements QuestionBiz {
 				}
 				question.getAnswers().add(answer);
 			}
-			if (row[4] == null) {
+			if (row[5] == null) {
 				return new Message(false, "Excel解析出错：第" + (i + 1) + "选项B不能为空");
 			} else {
 				final Answer answer = new Answer();
-				answer.setAnswerContent(row[4]);
+				answer.setAnswerContent(row[5]);
 				answer.setAnswerOrder(2);
 				if (answerFlag.indexOf("B") == -1) {
 					answer.setAnswerType(0);
@@ -235,9 +250,9 @@ public class QuestionBizImpl implements QuestionBiz {
 				}
 				question.getAnswers().add(answer);
 			}
-			if (5 < row.length && row[5] != null) {
+			if (6 < row.length && row[6] != null) {
 				final Answer answer = new Answer();
-				answer.setAnswerContent(row[5]);
+				answer.setAnswerContent(row[6]);
 				answer.setAnswerOrder(3);
 				if (answerFlag.indexOf("C") == -1) {
 					answer.setAnswerType(0);
@@ -247,9 +262,9 @@ public class QuestionBizImpl implements QuestionBiz {
 				}
 				question.getAnswers().add(answer);
 			}
-			if (6 < row.length && row[6] != null) {
+			if (7 < row.length && row[7] != null) {
 				final Answer answer = new Answer();
-				answer.setAnswerContent(row[6]);
+				answer.setAnswerContent(row[7]);
 				answer.setAnswerOrder(4);
 				if (answerFlag.indexOf("D") == -1) {
 					answer.setAnswerType(0);
@@ -259,9 +274,9 @@ public class QuestionBizImpl implements QuestionBiz {
 				}
 				question.getAnswers().add(answer);
 			}
-			if (7 < row.length && row[7] != null) {
+			if (8 < row.length && row[8] != null) {
 				final Answer answer = new Answer();
-				answer.setAnswerContent(row[7]);
+				answer.setAnswerContent(row[8]);
 				answer.setAnswerOrder(5);
 				if (answerFlag.indexOf("E") == -1) {
 					answer.setAnswerType(0);
@@ -271,9 +286,9 @@ public class QuestionBizImpl implements QuestionBiz {
 				}
 				question.getAnswers().add(answer);
 			}
-			if (8 < row.length && row[8] != null) {
+			if (9 < row.length && row[9] != null) {
 				final Answer answer = new Answer();
-				answer.setAnswerContent(row[8]);
+				answer.setAnswerContent(row[9]);
 				answer.setAnswerOrder(6);
 				if (answerFlag.indexOf("F") == -1) {
 					answer.setAnswerType(0);

@@ -74,7 +74,7 @@ public class QuestionServiceImpl extends GenericServiceImpl<Question, String> im
 		if (question.getQuestionContent() != null) {
 			criteria.andQuestionContentLike("%" + question.getQuestionContent() + "%");
 		}
-		example.setOrderByClause("question_type, question_content asc");
+		example.setOrderByClause("question_type, question_subject, question_content asc");
 		Page<Question> page = new Page<Question>(pageNo);
 		questionMapper.selectByExampleAndPage(page, example);
 		return page;

@@ -131,6 +131,13 @@
 	text-overflow: ellipsis;
 }
 
+.userItem7-1 {
+	display: table-cell;
+	width: 80%;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+}
+
 .userItem8 {
 	display: table-cell;
 	width: 90%;

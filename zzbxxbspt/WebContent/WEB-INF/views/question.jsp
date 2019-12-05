@@ -219,7 +219,8 @@
 				<div class="userTable" id="inputResult">
 					<div class="userRow userHeader">
 						<span class="userItem2">类型</span>
-						<span class="userItem8">题目与答案</span>
+						<span class="userItem2">分类</span>
+						<span class="userItem7-1">题目与答案</span>
 					</div>
 				</div>
 			</form>
@@ -412,6 +413,25 @@
 					$(n).attr("checked", false);
 				});
 				break;
+			case '3':
+				$("#answerContentA").val("").trigger('change');
+				$("#answerContentB").val("").trigger('change');
+				$("#answerContentA").attr("readonly", false);
+				$("#answerContentB").attr("readonly", false);
+				$("#answerContentC").attr("disabled", false);
+				$("#answerContentC").attr("disabled", false);
+				$("#answerContentC").val("").trigger('change');
+				$("#answerContentD").attr("disabled", false);
+				$("#answerContentD").val("").trigger('change');
+				$("#answerContentE").attr("disabled", false);
+				$("#answerContentE").val("").trigger('change');
+				$("#answerContentF").attr("disabled", false);
+				$("#answerContentF").val("").trigger('change');
+				$.each($(".answerTypeChoice"), function(i, n) {
+					$(n).attr("type", "checkbox");
+					$(n).attr("checked", false);
+				});
+				break;
 			}
 		});
 		
@@ -508,7 +528,8 @@
 								$("#inputResult .userHeader").nextAll().remove();
 								$.each(result.object,function(i, n) {
 									$("#inputResult").append('<div class="userRow" id="input' + i + '"><span class="userItem2"><input type="hidden" name="questions[' + i + '].questionType" /></span>'
-										+ '<span class="userItem8">'
+										+ '<span class="userItem2"><input type="hidden" name="questions[' + i + '].questionSubject" /></span>'
+										+ '<span class="userItem7-1">'
 										+ '<input type="hidden" name="questions[' + i + '].questionContent" />'
 										+ '<input type="hidden" name="questions[' + i + '].answers[0].answerContent" />'
 										+ '<input type="hidden" name="questions[' + i + '].answers[0].answerType" />'
@@ -524,9 +545,11 @@
 										+ '<input type="hidden" name="questions[' + i + '].answers[5].answerType" disabled="true" />'
 										+ '</span></div>');
 									$("input[name='questions[" + i + "].questionType']").val(n.questionType);
-									$("input[name='questions[" + i + "].questionType']").parent().append((n.questionType == 0 ? "判断题" : (n.questionType == 1 ? "单选题" : "多选题")));
+									$("input[name='questions[" + i + "].questionType']").parent().append((n.questionType == 0 ? "判断题" : (n.questionType == 1 ? "单选题" : (n.questionType == 2 ? '多选题' : '不定项'))));
 									$("input[name='questions[" + i + "].questionContent']").val(n.questionContent);
 									$("input[name='questions[" + i + "].questionContent']").parent().append(n.questionContent);
+									$("input[name='questions[" + i + "].questionSubject']").val(n.questionSubject);
+									$("input[name='questions[" + i + "].questionSubject']").parent().append(n.questionSubject);
 									$.each($(n.answers), function(j, m) {
 										var orderFlag = "";
 										switch(m.answerOrder) {
