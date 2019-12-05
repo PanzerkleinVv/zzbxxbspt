@@ -9,6 +9,8 @@ public class Question {
 
     private String questionContent;
 
+    private String questionSubject;
+
     public String getQuestionId() {
         return questionId;
     }
@@ -39,5 +41,13 @@ public class Question {
 
     public void setQuestionContent(String questionContent) {
         this.questionContent = questionContent == null ? null : questionContent.trim();
+    }
+
+    public String getQuestionSubject() {
+        return questionSubject;
+    }
+
+    public void setQuestionSubject(String questionSubject) {
+        this.questionSubject = questionSubject == null ? null : questionSubject.trim();
     }
 }

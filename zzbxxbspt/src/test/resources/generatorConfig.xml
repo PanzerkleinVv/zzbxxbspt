@@ -40,9 +40,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table tableName="answer">
-        </table>
-        <table tableName="paper_question">
+        <table tableName="question">
         </table>
     </context>
 </generatorConfiguration>

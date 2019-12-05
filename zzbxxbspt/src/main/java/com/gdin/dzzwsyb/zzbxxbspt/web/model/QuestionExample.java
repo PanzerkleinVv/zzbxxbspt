@@ -373,6 +373,76 @@ public class QuestionExample {
             addCriterion("QUESTION_CONTENT not between", value1, value2, "questionContent");
             return (Criteria) this;
         }
+
+        public Criteria andQuestionSubjectIsNull() {
+            addCriterion("QUESTION_SUBJECT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectIsNotNull() {
+            addCriterion("QUESTION_SUBJECT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectEqualTo(String value) {
+            addCriterion("QUESTION_SUBJECT =", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectNotEqualTo(String value) {
+            addCriterion("QUESTION_SUBJECT <>", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectGreaterThan(String value) {
+            addCriterion("QUESTION_SUBJECT >", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectGreaterThanOrEqualTo(String value) {
+            addCriterion("QUESTION_SUBJECT >=", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectLessThan(String value) {
+            addCriterion("QUESTION_SUBJECT <", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectLessThanOrEqualTo(String value) {
+            addCriterion("QUESTION_SUBJECT <=", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectLike(String value) {
+            addCriterion("QUESTION_SUBJECT like", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectNotLike(String value) {
+            addCriterion("QUESTION_SUBJECT not like", value, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectIn(List<String> values) {
+            addCriterion("QUESTION_SUBJECT in", values, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectNotIn(List<String> values) {
+            addCriterion("QUESTION_SUBJECT not in", values, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectBetween(String value1, String value2) {
+            addCriterion("QUESTION_SUBJECT between", value1, value2, "questionSubject");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuestionSubjectNotBetween(String value1, String value2) {
+            addCriterion("QUESTION_SUBJECT not between", value1, value2, "questionSubject");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

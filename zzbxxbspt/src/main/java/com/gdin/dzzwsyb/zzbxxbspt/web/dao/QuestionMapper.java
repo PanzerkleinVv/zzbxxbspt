@@ -10,23 +10,23 @@ import org.apache.ibatis.annotations.Param;
 public interface QuestionMapper extends GenericDao<Question, String> {
 	long countByExample(QuestionExample example);
 
-	int deleteByExample(QuestionExample example);
+    int deleteByExample(QuestionExample example);
 
-	int deleteByPrimaryKey(String questionId);
+    int deleteByPrimaryKey(String questionId);
 
-	int insert(Question record);
+    int insert(Question record);
 
-	int insertSelective(Question record);
+    int insertSelective(Question record);
 
-	List<Question> selectByExample(QuestionExample example);
+    List<Question> selectByExample(QuestionExample example);
 
-	Question selectByPrimaryKey(String questionId);
+    Question selectByPrimaryKey(String questionId);
 
-	int updateByExampleSelective(@Param("record") Question record, @Param("example") QuestionExample example);
+    int updateByExampleSelective(@Param("record") Question record, @Param("example") QuestionExample example);
 
-	int updateByExample(@Param("record") Question record, @Param("example") QuestionExample example);
+    int updateByExample(@Param("record") Question record, @Param("example") QuestionExample example);
 
-	int updateByPrimaryKeySelective(Question record);
+    int updateByPrimaryKeySelective(Question record);
 
 	int updateByPrimaryKey(Question record);
 	

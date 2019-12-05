@@ -6,6 +6,7 @@
     <result column="GROUP_ID" jdbcType="VARCHAR" property="groupId" />
     <result column="QUESTION_TYPE" jdbcType="INTEGER" property="questionType" />
     <result column="QUESTION_CONTENT" jdbcType="VARCHAR" property="questionContent" />
+    <result column="QUESTION_SUBJECT" jdbcType="VARCHAR" property="questionSubject" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    QUESTION_ID, GROUP_ID, QUESTION_TYPE, QUESTION_CONTENT
+    QUESTION_ID, GROUP_ID, QUESTION_TYPE, QUESTION_CONTENT, QUESTION_SUBJECT
   </sql>
   <select id="selectByExample" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Question">
     insert into question (QUESTION_ID, GROUP_ID, QUESTION_TYPE, 
-      QUESTION_CONTENT)
+      QUESTION_CONTENT, QUESTION_SUBJECT)
     values (#{questionId,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, #{questionType,jdbcType=INTEGER}, 
-      #{questionContent,jdbcType=VARCHAR})
+      #{questionContent,jdbcType=VARCHAR}, #{questionSubject,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Question">
     insert into question
@@ -119,6 +120,9 @@
       <if test="questionContent != null">
         QUESTION_CONTENT,
       </if>
+      <if test="questionSubject != null">
+        QUESTION_SUBJECT,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="questionId != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="questionContent != null">
         #{questionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="questionSubject != null">
+        #{questionSubject,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.questionContent != null">
         QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR},
       </if>
+      <if test="record.questionSubject != null">
+        QUESTION_SUBJECT = #{record.questionSubject,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set QUESTION_ID = #{record.questionId,jdbcType=VARCHAR},
       GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
       QUESTION_TYPE = #{record.questionType,jdbcType=INTEGER},
-      QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR}
+      QUESTION_CONTENT = #{record.questionContent,jdbcType=VARCHAR},
+      QUESTION_SUBJECT = #{record.questionSubject,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="questionContent != null">
         QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR},
       </if>
+      <if test="questionSubject != null">
+        QUESTION_SUBJECT = #{questionSubject,jdbcType=VARCHAR},
+      </if>
     </set>
     where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
   </update>
@@ -190,7 +204,8 @@
     update question
     set GROUP_ID = #{groupId,jdbcType=VARCHAR},
       QUESTION_TYPE = #{questionType,jdbcType=INTEGER},
-      QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR}
+      QUESTION_CONTENT = #{questionContent,jdbcType=VARCHAR},
+      QUESTION_SUBJECT = #{questionSubject,jdbcType=VARCHAR}
     where QUESTION_ID = #{questionId,jdbcType=VARCHAR}
   </update>
   <select id="selectByExampleAndPage" resultMap="BaseResultMap"
