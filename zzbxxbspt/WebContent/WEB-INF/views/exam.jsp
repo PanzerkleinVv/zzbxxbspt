@@ -140,6 +140,24 @@
 						</span>
 					</div>
 				</div>
+				<div class="formLine">
+					<div class="formDiv">
+						<span>
+							不定项数：<i>*</i>
+						</span>
+						<span>
+							<input type="number" id="examIc" name="examIc" min='0' placeholder="试卷随机生成不定项选择题数" class="form-control placeholder-no-fix" required autocomplete="off" />
+						</span>
+					</div>
+					<div class="formDiv">
+						<span>
+							每题分数：<i>*</i>
+						</span>
+						<span>
+							<input type="number" id="examIcScore" name="examIcScore" min='0' placeholder="每题分数" class="form-control placeholder-no-fix" required autocomplete="off" />
+						</span>
+					</div>
+				</div>
 			</form>
 		</div>
 		<div class="dialogueFooter">
@@ -195,6 +213,8 @@
 				$("#examScScore").val("");
 				$("#examMc").val("");
 				$("#examMcScore").val("");
+				$("#examIc").val("");
+				$("#examIcScore").val("");
 			} else {
 				var url = 'rest/exam/info';
 				$("#deleteExam").show();
@@ -213,6 +233,8 @@
 					$("#examScScore").val(data.examScScore);
 					$("#examMc").val(data.examMc);
 					$("#examMcScore").val(data.examMcScore);
+					$("#examIc").val(data.examIc);
+					$("#examIcScore").val(data.examIcScore);
 				});
 			}
 			dialogueOpen("examInfo");
@@ -231,14 +253,15 @@
 			var score0 = $("#examTf").val() * $("#examTfScore").val();
 			var score1 = $("#examSc").val() * $("#examScScore").val();
 			var score2 = $("#examMc").val() * $("#examMcScore").val();
-			if (score == (score0 + score1 + score2)) {
+			var score3 = $("#examIc").val() * $("#examIcScore").val();
+			if (score == (score0 + score1 + score2 + score3)) {
 				if (new Date($("#examBegin").val()) >= new Date($("#examEnd").val())) {
 					layer.msg("结束时间应晚于开始时间", {
 						time : 2000
 					});
 				} else {
-					$("#examBegin").next().val(new Date($("#examBegin").val()).format("yyyy-MM-dd hh:mm:ss"));
-					$("#examEnd").next().val(new Date($("#examEnd").val()).format("yyyy-MM-dd hh:mm:ss"));
+					$("#examBegin").next().val(new Date($("#examBegin").val()).format("yyyy-MM-dd") + " " + new Date($("#examBegin").val()).format("hh:mm:ss"));
+					$("#examEnd").next().val(new Date($("#examEnd").val()).format("yyyy-MM-dd") + " " + new Date($("#examEnd").val()).format("hh:mm:ss"));
 					$("form#examForm").submit();
 				}
 			} else {
@@ -285,9 +308,11 @@
 			search(1);
 			var url = 'rest/question/getCount';
 			$.getJSON(url, function(data) {
-				$("#examTf").attr("max", data[0]);
-				$("#examSc").attr("max", data[1]);
-				$("#examMc").attr("max", data[2]);
+				console.log(data[0].tf);
+				$("#examTf").attr("max", data[0].tf);
+				$("#examSc").attr("max", data[0].sc);
+				$("#examMc").attr("max", data[0].mc);
+				$("#examIc").attr("max", data[0].ic);
 			});
 			$("#inputResult").hide();
 			$("#index-page-title").html("试卷定制");

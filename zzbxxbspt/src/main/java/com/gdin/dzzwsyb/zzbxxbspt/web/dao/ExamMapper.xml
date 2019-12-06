@@ -24,6 +24,9 @@
 		<result column="EXAM_MC" jdbcType="INTEGER" property="examMc" />
 		<result column="EXAM_MC_SCORE" jdbcType="DECIMAL"
 			property="examMcScore" />
+		<result column="EXAM_IC" jdbcType="INTEGER" property="examIc" />
+		<result column="EXAM_IC_SCORE" jdbcType="DECIMAL"
+			property="examIcScore" />
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ExtendResultMap"
 		type="com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExtend">
@@ -101,12 +104,13 @@
 	<sql id="Base_Column_List">
 		EXAM_ID, GROUP_ID, EXAM_TITLE, EXAM_BEGIN, EXAM_END, EXAM_TIME, EXAM_SCORE,
 		EXAM_SC,
-		EXAM_SC_SCORE, EXAM_TF, EXAM_TF_SCORE, EXAM_MC, EXAM_MC_SCORE
+		EXAM_SC_SCORE, EXAM_TF, EXAM_TF_SCORE, EXAM_MC, EXAM_MC_SCORE, EXAM_IC,
+		EXAM_IC_SCORE
 	</sql>
 	<sql id="Extend_Column_List">
 		EXAM.EXAM_ID, EXAM_TITLE, EXAM_BEGIN, EXAM_END, EXAM_TIME, EXAM_SCORE,
 		EXAM_SC, EXAM_SC_SCORE, EXAM_TF, EXAM_TF_SCORE, EXAM_MC, EXAM_MC_SCORE,
-		PAPER_ID, USER_ID, PAPER_SCORE, PAPER_BEGIN
+		EXAM_IC, EXAM_IC_SCORE, PAPER_ID, USER_ID, PAPER_SCORE, PAPER_BEGIN
 	</sql>
 	<select id="selectByExample"
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.ExamExample"
@@ -148,14 +152,17 @@
 		EXAM_BEGIN, EXAM_END, EXAM_TIME,
 		EXAM_SCORE, EXAM_SC, EXAM_SC_SCORE,
 		EXAM_TF, EXAM_TF_SCORE, EXAM_MC,
-		EXAM_MC_SCORE)
+		EXAM_MC_SCORE, EXAM_IC, EXAM_IC_SCORE
+		)
 		values (#{examId,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR},
 		#{examTitle,jdbcType=VARCHAR},
 		#{examBegin,jdbcType=TIMESTAMP}, #{examEnd,jdbcType=TIMESTAMP}, #{examTime,jdbcType=INTEGER},
 		#{examScore,jdbcType=INTEGER}, #{examSc,jdbcType=INTEGER},
 		#{examScScore,jdbcType=DECIMAL},
 		#{examTf,jdbcType=INTEGER}, #{examTfScore,jdbcType=DECIMAL}, #{examMc,jdbcType=INTEGER},
-		#{examMcScore,jdbcType=DECIMAL})
+		#{examMcScore,jdbcType=DECIMAL}, #{examIc,jdbcType=INTEGER},
+		#{examIcScore,jdbcType=DECIMAL}
+		)
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Exam">
@@ -200,6 +207,12 @@
 			<if test="examMcScore != null">
 				EXAM_MC_SCORE,
 			</if>
+			<if test="examIc != null">
+				EXAM_IC,
+			</if>
+			<if test="examIcScore != null">
+				EXAM_IC_SCORE,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="examId != null">
@@ -240,6 +253,12 @@
 			</if>
 			<if test="examMcScore != null">
 				#{examMcScore,jdbcType=DECIMAL},
+			</if>
+			<if test="examIc != null">
+				#{examIc,jdbcType=INTEGER},
+			</if>
+			<if test="examIcScore != null">
+				#{examIcScore,jdbcType=DECIMAL},
 			</if>
 		</trim>
 	</insert>
@@ -293,6 +312,12 @@
 			<if test="record.examMcScore != null">
 				EXAM_MC_SCORE = #{record.examMcScore,jdbcType=DECIMAL},
 			</if>
+			<if test="record.examIc != null">
+				EXAM_IC = #{record.examIc,jdbcType=INTEGER},
+			</if>
+			<if test="record.examIcScore != null">
+				EXAM_IC_SCORE = #{record.examIcScore,jdbcType=DECIMAL},
+			</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -312,7 +337,9 @@
 		EXAM_TF = #{record.examTf,jdbcType=INTEGER},
 		EXAM_TF_SCORE = #{record.examTfScore,jdbcType=DECIMAL},
 		EXAM_MC = #{record.examMc,jdbcType=INTEGER},
-		EXAM_MC_SCORE = #{record.examMcScore,jdbcType=DECIMAL}
+		EXAM_MC_SCORE = #{record.examMcScore,jdbcType=DECIMAL},
+		EXAM_IC = #{record.examIc,jdbcType=INTEGER},
+		EXAM_IC_SCORE = #{record.examIcScore,jdbcType=DECIMAL}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -357,6 +384,12 @@
 			<if test="examMcScore != null">
 				EXAM_MC_SCORE = #{examMcScore,jdbcType=DECIMAL},
 			</if>
+			<if test="examIc != null">
+				EXAM_IC = #{examIc,jdbcType=INTEGER},
+			</if>
+			<if test="examIcScore != null">
+				EXAM_IC_SCORE = #{examIcScore,jdbcType=DECIMAL},
+			</if>
 		</set>
 		where EXAM_ID = #{examId,jdbcType=VARCHAR}
 	</update>
@@ -374,7 +407,9 @@
 		EXAM_TF = #{examTf,jdbcType=INTEGER},
 		EXAM_TF_SCORE = #{examTfScore,jdbcType=DECIMAL},
 		EXAM_MC = #{examMc,jdbcType=INTEGER},
-		EXAM_MC_SCORE = #{examMcScore,jdbcType=DECIMAL}
+		EXAM_MC_SCORE = #{examMcScore,jdbcType=DECIMAL},
+		EXAM_IC = #{examIc,jdbcType=INTEGER},
+		EXAM_IC_SCORE = #{examIcScore,jdbcType=DECIMAL}
 		where EXAM_ID = #{examId,jdbcType=VARCHAR}
 	</update>
 	<select id="selectByExampleAndPage" resultMap="BaseResultMap"

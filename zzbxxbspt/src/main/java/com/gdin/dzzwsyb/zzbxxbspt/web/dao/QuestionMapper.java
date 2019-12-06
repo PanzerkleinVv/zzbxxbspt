@@ -3,6 +3,7 @@ package com.gdin.dzzwsyb.zzbxxbspt.web.dao;
 import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionCount;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -31,5 +32,7 @@ public interface QuestionMapper extends GenericDao<Question, String> {
 	int updateByPrimaryKey(Question record);
 	
 	List<Question> selectByExampleAndPage(Page<Question> page, QuestionExample example);
+	
+	List<QuestionCount> countQuestion(String groupId);
 	
 }

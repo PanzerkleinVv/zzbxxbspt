@@ -34,6 +34,10 @@ public class Exam {
 
     private BigDecimal examMcScore;
 
+    private Integer examIc;
+
+    private BigDecimal examIcScore;
+
     public String getExamId() {
         return examId;
     }
@@ -136,5 +140,21 @@ public class Exam {
 
     public void setExamMcScore(BigDecimal examMcScore) {
         this.examMcScore = examMcScore;
+    }
+
+    public Integer getExamIc() {
+        return examIc;
+    }
+
+    public void setExamIc(Integer examIc) {
+        this.examIc = examIc;
+    }
+
+    public BigDecimal getExamIcScore() {
+        return examIcScore;
+    }
+
+    public void setExamIcScore(BigDecimal examIcScore) {
+        this.examIcScore = examIcScore;
     }
 }

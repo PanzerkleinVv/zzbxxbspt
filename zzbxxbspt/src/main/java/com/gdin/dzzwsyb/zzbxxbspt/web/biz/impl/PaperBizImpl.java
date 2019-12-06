@@ -2,7 +2,9 @@ package com.gdin.dzzwsyb.zzbxxbspt.web.biz.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -23,6 +25,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestion;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperQuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionCount;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.AnswerService;
@@ -122,6 +125,14 @@ public class PaperBizImpl implements PaperBiz {
 	@Override
 	public void newPaper(Paper paper, User me) {
 		final Exam exam = examService.selectById(paper.getExamId());
+		final int allCount = exam.getExamTf() + exam.getExamSc() + exam.getExamMc() + exam.getExamIc();
+		final List<QuestionCount> questionCount = questionService.count(exam.getGroupId());
+		final int subject = questionCount.size();
+		final Map<String, Integer> countMap = new HashMap<String, Integer>();
+		for (int i = 0; i < subject; i++) {
+			countMap.put(questionCount.get(i).getQuestionSubject(),
+					allCount / subject + (allCount % subject == 0 ? 0 : 1));
+		}
 		Random random = new Random();
 		// 生成判断题
 		if (exam.getExamTf() != 0) {
@@ -130,13 +141,18 @@ public class PaperBizImpl implements PaperBiz {
 			example.setOrderByClause("question_id asc");
 			final List<Question> tfs = questionService.selectByExample(example);
 			for (int i = 0; i < exam.getExamTf(); i++) {
-				int index = random.nextInt(tfs.size());
+				Question question = null;
+				do {
+					int index = random.nextInt(tfs.size());
+					question = tfs.get(index);
+					tfs.remove(index);
+				} while (countMap.get(question.getQuestionSubject()) == 0);
+				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
 				PaperQuestion paperQuestion = new PaperQuestion();
 				paperQuestion.setId(ApplicationUtils.randomUUID());
 				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(tfs.get(index).getQuestionId());
+				paperQuestion.setQuestionId(question.getQuestionId());
 				paperQuestion.setQuestionOrder(i);
-				tfs.remove(index);
 				paperQuestionService.insert(paperQuestion);
 			}
 		}
@@ -147,13 +163,18 @@ public class PaperBizImpl implements PaperBiz {
 			example.setOrderByClause("question_id asc");
 			final List<Question> scs = questionService.selectByExample(example);
 			for (int i = 0; i < exam.getExamSc(); i++) {
-				int index = random.nextInt(scs.size());
+				Question question = null;
+				do {
+					int index = random.nextInt(scs.size());
+					question = scs.get(index);
+					scs.remove(index);
+				} while (countMap.get(question.getQuestionSubject()) == 0);
+				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
 				PaperQuestion paperQuestion = new PaperQuestion();
 				paperQuestion.setId(ApplicationUtils.randomUUID());
 				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(scs.get(index).getQuestionId());
+				paperQuestion.setQuestionId(question.getQuestionId());
 				paperQuestion.setQuestionOrder(i + exam.getExamTf());
-				scs.remove(index);
 				paperQuestionService.insert(paperQuestion);
 			}
 		}
@@ -164,13 +185,40 @@ public class PaperBizImpl implements PaperBiz {
 			example.setOrderByClause("question_id asc");
 			final List<Question> mcs = questionService.selectByExample(example);
 			for (int i = 0; i < exam.getExamMc(); i++) {
-				int index = random.nextInt(mcs.size());
+				Question question = null;
+				do {
+					int index = random.nextInt(mcs.size());
+					question = mcs.get(index);
+					mcs.remove(index);
+				} while (countMap.get(question.getQuestionSubject()) == 0);
+				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
 				PaperQuestion paperQuestion = new PaperQuestion();
 				paperQuestion.setId(ApplicationUtils.randomUUID());
 				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(mcs.get(index).getQuestionId());
+				paperQuestion.setQuestionId(question.getQuestionId());
 				paperQuestion.setQuestionOrder(i + exam.getExamTf() + exam.getExamSc());
-				mcs.remove(index);
+				paperQuestionService.insert(paperQuestion);
+			}
+		}
+		// 生成不定项选择题
+		if (exam.getExamIc() != 0) {
+			QuestionExample example = new QuestionExample();
+			example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(3);
+			example.setOrderByClause("question_id asc");
+			final List<Question> ics = questionService.selectByExample(example);
+			for (int i = 0; i < exam.getExamIc(); i++) {
+				Question question = null;
+				do {
+					int index = random.nextInt(ics.size());
+					question = ics.get(index);
+					ics.remove(index);
+				} while (countMap.get(question.getQuestionSubject()) == 0);
+				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
+				PaperQuestion paperQuestion = new PaperQuestion();
+				paperQuestion.setId(ApplicationUtils.randomUUID());
+				paperQuestion.setPaperId(paper.getPaperId());
+				paperQuestion.setQuestionId(question.getQuestionId());
+				paperQuestion.setQuestionOrder(i + exam.getExamTf() + exam.getExamSc() + exam.getExamMc());
 				paperQuestionService.insert(paperQuestion);
 			}
 		}
@@ -215,6 +263,25 @@ public class PaperBizImpl implements PaperBiz {
 		if (paper.getExam().getExamMc() != 0) {
 			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc(); i < paper.getExam().getExamTf()
 					+ paper.getExam().getExamSc() + paper.getExam().getExamMc(); i++) {
+				final String questionId = paper.getPaperQuestion().get(i).getQuestionId();
+				final String answerIds = paper.getPaperQuestion().get(i).getAnswer();
+				AnswerExample example = new AnswerExample();
+				example.createCriteria().andQuestionIdEqualTo(questionId).andAnswerTypeEqualTo(1);
+				example.setOrderByClause("answer_order asc");
+				final List<Answer> answers = answerService.selectByExample(example);
+				String correctAnswer = "";
+				for (Answer answer : answers) {
+					correctAnswer += (answer.getAnswerId() + ",");
+				}
+				correctAnswer = correctAnswer.substring(0, correctAnswer.length() - 1);
+				if (correctAnswer.equals(answerIds)) {
+					score = score.add(paper.getExam().getExamMcScore());
+				}
+			}
+		}
+		if (paper.getExam().getExamIc() != 0) {
+			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc() + paper.getExam().getExamMc(); i < paper.getExam().getExamTf()
+					+ paper.getExam().getExamSc() + paper.getExam().getExamMc() + paper.getExam().getExamIc(); i++) {
 				final String questionId = paper.getPaperQuestion().get(i).getQuestionId();
 				final String answerIds = paper.getPaperQuestion().get(i).getAnswer();
 				AnswerExample example = new AnswerExample();

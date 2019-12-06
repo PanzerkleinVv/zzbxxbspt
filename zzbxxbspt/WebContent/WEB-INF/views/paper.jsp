@@ -30,6 +30,7 @@
 						+ (n.examTf != 0 ? '判断题' + n.examTf + '道，每题' + n.examTfScore + '分；' : '')
 						+ (n.examSc != 0 ? '单选题' + n.examSc + '道，每题' + n.examScScore + '分；' : '')
 						+ (n.examMc != 0 ? '多选题' + n.examMc + '道，每题' + n.examMcScore + '分；' : '')
+						+ (n.examIc != 0 ? '不定项选择题' + n.examIc + '道，每题' + n.examIcScore + '分；' : '')
 						+ '<br/>'
 						+ (n.examTime != null ? '3、答题限时' + n.examTime + '分钟，<b>离线计时</b>，超过规定时间将自动交卷；<br/>' : '')
 						+ (n.paperId == null ? ((n.examBegin > Date.now()) ? '' : ((n.examEnd < Date.now()) ? '' : '<button class="green btn" onclick="newPaper(\'' + n.examId + '\')">我已阅读竞赛规则，开始答题</button>')) : (n.paperScore == null && ((n.examTime - Math.round((Date.now() - n.paperBegin) / 60000)) > -1 || Date.now() < n.examEnd) ? ('<button class="green btn" onclick="goPaper(\'' + n.paperId + '\')">继续答题</button>') : ''))

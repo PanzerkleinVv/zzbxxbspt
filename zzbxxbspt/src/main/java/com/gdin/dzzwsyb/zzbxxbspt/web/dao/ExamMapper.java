@@ -13,23 +13,23 @@ import org.apache.ibatis.annotations.Param;
 public interface ExamMapper extends GenericDao<Exam, String> {
 	long countByExample(ExamExample example);
 
-	int deleteByExample(ExamExample example);
+    int deleteByExample(ExamExample example);
 
-	int deleteByPrimaryKey(String examId);
+    int deleteByPrimaryKey(String examId);
 
-	int insert(Exam record);
+    int insert(Exam record);
 
-	int insertSelective(Exam record);
+    int insertSelective(Exam record);
 
-	List<Exam> selectByExample(ExamExample example);
+    List<Exam> selectByExample(ExamExample example);
 
-	Exam selectByPrimaryKey(String examId);
+    Exam selectByPrimaryKey(String examId);
 
-	int updateByExampleSelective(@Param("record") Exam record, @Param("example") ExamExample example);
+    int updateByExampleSelective(@Param("record") Exam record, @Param("example") ExamExample example);
 
-	int updateByExample(@Param("record") Exam record, @Param("example") ExamExample example);
+    int updateByExample(@Param("record") Exam record, @Param("example") ExamExample example);
 
-	int updateByPrimaryKeySelective(Exam record);
+    int updateByPrimaryKeySelective(Exam record);
 
 	int updateByPrimaryKey(Exam record);
 

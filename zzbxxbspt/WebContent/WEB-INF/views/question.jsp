@@ -6,9 +6,9 @@
 			<button id="searchBut" type="button" class="btn blue">查询</button>
 			<button id="createBut" type="button" class="btn green">新增</button>
 			<button id="inputBut" type="button" class="btn green">批量导入</button>
+			<button id="countBut" type="button" class="btn yellow">统计</button>
 		</form>
 	</div>
-	<div id="countQuestion"></div>
 	<div class="userTable" id="searchResult">
 		<div class="userRow userHeader">
 			<span class="userItem2">题目类型</span>
@@ -231,6 +231,28 @@
 			</div>
 		</div>
 	</div>
+	<div id="questionCount" class="dialogueBox">
+		<div class="dialogueHeader">
+			<span>题目统计</span>
+			<span class="dialogueClose">
+				<i class="fa fa-window-close"></i>
+			</span>
+		</div>
+		<div class="dialogueBody">
+			<div class="userTable" id="countResult">
+				<div class="userRow userHeader">
+					<span class="userItem6">分类</span>
+					<span class="userItem6">判断</span>
+					<span class="userItem6">单选</span>
+					<span class="userItem6">多选</span>
+					<span class="userItem6">不定项</span>
+				</div>
+			</div>
+		</div>
+		<div class="dialogueFooter">
+			<div id="uploadFooter"></div>
+		</div>
+	</div>
 
 	<script type="text/javascript">
 		var examNotExistFlag = true;
@@ -249,6 +271,27 @@
 			$("#inputResult .userHeader").nextAll().remove();
 			$("#uploadAllQuestion").hide();
 		});
+		
+		$('#countBut').click(function() {
+			dialogueOpen("questionCount");
+			var url = 'rest/question/getCount';
+			$.getJSON(url, function(data) {
+					$("#countResult .userHeader").nextAll().remove();
+					$.each(data, function(i, n) {
+						$("#countResult").append('<div class="userRow"><span class="userItem6">'
+							+ n.questionSubject
+							+ '</span><span class="userItem6">'
+							+ n.tf
+							+ '</span><span class="userItem6">'
+							+ n.sc
+							+ '</span><span class="userItem6">'
+							+ n.mc
+							+ '</span><span class="userItem6">'
+							+ n.ic
+							+ '</span></div>');
+					});
+			});
+		});
 
 		function search(pageNo) {
 			var url = 'rest/question/search';
@@ -256,7 +299,6 @@
 					'pageNo' : pageNo,
 					'questionContent' : $("#questionContentSearch").val()
 				}, function(data) {
-					countQuestion();
 					setPage(data, $(".pageBox"), $("#pageNo"));
 					$("#searchResult .userHeader").nextAll().remove();
 					$.each(data.result,function(i, n) {
@@ -632,13 +674,6 @@
 			$.getJSON(url, function(data) {
 				examNotExistFlag = data.flag;
 				examNotExistMessage = data.content;
-			});
-		}
-		
-		function countQuestion() {
-			var url = 'rest/question/getCount';
-			$.getJSON(url, function(data) {
-				$("#countQuestion").html("判断题" + data[0] + "道、单选题" + data[1] + "道、多选题" + data[2] + "道");
 			});
 		}
 

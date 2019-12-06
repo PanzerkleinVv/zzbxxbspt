@@ -18,6 +18,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.web.model.AnswerExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Log;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionCount;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
@@ -329,13 +330,21 @@ public class QuestionBizImpl implements QuestionBiz {
 	}
 
 	@Override
-	public Long[] getCount(String groupId) {
-		Long[] counts = new Long[3];
-		for (int i = 0; i < 3; i++) {
-			QuestionExample example = new QuestionExample();
-			example.createCriteria().andGroupIdEqualTo(groupId).andQuestionTypeEqualTo(i);
-			counts[i] = questionService.countByExample(example);
+	public List<QuestionCount> getCount(String groupId) {
+		List<QuestionCount> counts = questionService.count(groupId);
+		QuestionCount countAll = new QuestionCount();
+		countAll.setQuestionSubject("合计");
+		countAll.setTf(0);
+		countAll.setSc(0);
+		countAll.setMc(0);
+		countAll.setIc(0);
+		for (QuestionCount count : counts) {
+			countAll.setTf(count.getTf() + countAll.getTf());
+			countAll.setSc(count.getSc() + countAll.getSc());
+			countAll.setMc(count.getMc() + countAll.getMc());
+			countAll.setIc(count.getIc() + countAll.getIc());
 		}
+		counts.add(0, countAll);
 		return counts;
 	}
 

@@ -11,6 +11,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericDao;
 import com.gdin.dzzwsyb.zzbxxbspt.core.generic.GenericServiceImpl;
 import com.gdin.dzzwsyb.zzbxxbspt.web.dao.QuestionMapper;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionCount;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExample.Criteria;
 import com.gdin.dzzwsyb.zzbxxbspt.web.service.QuestionService;
@@ -83,6 +84,11 @@ public class QuestionServiceImpl extends GenericServiceImpl<Question, String> im
 	@Override
 	public Long countByExample(QuestionExample example) {
 		return questionMapper.countByExample(example);
+	}
+
+	@Override
+	public List<QuestionCount> count(String groupId) {
+		return questionMapper.countQuestion(groupId);
 	}
 
 }

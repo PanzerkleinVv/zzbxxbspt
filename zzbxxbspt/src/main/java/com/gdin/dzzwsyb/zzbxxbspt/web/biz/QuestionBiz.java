@@ -8,6 +8,7 @@ import java.util.List;
 import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionCount;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
 
@@ -31,6 +32,6 @@ public interface QuestionBiz {
 	
 	Message saveAll(List<QuestionExtend> questions, User me);
 	
-	Long[] getCount(String groupId);
+	List<QuestionCount> getCount(String groupId);
 
 }

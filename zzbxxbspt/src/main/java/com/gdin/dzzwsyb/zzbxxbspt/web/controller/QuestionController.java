@@ -30,6 +30,7 @@ import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.QuestionBiz;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Message;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.Question;
+import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionCount;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionExtend;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.QuestionListModel;
 import com.gdin.dzzwsyb.zzbxxbspt.web.model.User;
@@ -141,7 +142,7 @@ public class QuestionController {
 	@RequestMapping(value = "/getCount", method = RequestMethod.GET)
 	@RequiresPermissions(value = { PermissionSign.CREATE_QUESTION, PermissionSign.ADMIN_EXAM }, logical = Logical.OR)
 	@ResponseBody
-	public Long[] getCount(HttpSession session) {
+	public List<QuestionCount> getCount(HttpSession session) {
 		User me = (User) session.getAttribute("userInfo");
 		return questionBiz.getCount(me.getUserGroup());
 	}
