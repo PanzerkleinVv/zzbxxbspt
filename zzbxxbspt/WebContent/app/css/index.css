@@ -364,18 +364,25 @@
 }
 
 #paperBody {
-	display: block;
-	list-style-type: cjk-ideographic;
+	display: flex;
+}
+
+#paperQuestionType {
+	width: 80px;
+	writing-mode: vertical-lr;
 	font-size: 24px;
+	padding: 10px;
 }
 
 .paperQuestionOl {
 	display: block;
+	flex: 1;
 	font-size: 22px;
 	font-family: '宋体';
 }
 
 .answerOl {
+	margin-left: 30px;
 	font-size: 16px;
 	list-style-type: none;
 	padding-left: 0;
@@ -387,4 +394,35 @@
 
 #paperFooter {
 	text-align: center;
+}
+
+#prevQuestion {
+	border-radius: 15px !important;
+}
+
+#nextQuestion {
+	border-radius: 15px !important;
+}
+
+#switchQuestion {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.questionButton {
+	display: block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	background-color: gray;
+	vertical-align: middle;
+	text-align: center;
+	border-radius: 50% !important;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: white;
+	cursor: pointer;
 }

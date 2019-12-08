@@ -90,24 +90,11 @@
 		    };
 		    $("#countdown").jCountdown(config);
 		});
-		$("#paper").append('<ul type="一" id="paperBody"><form id="paperForm"></form></ul>');
-		if (data.exam.examTf != 0) {
-			$("#paperForm").append('<li class="paperQuestionType">判断题：（共' + data.exam.examTf + '小题，每题' + data.exam.examTfScore + '分）<ol id="tf" class="paperQuestionOl" type="1" start="1"></ol></li>');
-		}
-		if (data.exam.examSc != 0) {
-			$("#paperForm").append('<li class="paperQuestionType">单选题：（共' + data.exam.examSc + '小题，每题' + data.exam.examScScore + '分）<ol id="sc" class="paperQuestionOl" type="1" start="' + (data.exam.examTf + 1) + '"></ol></li>');
-		}
-		if (data.exam.examMc != 0) {
-			$("#paperForm").append('<li class="paperQuestionType">多选题：（共' + data.exam.examMc + '小题，每题' + data.exam.examMcScore + '分，多选、少选、错选均不得分）<ol id="mc" class="paperQuestionOl" type="1" start="' + (data.exam.examTf + data.exam.examSc + 1) + '"></ol></li>');
-		}
+		$("#paper").append('<div id="paperBody"></div>');
+		$("#paperBody").append('<div id="paperQuestionType"></div>');
+		$("#paperBody").append('<div class="paperQuestionOl"><form id="paperForm"></form></div>');
 		$.each(data.paperQuestion, function(i, n) {
-			if (n.questionType == 0) {
-				$("#tf").append('<li class="paperQuestionLine">' + n.questionContent + '<input type="hidden" name="paperQuestions[' + i + '].id" value="' + n.id + '" /><ul id="_' + n.id + '" class="answerOl"></ol></li>');
-			} else if (n.questionType == 1) {
-				$("#sc").append('<li class="paperQuestionLine">' + n.questionContent + '<input type="hidden" name="paperQuestions[' + i + '].id" value="' + n.id + '" /><ul id="_' + n.id + '" class="answerOl"></ol></li>');
-			} else {
-				$("#mc").append('<li class="paperQuestionLine">' + n.questionContent + '<input type="hidden" name="paperQuestions[' + i + '].id" value="' + n.id + '" /><ul id="_' + n.id + '" class="answerOl"></ol></li>');
-			}
+			$("#paperForm").append('<div id="question' + i + '" class="paperQuestionLine">' + (i + 1) + '、' + n.questionContent + '<input type="hidden" name="paperQuestions[' + i + '].id" value="' + n.id + '" /><input type="hidden" class="paperQuestionType" value="' + n.questionType + '" /><ul id="_' + n.id + '" class="answerOl"></ul></div>');
 			$.each(n.answers, function(j, m) {
 				var order = '';
 				if (j == 0) {
@@ -116,13 +103,24 @@
 					order = 'B';
 				} else if (j == 2) {
 					order = 'C';
-				} else {
+				} else if (j == 3) {
 					order = 'D';
+				} else if (j == 4) {
+					order = 'E';
+				} else if (j == 5) {
+					order = 'F';
 				}
-				$("#_" + n.id).append('<label><input type="' + (n.questionType == 2 ? 'checkbox' : 'radio') + '" name="paperQuestions[' + i + '].answer" value="' + m.answerId + '" />&emsp;' + order + '.&emsp;' + m.answerContent + '</label>');
+				$("#_" + n.id).append('<label><input type="' + (n.questionType == 2 || n.questionType == 3 ? 'checkbox' : 'radio') + '" name="paperQuestions[' + i + '].answer" class="answer" value="' + m.answerId + '" />&emsp;' + order + '.&emsp;' + m.answerContent + '</label>');
 			});
 		});
-		$("#paper").append('<div id="paperFooter"><button class="btn green" onclick="submitPaper()">交卷</buttion></div>')
+		$("#paper").append('<div id="paperFooter"><input type="hidden" id="questionNow" value="" /><input type="hidden" id="questionSize" value="' + (data.paperQuestion.length - 1) + '" /></div>')
+		$("#paperFooter").append('<div><button id="prevQuestion" class="btn yellow" onclick="prevQuestion()">上一题</button>&emsp;&emsp;<span id="thisQuestion"></span>&emsp;&emsp;<button id="nextQuestion" class="btn green" onclick="nextQuestion()">下一题</button></div>');
+		$("#paperFooter").append('<div id="switchQuestion"></div>');
+		$.each(data.paperQuestion, function(i, n) {
+			$("#switchQuestion").append('<span class="questionButton" onclick="goQeustion(' + i + ')">' + (i + 1) + '</span>');
+		});
+		$("#paperFooter").append('<div><button class="btn blue" onclick="submitPaper()">交卷</button></div>');
+		goQeustion(0);
 	}
 	
 	function submitPaper() {
@@ -137,6 +135,60 @@
 				});
 			}
 		});
+	}
+	
+	function goQeustion(order) {
+		var question = $('#question' + order);
+		$(".paperQuestionLine").hide();
+		question.show();
+		var type = parseInt(question.find('.paperQuestionType').val());
+		switch (type) {
+		case 0:
+			$("#paperQuestionType").html('判断题');
+			break;
+		case 1:
+			$("#paperQuestionType").html('单项选择题');
+			break;
+		case 2:
+			$("#paperQuestionType").html('多项选择题');
+			break;
+		case 3:
+			$("#paperQuestionType").html('不定项选择题');
+			break;
+		}
+		$("#questionNow").val(order);
+		if (0 == order) {
+			$('#prevQuestion').attr("disabled", true);
+		} else {
+			$('#prevQuestion').attr("disabled", false);
+		}
+		if (parseInt($('#questionSize').val()) == order) {
+			$('#nextQuestion').attr("disabled", true);
+		} else {
+			$('#nextQuestion').attr("disabled", false);
+		}
+		$("#thisQuestion").html('第' + (order + 1) + '题');
+		$.each($(".questionButton"), function(i, n) {
+			if (order == i) {
+				$(n).css("background", "green");
+				$(n).css("cursor", "default");
+			} else {
+				if ($('#question' + i).find(".answer:checked").length > 0) {
+					$(n).css("background", "blue");
+				} else {
+					$(n).css("background", "gray");
+				}
+				$(n).css("cursor", "pointer");
+			}
+		});
+	}
+	
+	function prevQuestion() {
+		goQeustion(parseInt($("#questionNow").val()) - 1);
+	}
+	
+	function nextQuestion() {
+		goQeustion(parseInt($("#questionNow").val()) + 1);
 	}
 	
 	$(function() {
