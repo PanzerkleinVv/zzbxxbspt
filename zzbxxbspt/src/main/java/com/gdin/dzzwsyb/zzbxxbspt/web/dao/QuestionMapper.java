@@ -33,6 +33,6 @@ public interface QuestionMapper extends GenericDao<Question, String> {
 	
 	List<Question> selectByExampleAndPage(Page<Question> page, QuestionExample example);
 	
-	List<QuestionCount> countQuestion(String groupId);
+	List<QuestionCount> countQuestion(@Param("groupId") String groupId, @Param("orderByClause") String orderByClause);
 	
 }

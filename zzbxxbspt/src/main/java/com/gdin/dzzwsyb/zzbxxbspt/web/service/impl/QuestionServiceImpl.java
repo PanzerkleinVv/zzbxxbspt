@@ -88,7 +88,12 @@ public class QuestionServiceImpl extends GenericServiceImpl<Question, String> im
 
 	@Override
 	public List<QuestionCount> count(String groupId) {
-		return questionMapper.countQuestion(groupId);
+		return questionMapper.countQuestion(groupId, "QUESTION_SUBJECT");
+	}
+	
+	@Override
+	public List<QuestionCount> count(String groupId, String orderByClause) {
+		return questionMapper.countQuestion(groupId, "QUESTION_SUBJECT");
 	}
 
 }

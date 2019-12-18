@@ -307,7 +307,7 @@
 							+ '</span><span class="userItem6-1">'
 							+ n.questionSubject
 							+ '</span><span class="userItem5">'
-							+ n.questionContent
+							+ spaceToUnderline(n.questionContent)
 							+ '</span><span class="userItem2"><button type="button" class="btn blue" onclick="edit(\''
 							+ n.questionId
 							+ '\')">修改</button></span></div>');
@@ -504,7 +504,7 @@
 				if (count > 1) {
 					flag = true;
 				}
-			} else if ($("#questionType").val() > "3") {
+			} else if ($("#questionType").val() == "3") {
 				if (count > 0) {
 					flag = true;
 				}
@@ -589,7 +589,7 @@
 									$("input[name='questions[" + i + "].questionType']").val(n.questionType);
 									$("input[name='questions[" + i + "].questionType']").parent().append((n.questionType == 0 ? "判断题" : (n.questionType == 1 ? "单选题" : (n.questionType == 2 ? '多选题' : '不定项'))));
 									$("input[name='questions[" + i + "].questionContent']").val(n.questionContent);
-									$("input[name='questions[" + i + "].questionContent']").parent().append(n.questionContent);
+									$("input[name='questions[" + i + "].questionContent']").parent().append(spaceToUnderline(n.questionContent));
 									$("input[name='questions[" + i + "].questionSubject']").val(n.questionSubject);
 									$("input[name='questions[" + i + "].questionSubject']").parent().append(n.questionSubject);
 									$.each($(n.answers), function(j, m) {

@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +44,11 @@ public class QuestionController {
 
 	@Resource
 	private QuestionBiz questionBiz;
+	
+	@InitBinder  
+	public void initBinder(WebDataBinder binder) {  
+	    binder.setAutoGrowCollectionLimit(Integer.MAX_VALUE);  
+	} 
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	@RequiresPermissions(value = PermissionSign.CREATE_QUESTION)

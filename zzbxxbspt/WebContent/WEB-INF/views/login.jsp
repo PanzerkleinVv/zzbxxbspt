@@ -83,7 +83,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 		</div>
 		<div class="form-actions">
 			<span class="error">${error}</span>
-			<button id="loginBut" type="submit" class="btn blue pull-right">
+			<button id="loginBut" type="submit" class="btn red pull-right">
 			登录 <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>

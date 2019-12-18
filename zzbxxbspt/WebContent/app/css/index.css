@@ -146,7 +146,7 @@
 }
 
 .userHeader {
-	background-color: #1570a6 !important;
+	background-color: #a61515 !important;
 	font-family: 微软雅黑;
 	color: #FFFFFF;
 	text-align: center;
@@ -170,7 +170,7 @@
 	height: 40px;
 	font-size: 20px;
 	vertical-align: middle;
-	background-color: #1570a6;
+	background-color: #a61515;
 	color: #FFFFFF;
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -254,8 +254,8 @@
 
 #examList {
 	margin: 5px;
-	background-color: #1570a6;
-	border-bottom: 2px solid #1570a6;
+	background-color: #a61515;
+	border-bottom: 2px solid #a61515;
 }
 
 .examRow:NTH-CHILD(even) {
@@ -278,7 +278,7 @@
 }
 
 .examHeader {
-	background-color: #1570a6 !important;
+	background-color: #a61515 !important;
 	font-family: 微软雅黑;
 	color: #FFFFFF;
 	text-align: center;
@@ -334,7 +334,7 @@
 }
 
 #paperHeader {
-	background-color: #1570a6 !important;
+	background-color: #a61515 !important;
 	color: #FFFFFF;
 	display: flex;
 	padding: 3px;

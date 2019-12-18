@@ -19,5 +19,7 @@ public interface QuestionService extends GenericService<Question, String> {
 	Long countByExample(QuestionExample example);
 	
 	List<QuestionCount> count(String groupId);
+	
+	List<QuestionCount> count(String groupId, String orderByClause);
 
 }

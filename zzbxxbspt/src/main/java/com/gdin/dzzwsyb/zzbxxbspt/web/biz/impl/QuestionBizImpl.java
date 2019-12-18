@@ -9,7 +9,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-
 import com.gdin.dzzwsyb.zzbxxbspt.core.feature.orm.mybatis.Page;
 import com.gdin.dzzwsyb.zzbxxbspt.core.util.ApplicationUtils;
 import com.gdin.dzzwsyb.zzbxxbspt.web.biz.QuestionBiz;
@@ -174,7 +173,7 @@ public class QuestionBizImpl implements QuestionBiz {
 					question.setQuestionType(3);
 					break;
 				default:
-					return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型只能为“判断题”、“单选题”、“多选题”");
+					return new Message(false, "Excel解析出错：第" + (i + 1) + "题目类型只能为“判断题”、“单选题”、“多选题”、“不定项选择题”");
 				}
 			}
 			if (row[1] == null) {

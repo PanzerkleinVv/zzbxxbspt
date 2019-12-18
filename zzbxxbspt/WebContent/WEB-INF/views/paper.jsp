@@ -94,7 +94,7 @@
 		$("#paperBody").append('<div id="paperQuestionType"></div>');
 		$("#paperBody").append('<div class="paperQuestionOl"><form id="paperForm"></form></div>');
 		$.each(data.paperQuestion, function(i, n) {
-			$("#paperForm").append('<div id="question' + i + '" class="paperQuestionLine">' + (i + 1) + '、' + n.questionContent + '<input type="hidden" name="paperQuestions[' + i + '].id" value="' + n.id + '" /><input type="hidden" class="paperQuestionType" value="' + n.questionType + '" /><ul id="_' + n.id + '" class="answerOl"></ul></div>');
+			$("#paperForm").append('<div id="question' + i + '" class="paperQuestionLine">' + (i + 1) + '、' + spaceToUnderline(n.questionContent) + '<input type="hidden" name="paperQuestions[' + i + '].id" value="' + n.id + '" /><input type="hidden" class="paperQuestionType" value="' + n.questionType + '" /><ul id="_' + n.id + '" class="answerOl"></ul></div>');
 			$.each(n.answers, function(j, m) {
 				var order = '';
 				if (j == 0) {

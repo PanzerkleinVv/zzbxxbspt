@@ -258,7 +258,7 @@
 			order by ${orderByClause}
 		</if>
 	</select>
-	<select id="countQuestion" resultMap="CountResultMap" parameterType="java.lang.String">
-		select question_subject, sum(question_type = 0) tf, sum(question_type = 1) sc, sum(question_type = 2) mc, sum(question_type = 3) ic from question where group_id = #{groupId,jdbcType=VARCHAR} group by QUESTION_SUBJECT ORDER BY QUESTION_SUBJECT asc
+	<select id="countQuestion" resultMap="CountResultMap">
+		select question_subject, sum(question_type = 0) tf, sum(question_type = 1) sc, sum(question_type = 2) mc, sum(question_type = 3) ic from question where group_id = #{groupId,jdbcType=VARCHAR} group by QUESTION_SUBJECT ORDER BY #{orderByClause} asc
 	</select>
 </mapper>

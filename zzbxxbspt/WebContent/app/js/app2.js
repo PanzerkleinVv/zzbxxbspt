@@ -83,4 +83,8 @@ Date.prototype.format = function(fmt) {
         }
     }
    return fmt; 
-} 
+}
+
+function spaceToUnderline(str) {
+	return str.replace(new RegExp(/( )/g), '_');
+}

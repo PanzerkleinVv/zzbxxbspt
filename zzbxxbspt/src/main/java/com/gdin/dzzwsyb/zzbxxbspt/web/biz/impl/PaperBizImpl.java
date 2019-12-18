@@ -1,10 +1,10 @@
 package com.gdin.dzzwsyb.zzbxxbspt.web.biz.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -125,101 +125,104 @@ public class PaperBizImpl implements PaperBiz {
 	@Override
 	public void newPaper(Paper paper, User me) {
 		final Exam exam = examService.selectById(paper.getExamId());
-		final int allCount = exam.getExamTf() + exam.getExamSc() + exam.getExamMc() + exam.getExamIc();
-		final List<QuestionCount> questionCount = questionService.count(exam.getGroupId());
-		final int subject = questionCount.size();
-		final Map<String, Integer> countMap = new HashMap<String, Integer>();
-		for (int i = 0; i < subject; i++) {
-			countMap.put(questionCount.get(i).getQuestionSubject(),
-					allCount / subject + (allCount % subject == 0 ? 0 : 1));
-		}
 		Random random = new Random();
+		int i = 0;
 		// 生成判断题
 		if (exam.getExamTf() != 0) {
-			QuestionExample example = new QuestionExample();
-			example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(0);
-			example.setOrderByClause("question_id asc");
-			final List<Question> tfs = questionService.selectByExample(example);
-			for (int i = 0; i < exam.getExamTf(); i++) {
+			List<QuestionCount> questionCount = questionService.count(exam.getGroupId(), "tf");
+			questionCount = narrowCount(exam.getExamTf(), questionCount, 0);
+			for (QuestionCount count0 : questionCount) {
+				QuestionExample example = new QuestionExample();
+				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(0)
+						.andQuestionSubjectEqualTo(count0.getQuestionSubject());
+				example.setOrderByClause("question_id asc");
+				final List<Question> tfs = questionService.selectByExample(example);
 				Question question = null;
-				do {
-					int index = random.nextInt(tfs.size());
+				for (int j = 0; j < count0.getTf(); j++) {
+					int index = random.nextInt(tfs.size() - j);
 					question = tfs.get(index);
 					tfs.remove(index);
-				} while (countMap.get(question.getQuestionSubject()) == 0);
-				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
-				PaperQuestion paperQuestion = new PaperQuestion();
-				paperQuestion.setId(ApplicationUtils.randomUUID());
-				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(question.getQuestionId());
-				paperQuestion.setQuestionOrder(i);
-				paperQuestionService.insert(paperQuestion);
+					PaperQuestion paperQuestion = new PaperQuestion();
+					paperQuestion.setId(ApplicationUtils.randomUUID());
+					paperQuestion.setPaperId(paper.getPaperId());
+					paperQuestion.setQuestionId(question.getQuestionId());
+					paperQuestion.setQuestionOrder(i);
+					paperQuestionService.insert(paperQuestion);
+					i++;
+				}
 			}
 		}
 		// 生成单选题
 		if (exam.getExamSc() != 0) {
-			QuestionExample example = new QuestionExample();
-			example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(1);
-			example.setOrderByClause("question_id asc");
-			final List<Question> scs = questionService.selectByExample(example);
-			for (int i = 0; i < exam.getExamSc(); i++) {
+			List<QuestionCount> questionCount = questionService.count(exam.getGroupId(), "sc");
+			questionCount = narrowCount(exam.getExamSc(), questionCount, 1);
+			for (QuestionCount count0 : questionCount) {
+				QuestionExample example = new QuestionExample();
+				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(1)
+						.andQuestionSubjectEqualTo(count0.getQuestionSubject());
+				example.setOrderByClause("question_id asc");
+				final List<Question> scs = questionService.selectByExample(example);
 				Question question = null;
-				do {
-					int index = random.nextInt(scs.size());
+				for (int j = 0; j < count0.getTf(); j++) {
+					int index = random.nextInt(scs.size() - j);
 					question = scs.get(index);
 					scs.remove(index);
-				} while (countMap.get(question.getQuestionSubject()) == 0);
-				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
-				PaperQuestion paperQuestion = new PaperQuestion();
-				paperQuestion.setId(ApplicationUtils.randomUUID());
-				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(question.getQuestionId());
-				paperQuestion.setQuestionOrder(i + exam.getExamTf());
-				paperQuestionService.insert(paperQuestion);
+					PaperQuestion paperQuestion = new PaperQuestion();
+					paperQuestion.setId(ApplicationUtils.randomUUID());
+					paperQuestion.setPaperId(paper.getPaperId());
+					paperQuestion.setQuestionId(question.getQuestionId());
+					paperQuestion.setQuestionOrder(i);
+					paperQuestionService.insert(paperQuestion);
+					i++;
+				}
 			}
 		}
 		// 生成多选题
 		if (exam.getExamMc() != 0) {
-			QuestionExample example = new QuestionExample();
-			example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(2);
-			example.setOrderByClause("question_id asc");
-			final List<Question> mcs = questionService.selectByExample(example);
-			for (int i = 0; i < exam.getExamMc(); i++) {
+			List<QuestionCount> questionCount = questionService.count(exam.getGroupId(), "mc");
+			questionCount = narrowCount(exam.getExamMc(), questionCount, 2);
+			for (QuestionCount count0 : questionCount) {
+				QuestionExample example = new QuestionExample();
+				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(2);
+				example.setOrderByClause("question_id asc");
+				final List<Question> mcs = questionService.selectByExample(example);
 				Question question = null;
-				do {
-					int index = random.nextInt(mcs.size());
+				for (int j = 0; j < count0.getTf(); j++) {
+					int index = random.nextInt(mcs.size() - j);
 					question = mcs.get(index);
 					mcs.remove(index);
-				} while (countMap.get(question.getQuestionSubject()) == 0);
-				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
-				PaperQuestion paperQuestion = new PaperQuestion();
-				paperQuestion.setId(ApplicationUtils.randomUUID());
-				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(question.getQuestionId());
-				paperQuestion.setQuestionOrder(i + exam.getExamTf() + exam.getExamSc());
-				paperQuestionService.insert(paperQuestion);
+					PaperQuestion paperQuestion = new PaperQuestion();
+					paperQuestion.setId(ApplicationUtils.randomUUID());
+					paperQuestion.setPaperId(paper.getPaperId());
+					paperQuestion.setQuestionId(question.getQuestionId());
+					paperQuestion.setQuestionOrder(i);
+					paperQuestionService.insert(paperQuestion);
+					i++;
+				}
 			}
 		}
 		// 生成不定项选择题
 		if (exam.getExamIc() != 0) {
-			QuestionExample example = new QuestionExample();
-			example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(3);
-			example.setOrderByClause("question_id asc");
-			final List<Question> ics = questionService.selectByExample(example);
-			for (int i = 0; i < exam.getExamIc(); i++) {
+			List<QuestionCount> questionCount = questionService.count(exam.getGroupId(), "ic");
+			questionCount = narrowCount(exam.getExamIc(), questionCount, 3);
+			for (QuestionCount count0 : questionCount) {
+				QuestionExample example = new QuestionExample();
+				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(3);
+				example.setOrderByClause("question_id asc");
+				final List<Question> ics = questionService.selectByExample(example);
 				Question question = null;
-				do {
-					int index = random.nextInt(ics.size());
+				for (int j = 0; j < count0.getTf(); j++) {
+					int index = random.nextInt(ics.size() - j);
 					question = ics.get(index);
 					ics.remove(index);
-				} while (countMap.get(question.getQuestionSubject()) == 0);
-				countMap.put(question.getQuestionSubject(), countMap.get(question.getQuestionSubject()) - 1);
-				PaperQuestion paperQuestion = new PaperQuestion();
-				paperQuestion.setId(ApplicationUtils.randomUUID());
-				paperQuestion.setPaperId(paper.getPaperId());
-				paperQuestion.setQuestionId(question.getQuestionId());
-				paperQuestion.setQuestionOrder(i + exam.getExamTf() + exam.getExamSc() + exam.getExamMc());
-				paperQuestionService.insert(paperQuestion);
+					PaperQuestion paperQuestion = new PaperQuestion();
+					paperQuestion.setId(ApplicationUtils.randomUUID());
+					paperQuestion.setPaperId(paper.getPaperId());
+					paperQuestion.setQuestionId(question.getQuestionId());
+					paperQuestion.setQuestionOrder(i);
+					paperQuestionService.insert(paperQuestion);
+					i++;
+				}
 			}
 		}
 		paper.setPaperBegin(new Date());
@@ -280,8 +283,9 @@ public class PaperBizImpl implements PaperBiz {
 			}
 		}
 		if (paper.getExam().getExamIc() != 0) {
-			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc() + paper.getExam().getExamMc(); i < paper.getExam().getExamTf()
-					+ paper.getExam().getExamSc() + paper.getExam().getExamMc() + paper.getExam().getExamIc(); i++) {
+			for (int i = paper.getExam().getExamTf() + paper.getExam().getExamSc()
+					+ paper.getExam().getExamMc(); i < paper.getExam().getExamTf() + paper.getExam().getExamSc()
+							+ paper.getExam().getExamMc() + paper.getExam().getExamIc(); i++) {
 				final String questionId = paper.getPaperQuestion().get(i).getQuestionId();
 				final String answerIds = paper.getPaperQuestion().get(i).getAnswer();
 				AnswerExample example = new AnswerExample();
@@ -315,6 +319,64 @@ public class PaperBizImpl implements PaperBiz {
 		final PaperQuestion paperQuestion = paperQuestionService.selectById(paperQuestions.get(0).getId());
 		BigDecimal score = scoring(paperQuestion.getPaperId());
 		return new Message(true, "得分：" + score.toPlainString());
+	}
+
+	private List<QuestionCount> narrowCount(int newTotal, List<QuestionCount> oldCount, int questionType) {
+		final List<QuestionCount> newCount = new ArrayList<QuestionCount>();
+		int oldTotal = 0;
+		for (QuestionCount old : oldCount) {
+			switch (questionType) {
+			case 0:
+				if (old.getTf() != 0) {
+					QuestionCount new0 = new QuestionCount();
+					new0.setQuestionSubject(old.getQuestionSubject());
+					new0.setTf(old.getTf());
+					oldTotal += old.getTf();
+					newCount.add(new0);
+				}
+				break;
+			case 1:
+				if (old.getSc() != 0) {
+					QuestionCount new0 = new QuestionCount();
+					new0.setQuestionSubject(old.getQuestionSubject());
+					new0.setTf(old.getSc());
+					oldTotal += old.getSc();
+					newCount.add(new0);
+				}
+				break;
+			case 2:
+				if (old.getMc() != 0) {
+					QuestionCount new0 = new QuestionCount();
+					new0.setQuestionSubject(old.getQuestionSubject());
+					new0.setTf(old.getMc());
+					oldTotal += old.getMc();
+					newCount.add(new0);
+				}
+				break;
+			case 3:
+				if (old.getIc() != 0) {
+					QuestionCount new0 = new QuestionCount();
+					new0.setQuestionSubject(old.getQuestionSubject());
+					new0.setTf(old.getIc());
+					oldTotal += old.getIc();
+					newCount.add(new0);
+				}
+				break;
+			}
+		}
+		final BigDecimal scale = new BigDecimal(newTotal).divide(new BigDecimal(oldTotal), 8, RoundingMode.HALF_UP);
+		for (int i = 0; i < newCount.size(); i++) {
+			QuestionCount new0 = newCount.get(i);
+			if (i != newCount.size() - 1) {
+				int count = ((new BigDecimal(new0.getTf()).multiply(scale)).intValue() == 0 ? 1
+						: (int) (new BigDecimal(new0.getTf()).multiply(scale)).intValue());
+				newTotal -= count;
+				new0.setTf(count);
+			} else {
+				new0.setTf(newTotal);
+			}
+		}
+		return newCount;
 	}
 
 }

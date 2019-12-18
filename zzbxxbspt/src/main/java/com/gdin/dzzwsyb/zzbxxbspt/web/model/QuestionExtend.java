@@ -15,6 +15,7 @@ public class QuestionExtend extends Question {
 		this.setQuestionId(question.getQuestionId());
 		this.setGroupId(question.getGroupId());
 		this.setQuestionType(question.getQuestionType());
+		this.setQuestionSubject(question.getQuestionSubject());
 		this.setQuestionContent(question.getQuestionContent());
 	}
 
