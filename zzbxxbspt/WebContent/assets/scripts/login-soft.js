@@ -280,8 +280,7 @@ var Login = function() {
             handleForgetPassword();
             handleRegister();
 
-            $.backstretch([ "assets/img/bg/1.jpg", "assets/img/bg/2.jpg",
-                    "assets/img/bg/3.jpg", "assets/img/bg/4.jpg" ], {
+            $.backstretch([ "assets/img/bg/1.jpg" ], {
                 fade : 1000,
                 duration : 8000
             });

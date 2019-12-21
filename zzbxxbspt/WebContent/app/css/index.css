@@ -22,8 +22,8 @@
 .navbar-brandText {
 	color: #FFFFFF;
 	font-family: 微软雅黑;
-	font-size: 22px;
-	line-height: 40px;
+	font-size: 33px;
+	line-height: 60px;
 	margin-left: 10px;
 }
 
@@ -421,8 +421,20 @@
 	vertical-align: middle;
 	text-align: center;
 	border-radius: 50% !important;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin: 5px;
 	color: white;
 	cursor: pointer;
+}
+
+.switchQuestionType {
+	display: block;
+	width: 80px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #ff8080;
+	vertical-align: middle;
+	text-align: center;
+	border-radius: 20px !important;
+	margin: 5px;
+	color: white;
 }

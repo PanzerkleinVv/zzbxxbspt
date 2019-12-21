@@ -52,7 +52,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <body class="login">
 <!-- BEGIN LOGO -->
 <div class="logo logoText">
-	 广东省委组织部学习比赛平台
+	 广东省委组织部<br/>学习比赛平台
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->

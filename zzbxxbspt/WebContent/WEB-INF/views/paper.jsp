@@ -117,6 +117,13 @@
 		$("#paperFooter").append('<div><button id="prevQuestion" class="btn yellow" onclick="prevQuestion()">上一题</button>&emsp;&emsp;<span id="thisQuestion"></span>&emsp;&emsp;<button id="nextQuestion" class="btn green" onclick="nextQuestion()">下一题</button></div>');
 		$("#paperFooter").append('<div id="switchQuestion"></div>');
 		$.each(data.paperQuestion, function(i, n) {
+			if (i == 0) {
+				$("#switchQuestion").append('<span class="switchQuestionType">单选题</span>');
+			} else if (i == 30) {
+				$("#switchQuestion").append('<span class="switchQuestionType">多选题</span>');
+			} else if (i == 50) {
+				$("#switchQuestion").append('<span class="switchQuestionType">不定项</span>');
+			}
 			$("#switchQuestion").append('<span class="questionButton" onclick="goQeustion(' + i + ')">' + (i + 1) + '</span>');
 		});
 		$("#paperFooter").append('<div><button class="btn blue" onclick="submitPaper()">交卷</button></div>');
