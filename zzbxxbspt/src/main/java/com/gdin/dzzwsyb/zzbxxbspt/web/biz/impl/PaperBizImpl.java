@@ -243,6 +243,7 @@ public class PaperBizImpl implements PaperBiz {
 		final PaperExtend paper = new PaperExtend(paperService.selectById(paperId));
 		paper.setExam(examService.selectById(paper.getExamId()));
 		paper.setPaperQuestion(paperQuestionService.getPaperQestion(paperId));
+		paper.setPaperEnd(new Date());
 		BigDecimal score = new BigDecimal(0);
 		if (paper.getExam().getExamTf() != 0) {
 			for (int i = 0; i < paper.getExam().getExamTf(); i++) {

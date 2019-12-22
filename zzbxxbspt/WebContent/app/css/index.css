@@ -407,7 +407,7 @@
 #switchQuestion {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: flex-start;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
@@ -428,7 +428,7 @@
 
 .switchQuestionType {
 	display: block;
-	width: 80px;
+	width: 90px;
 	height: 40px;
 	line-height: 40px;
 	background-color: #ff8080;

@@ -17,6 +17,9 @@ public class Paper {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date paperBegin;
 
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date paperEnd;
+
     public String getPaperId() {
         return paperId;
     }
@@ -55,5 +58,13 @@ public class Paper {
 
     public void setPaperBegin(Date paperBegin) {
         this.paperBegin = paperBegin;
+    }
+
+    public Date getPaperEnd() {
+        return paperEnd;
+    }
+
+    public void setPaperEnd(Date paperEnd) {
+        this.paperEnd = paperEnd;
     }
 }

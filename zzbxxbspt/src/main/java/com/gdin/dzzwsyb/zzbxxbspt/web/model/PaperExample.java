@@ -435,6 +435,66 @@ public class PaperExample {
             addCriterion("PAPER_BEGIN not between", value1, value2, "paperBegin");
             return (Criteria) this;
         }
+
+        public Criteria andPaperEndIsNull() {
+            addCriterion("PAPER_END is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndIsNotNull() {
+            addCriterion("PAPER_END is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndEqualTo(Date value) {
+            addCriterion("PAPER_END =", value, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndNotEqualTo(Date value) {
+            addCriterion("PAPER_END <>", value, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndGreaterThan(Date value) {
+            addCriterion("PAPER_END >", value, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndGreaterThanOrEqualTo(Date value) {
+            addCriterion("PAPER_END >=", value, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndLessThan(Date value) {
+            addCriterion("PAPER_END <", value, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndLessThanOrEqualTo(Date value) {
+            addCriterion("PAPER_END <=", value, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndIn(List<Date> values) {
+            addCriterion("PAPER_END in", values, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndNotIn(List<Date> values) {
+            addCriterion("PAPER_END not in", values, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndBetween(Date value1, Date value2) {
+            addCriterion("PAPER_END between", value1, value2, "paperEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperEndNotBetween(Date value1, Date value2) {
+            addCriterion("PAPER_END not between", value1, value2, "paperEnd");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

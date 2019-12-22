@@ -11,6 +11,8 @@
 			property="paperScore" />
 		<result column="PAPER_BEGIN" jdbcType="TIMESTAMP"
 			property="paperBegin" />
+		<result column="PAPER_END" jdbcType="TIMESTAMP"
+			property="paperEnd" />
 	</resultMap>
 	<resultMap extends="BaseResultMap" id="ExtendResultMap"
 		type="com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperUser">
@@ -34,8 +36,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -67,8 +68,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -86,7 +86,7 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		PAPER_ID, EXAM_ID, USER_ID, PAPER_SCORE, PAPER_BEGIN
+		PAPER_ID, EXAM_ID, USER_ID, PAPER_SCORE, PAPER_BEGIN, PAPER_END
 	</sql>
 	<select id="selectByExample"
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.PaperExample"
@@ -125,11 +125,12 @@
 	<insert id="insert"
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
 		insert into paper (PAPER_ID, EXAM_ID, USER_ID,
-		PAPER_SCORE, PAPER_BEGIN)
-		values (#{paperId,jdbcType=VARCHAR},
-		#{examId,jdbcType=VARCHAR},
+		PAPER_SCORE, PAPER_BEGIN, PAPER_END
+		)
+		values (#{paperId,jdbcType=VARCHAR}, #{examId,jdbcType=VARCHAR},
 		#{userId,jdbcType=VARCHAR},
-		#{paperScore,jdbcType=DECIMAL}, #{paperBegin,jdbcType=TIMESTAMP})
+		#{paperScore,jdbcType=DECIMAL}, #{paperBegin,jdbcType=TIMESTAMP}, #{paperEnd,jdbcType=TIMESTAMP}
+		)
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.gdin.dzzwsyb.zzbxxbspt.web.model.Paper">
@@ -150,6 +151,9 @@
 			<if test="paperBegin != null">
 				PAPER_BEGIN,
 			</if>
+			<if test="paperEnd != null">
+				PAPER_END,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="paperId != null">
@@ -166,6 +170,9 @@
 			</if>
 			<if test="paperBegin != null">
 				#{paperBegin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paperEnd != null">
+				#{paperEnd,jdbcType=TIMESTAMP},
 			</if>
 		</trim>
 	</insert>
@@ -195,6 +202,9 @@
 			<if test="record.paperBegin != null">
 				PAPER_BEGIN = #{record.paperBegin,jdbcType=TIMESTAMP},
 			</if>
+			<if test="record.paperEnd != null">
+				PAPER_END = #{record.paperEnd,jdbcType=TIMESTAMP},
+			</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -203,14 +213,11 @@
 	<update id="updateByExample" parameterType="map">
 		update paper
 		set PAPER_ID = #{record.paperId,jdbcType=VARCHAR},
-		EXAM_ID
-		= #{record.examId,jdbcType=VARCHAR},
-		USER_ID =
-		#{record.userId,jdbcType=VARCHAR},
-		PAPER_SCORE =
-		#{record.paperScore,jdbcType=DECIMAL},
-		PAPER_BEGIN =
-		#{record.paperBegin,jdbcType=TIMESTAMP}
+		EXAM_ID = #{record.examId,jdbcType=VARCHAR},
+		USER_ID = #{record.userId,jdbcType=VARCHAR},
+		PAPER_SCORE = #{record.paperScore,jdbcType=DECIMAL},
+		PAPER_BEGIN = #{record.paperBegin,jdbcType=TIMESTAMP},
+		PAPER_END = #{record.paperEnd,jdbcType=TIMESTAMP}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -231,6 +238,9 @@
 			<if test="paperBegin != null">
 				PAPER_BEGIN = #{paperBegin,jdbcType=TIMESTAMP},
 			</if>
+			<if test="paperEnd != null">
+				PAPER_END = #{paperEnd,jdbcType=TIMESTAMP},
+			</if>
 		</set>
 		where PAPER_ID = #{paperId,jdbcType=VARCHAR}
 	</update>
@@ -239,17 +249,15 @@
 		update paper
 		set EXAM_ID = #{examId,jdbcType=VARCHAR},
 		USER_ID = #{userId,jdbcType=VARCHAR},
-		PAPER_SCORE =
-		#{paperScore,jdbcType=DECIMAL},
-		PAPER_BEGIN =
-		#{paperBegin,jdbcType=TIMESTAMP}
-		where PAPER_ID =
-		#{paperId,jdbcType=VARCHAR}
+		PAPER_SCORE = #{paperScore,jdbcType=DECIMAL},
+		PAPER_BEGIN = #{paperBegin,jdbcType=TIMESTAMP},
+		PAPER_END = #{paperEnd,jdbcType=TIMESTAMP}
+		where PAPER_ID = #{paperId,jdbcType=VARCHAR}
 	</update>
 	<select id="rank" parameterType="java.lang.String"
 		resultMap="ExtendResultMap">
 		select
-			paper_id, exam_id, paper.user_id, paper_score, paper_begin, user_name, user_desc
+			paper_id, exam_id, paper.user_id, paper_score, paper_begin, paper_end, user_name, user_desc
 		from
 			paper
 		left outer join
@@ -259,6 +267,6 @@
 		where
 			exam_id = #{examId,jdbcType=VARCHAR}
 		order by
-			paper_score desc
+			paper_score desc, paper_end-paper_begin asc
 	</select>
 </mapper>
