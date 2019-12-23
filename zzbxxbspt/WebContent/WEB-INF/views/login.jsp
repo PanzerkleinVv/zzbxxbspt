@@ -22,8 +22,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8"/>
-<title>广东省委组织部学习比赛平台</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>广东省委组织部党内法规知识学习比赛平台</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
 <meta content="" name="author"/>
@@ -52,7 +53,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <body class="login">
 <!-- BEGIN LOGO -->
 <div class="logo logoText">
-	 广东省委组织部<br/>学习比赛平台
+	 广东省委组织部<br/>党内法规知识学习比赛平台
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
