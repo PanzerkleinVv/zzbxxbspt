@@ -298,7 +298,7 @@ public class PaperBizImpl implements PaperBiz {
 				}
 				correctAnswer = correctAnswer.substring(0, correctAnswer.length() - 1);
 				if (correctAnswer.equals(answerIds)) {
-					score = score.add(paper.getExam().getExamMcScore());
+					score = score.add(paper.getExam().getExamIcScore());
 				}
 			}
 		}
