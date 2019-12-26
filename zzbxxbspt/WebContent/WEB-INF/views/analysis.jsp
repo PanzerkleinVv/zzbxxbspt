@@ -18,8 +18,9 @@
 			<div class="userTable" id="rank">
 				<div class="userRow userHeader">
 					<span class="userItem6">排名</span>
-					<span class="userItem5">姓名（单位）</span>
+					<span class="userItem5-1">姓名（单位）</span>
 					<span class="userItem6">分数</span>
+					<span class="userItem6">用时</span>
 				</div>
 			</div>
 		</div>
@@ -52,12 +53,14 @@
 				var rank;
 				var score;
 				$.each(data, function(i, n) {
-					$("#rank").append('<div class="userRow"><span class="userItem5">'
-							+ (n.paperScore == score ? "（并列）" : (i + 1))
-							+ '</span><span class="userItem6">'
+					$("#rank").append('<div class="userRow"><span class="userItem6">'
+							+ (i + 1)
+							+ '</span><span class="userItem5-1">'
 							+ n.userName + '（' + n.userDesc + '）'
-							+ '</span><span class="userItem5">'
+							+ '</span><span class="userItem6">'
 							+ n.paperScore
+							+ '</span><span class="userItem6">'
+							+ parseInt((n.paperEnd - n.paperBegin) / 60000) + '分' + (((n.paperEnd - n.paperBegin) % 60000) / 1000) + '秒'
 							+ '</span></div>');
 					if (n.paperScore != score) {
 						rank = i;

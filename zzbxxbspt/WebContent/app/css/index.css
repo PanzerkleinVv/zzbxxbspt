@@ -102,6 +102,16 @@
 	text-overflow: ellipsis;
 }
 
+.userItem5-1 {
+	display: table-cell;
+	width: 40%;
+	border-left: 2px solid #FFFFFF;
+	font-size: 17px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
 .userItem6 {
 	display: table-cell;
 	width: 20%;
