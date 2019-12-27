@@ -139,9 +139,8 @@ public class PaperBizImpl implements PaperBiz {
 				final List<Question> tfs = questionService.selectByExample(example);
 				Question question = null;
 				for (int j = 0; j < count0.getTf(); j++) {
-					int index = random.nextInt(tfs.size() - j);
-					question = tfs.get(index);
-					tfs.remove(index);
+					int index = random.nextInt(tfs.size());
+					question = tfs.remove(index);
 					PaperQuestion paperQuestion = new PaperQuestion();
 					paperQuestion.setId(ApplicationUtils.randomUUID());
 					paperQuestion.setPaperId(paper.getPaperId());
@@ -164,9 +163,8 @@ public class PaperBizImpl implements PaperBiz {
 				final List<Question> scs = questionService.selectByExample(example);
 				Question question = null;
 				for (int j = 0; j < count0.getTf(); j++) {
-					int index = random.nextInt(scs.size() - j);
-					question = scs.get(index);
-					scs.remove(index);
+					int index = random.nextInt(scs.size());
+					question = scs.remove(index);
 					PaperQuestion paperQuestion = new PaperQuestion();
 					paperQuestion.setId(ApplicationUtils.randomUUID());
 					paperQuestion.setPaperId(paper.getPaperId());
@@ -183,14 +181,14 @@ public class PaperBizImpl implements PaperBiz {
 			questionCount = narrowCount(exam.getExamMc(), questionCount, 2);
 			for (QuestionCount count0 : questionCount) {
 				QuestionExample example = new QuestionExample();
-				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(2);
+				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(2)
+						.andQuestionSubjectEqualTo(count0.getQuestionSubject());
 				example.setOrderByClause("question_id asc");
 				final List<Question> mcs = questionService.selectByExample(example);
 				Question question = null;
 				for (int j = 0; j < count0.getTf(); j++) {
-					int index = random.nextInt(mcs.size() - j);
-					question = mcs.get(index);
-					mcs.remove(index);
+					int index = random.nextInt(mcs.size());
+					question = mcs.remove(index);
 					PaperQuestion paperQuestion = new PaperQuestion();
 					paperQuestion.setId(ApplicationUtils.randomUUID());
 					paperQuestion.setPaperId(paper.getPaperId());
@@ -207,14 +205,14 @@ public class PaperBizImpl implements PaperBiz {
 			questionCount = narrowCount(exam.getExamIc(), questionCount, 3);
 			for (QuestionCount count0 : questionCount) {
 				QuestionExample example = new QuestionExample();
-				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(3);
+				example.createCriteria().andGroupIdEqualTo(exam.getGroupId()).andQuestionTypeEqualTo(3)
+						.andQuestionSubjectEqualTo(count0.getQuestionSubject());
 				example.setOrderByClause("question_id asc");
 				final List<Question> ics = questionService.selectByExample(example);
 				Question question = null;
 				for (int j = 0; j < count0.getTf(); j++) {
-					int index = random.nextInt(ics.size() - j);
-					question = ics.get(index);
-					ics.remove(index);
+					int index = random.nextInt(ics.size());
+					question = ics.remove(index);
 					PaperQuestion paperQuestion = new PaperQuestion();
 					paperQuestion.setId(ApplicationUtils.randomUUID());
 					paperQuestion.setPaperId(paper.getPaperId());
