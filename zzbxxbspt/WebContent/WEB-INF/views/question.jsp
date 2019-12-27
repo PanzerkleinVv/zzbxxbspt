@@ -297,7 +297,7 @@
 			var url = 'rest/question/search';
 			$.getJSON(url, {
 					'pageNo' : pageNo,
-					'questionContent' : $("#questionContentSearch").val()
+					'questionContent' : $("#questionNameSearch").val()
 				}, function(data) {
 					setPage(data, $(".pageBox"), $("#pageNo"));
 					$("#searchResult .userHeader").nextAll().remove();
