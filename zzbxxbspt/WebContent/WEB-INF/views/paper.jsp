@@ -23,7 +23,7 @@
 						+ '<span>' + n.examTitle + '</span>'
 						+ '<span>' + new Date(n.examBegin).format("yyyy-MM-dd") + ' ' + new Date(n.examBegin).format("hh:mm:ss") + '&emsp;至&emsp;' + new Date(n.examEnd).format("yyyy-MM-dd") + ' ' + new Date(n.examEnd).format("hh:mm:ss") + '</span>'
 						+ '<span>' + (n.examTime != null ? n.examTime + '分钟' : '无') + '</span>'
-						+ '<span>' + (n.paperId == null ? ((n.examBegin > Date.now()) ? '未开始' : ((n.examEnd < Date.now()) ? '已结束' : '可参与')) : (n.paperScore == null ? (n.examTime != null ? ('剩余时间：' + (n.examTime - Math.round((Date.now() - n.paperBegin) / 60000)) + '分钟') : '进行中') : ('已交卷'))) + '</span>'
+						+ '<span>' + (n.paperId == null ? ((n.examBegin > Date.now()) ? '未开始' : ((n.examEnd < Date.now()) ? '已结束' : '可参与')) : (n.paperScore == null ? (n.examTime != null ? ('剩余时间：' + (n.examTime - Math.round((Date.now() - n.paperBegin) / 60000)) + '分钟') : '进行中') : ('得分:' + n.paperScore))) + '</span>'
 						+ '<span>'
 						+ '1、试卷满分：' + n.examScore + '分；<br/>'
 						+ '2、'
@@ -137,9 +137,9 @@
 			dataType : "json",
 			success : function(result) {
 				getMyExamList();
-				/* layer.msg(result.content, {
+				layer.msg(result.content, {
 					time : 2000
-				}); */
+				});
 			}
 		});
 	}
