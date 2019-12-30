@@ -267,6 +267,6 @@
 		where
 			exam_id = #{examId,jdbcType=VARCHAR}
 		order by
-			paper_score desc, paper_end-paper_begin asc
+			paper_score desc, UNIX_TIMESTAMP(paper_end)-UNIX_TIMESTAMP(paper_begin) asc
 	</select>
 </mapper>
